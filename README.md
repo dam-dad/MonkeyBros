@@ -4,8 +4,6 @@ El MarioBros de los monos (juego de plataformas)
 
 
 
-
-
 ## Historia
 
 MonkeyBros se encuentra caminado por la remota selva del Amazonas, era un invierno duro y frío cuando se percató de que no le quedaban más plátanos. Con hambre y frío se adentró en la selva con la esperanza de encontrar algo para comer, pero sin éxito alguno se topó con Goomba/Monos y se dio cuenta de que habían unos pocos plátanos en la copa del árbol. 
