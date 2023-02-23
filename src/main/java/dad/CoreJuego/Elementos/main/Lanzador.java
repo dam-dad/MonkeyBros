@@ -1,4 +1,4 @@
-package dad.CoreJuego.pruebas.Elementos.main;
+package dad.CoreJuego.Elementos.main;
 
 
 

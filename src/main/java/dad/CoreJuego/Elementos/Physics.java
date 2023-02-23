@@ -1,13 +1,11 @@
-package dad.CoreJuego.pruebas.Elementos;
-
-
+package dad.CoreJuego.Elementos;
 
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.World;
 
-public class WorldF {
+public class Physics {
 
-	private Vec2 gravity = new Vec2(0, 100.0f);
+	private Vec2 gravity = new Vec2(0, 9.8f);
 	private World world = new World(gravity);
 
 	private float physicsTime = 0.0f;
@@ -20,7 +18,6 @@ public class WorldF {
 		physicsTime += dt;
 		if (physicsTime >= 0) {
 			physicsTime -= physicsTimeStep;
-//			world.step(physicsTimeStep, velocityIterations, positionIteration);
 			world.step(physicsTime, velocityIterations, positionIteration);
 		}
 
@@ -34,7 +31,7 @@ public class WorldF {
 		return gravity;
 	}
 
-	public World getWorldF() {
+	public World getWorld() {
 		return world;
 	}
 

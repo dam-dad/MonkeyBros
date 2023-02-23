@@ -1,4 +1,4 @@
-package dad.CoreJuego.pruebas.Elementos;
+package dad.CoreJuego.Elementos;
 
 
 import javafx.scene.canvas.GraphicsContext;

@@ -1,19 +1,20 @@
-package dad.CoreJuego.pruebas.Elementos;
+package dad.CoreJuego.Elementos;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.World;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Muro extends Entity {
+public class Floor extends Entity {
 	
 	private Body body; 
 
-	public Muro(Game game, float x, float y, float width, float height) {
+	public Floor(Game game, float x, float y, float width, float height) {
 		super(game);
 		
 		this.x = x;
@@ -21,6 +22,11 @@ public class Muro extends Entity {
 
 		this.width = width;
 		this.height = height;
+		
+		initBody(game.getPhysics().getWorld());
+	}
+	
+	protected void initBody(World world) {
 		
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
@@ -31,11 +37,10 @@ public class Muro extends Entity {
 		
 		FixtureDef fd = new FixtureDef();
 		fd.shape = shape;
-		fd.friction = 0.5f;
+		fd.friction = 0.1f;
 		
-		body = getGame().getWorld().getWorldF().createBody(bodyDef);
-		//body.createFixture(shape, 0.0f);
-		body.createFixture(fd);
+		body = world.createBody(bodyDef);
+		body.createFixture(fd);		
 	}
 	
 	public void render(GraphicsContext gc) {

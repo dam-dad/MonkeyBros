@@ -1,21 +1,23 @@
-package dad.CoreJuego.pruebas.Elementos;
+package dad.CoreJuego.Elementos;
 
 
 
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.World;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class CuerpoPersonaje extends Entity{
+public class Bodycharacter extends Entity{
 
-	Body bodyF;
+	Body body;
 	
-	public CuerpoPersonaje(Game game, float posX, float posY) {
+	public Bodycharacter(Game game, float posX, float posY) {
 		super(game);
 		
 		this.x = posX;
@@ -24,13 +26,12 @@ public class CuerpoPersonaje extends Entity{
 		// variables of character size
 		this.width = 10f;
 		this.height = 10f;
-
-		InvocarPersonaje();
 		
-//		initBody();
+		initBody(game.getPhysics().getWorld());
+		
 	}
 	
-	public void InvocarPersonaje(){
+	public void initBody(World world){
 
 		//The complete code snippet would look like:
 		//body definition
@@ -60,9 +61,9 @@ public class CuerpoPersonaje extends Entity{
 
 
 		//create the body and add fixture to it
-		bodyF = getGame().getWorld().getWorldF().createBody(bd);
-		bodyF.createFixture(fd);
-		bodyF.getLinearVelocity();
+		body = world.createBody(bd);
+		body.createFixture(fd);
+		body.getLinearVelocity();
 	}
 	
 	public void render(GraphicsContext gc) {
@@ -87,14 +88,14 @@ public class CuerpoPersonaje extends Entity{
 		
 	}
 	
-	public Body getBodyF() {
-		return bodyF;
+	public void move(Vec2 vector) {
+		body.applyLinearImpulse(vector, body.getWorldCenter());
 	}
 	
 	@Override
 	public void update(float timeDifference) {
-		x = bodyF.getPosition().x;
-		y = bodyF.getPosition().y;
+		x = body.getPosition().x;
+		y = body.getPosition().y;
 	}
 	
 }

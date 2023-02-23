@@ -1,7 +1,7 @@
-package dad.CoreJuego.pruebas.Elementos.main;
+package dad.CoreJuego.Elementos.main;
 
 
-import dad.CoreJuego.pruebas.Elementos.Controller;
+import dad.CoreJuego.Elementos.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

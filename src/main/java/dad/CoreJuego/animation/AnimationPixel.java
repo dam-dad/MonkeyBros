@@ -1,4 +1,4 @@
-package dad.CoreJuego.pruebas.animation;
+package dad.CoreJuego.animation;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,10 +1,8 @@
-package dad.CoreJuego.pruebas.aparte;
+package dad.CoreJuego.aparte;
 
 import java.awt.Component;
 
-import org.jbox2d.common.Vec2;
-
-public class Piedra extends Component{
+public class Rock extends Component{
 
 	public transient boolean goingRight = true;
 	
