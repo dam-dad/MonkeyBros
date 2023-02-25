@@ -1,12 +1,20 @@
 package dad.Api.GlobalStat;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Properties;
 
+import dad.CoreJuego.Controllers.menu.RootMenuController;
 import io.github.fvarrui.globalstats.GlobalStats;
 import io.github.fvarrui.globalstats.model.Rank;
 import io.github.fvarrui.globalstats.model.Section;
 import io.github.fvarrui.globalstats.model.Stats;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class GlobalStat {
 
@@ -15,47 +23,86 @@ public class GlobalStat {
 	GlobalStats client;
 	Stats stats;
 
+	//https://github.com/fvarrui/globalstats-java-client
 	public GlobalStat() throws Exception {
 		client = new GlobalStats(clientId, clientSecret);
 		token = client.getAccessToken();
 		System.out.println(token);
 	}
 
+	/**
+	 * Cuando se quiera registrar un nuevo usuario
+	 * @param nombre
+	 * @return
+	 * @throws Exception
+	 */
 	@SuppressWarnings("serial")
-	public void createUser() throws Exception {
-		stats = client.createStats("username", new HashMap<String, Object>() {{
+	public Stats createUser(String nombre) throws Exception {
+		stats = client.createStats(nombre, new HashMap<String, Object>() {{
 			
-			put("highscore", 100);
+			put("Score", 40);
 			
 		}});
+		// Si userId es nulo?
+		
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream(RootMenuController.RUTA_PLAYER_IDS));
+			prop.setProperty(stats.getId(), stats.getName());
+			prop.store(new FileOutputStream(RootMenuController.RUTA_PLAYER_IDS), "");
+		} catch (FileNotFoundException e) {
+			prop.setProperty(stats.getId(), stats.getName());
+			prop.store(new FileOutputStream(RootMenuController.RUTA_PLAYER_IDS), "");
+		} catch (IOException e1) {
+			Alert alerta = new Alert(AlertType.ERROR);
+			alerta.setTitle("Error");
+			alerta.setHeaderText("No se ha podido cargar el registro de los jugadores guardados.");
+			alerta.setContentText(e1.getMessage());
+			alerta.show();
+		}
 		System.out.println(stats);
+		return stats;
 	}
 
 	@SuppressWarnings("serial")
-	public void updateUser() throws Exception {
-		Stats stats = client.updateStats(token, 
+	public void updateUser(String s) throws Exception {
+		Stats stats = client.updateStats(s, 
 				new HashMap<String, Object>() {{
 					
-				put("highscore", "+20");
+				put("Score", "+20");
+				
+			}});
+		System.out.println(stats);
+	}
+	
+	@SuppressWarnings("serial")
+	public void resetUserScore(String s) throws Exception {
+		int points = client.getStatsSection(s, "Score").getUserRank().getValue();
+		Stats stats = client.updateStats(s, 
+				new HashMap<String, Object>() {{
+					
+				put("Score", "-" + points);
 				
 			}});
 		System.out.println(stats);
 	}
 
-	public void getUserStadistic() throws Exception {
-	Stats stats = client.getStats(token);
+	public void getUserStadistic(String id) throws Exception {
+	Stats stats = client.getStats(id);
 	System.out.println(stats);
 	}
 	
-	public void getUserSection() throws Exception {
-		Section section = client.getStatsSection(token, "highscore");
-		System.out.println(section);
+	public Section getUserSection(String id) throws Exception {
+		Section section = client.getStatsSection(id, "Score");
+		//System.out.println(section + " section");
+		return section;
 	}
 	
 	
-	public void getLeaderBorad() throws Exception {
-		List<Rank> leader=  client.getLeaderboard("highscore", 10);
-		System.out.println(leader);
+	public List<Rank> getLeaderBoard() throws Exception {
+		List<Rank> leaderB=  client.getLeaderboard("Score", 10); // Retorna los top 10 de la lista
+		System.out.println(leaderB + "test");
+		return leaderB;
 	}
 
 }

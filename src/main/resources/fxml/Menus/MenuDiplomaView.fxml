@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="view" prefHeight="600.0" prefWidth="1000.0" styleClass="background" stylesheets="@../../css/MainTheme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <GridPane fx:id="diplomaGridPane" hgap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="700.0" styleClass="backgroundOpciones" vgap="5.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+         <children>
+            <StackPane fx:id="diplomaStackpane" prefHeight="150.0" prefWidth="200.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowSpan="6" GridPane.valignment="CENTER">
+               <children>
+                  <Label fx:id="mensajeLabel" contentDisplay="CENTER" textAlignment="CENTER" />
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="20.0">
+                     <children>
+                        <ListView fx:id="jugadoresLista" maxHeight="250.0" prefWidth="500.0" styleClass="lista" />
+                        <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="20.0">
+                           <children>
+                              <Button fx:id="generarButton" mnemonicParsing="false" onMouseClicked="#onGenerarDiplomaAction" styleClass="menuBoton" text="Generar diploma" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <StackPane.margin>
+                        <Insets top="70.0" />
+                     </StackPane.margin>
+                  </VBox>
+               </children></StackPane>
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="30.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+               <children>
+                  <Label fx:id="atrasLabel" onMouseClicked="#onAtrasClickAction" styleClass="label_seleccion" text="Atras" />
+               </children>
+            </HBox>
+            <Label fx:id="highscoreLabel" alignment="CENTER" contentDisplay="CENTER" styleClass="titulo" text="Highscore" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin></Label>
+            <Label fx:id="jugadoresRegistradosLabel" alignment="CENTER" contentDisplay="CENTER" text="Jugadores registrados:" textAlignment="CENTER" wrapText="true" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets top="88.0" />
+               </GridPane.margin>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </GridPane>
+   </center>
+</BorderPane>

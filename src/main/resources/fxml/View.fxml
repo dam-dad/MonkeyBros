@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="view" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <VBox fx:id="menuOpcionesVBox" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="menuJugar" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onJugarClickAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/test.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="menuMultijugador" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onMultijugadorClickAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/test.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="menuOpciones" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onOpcionesClickAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/test.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="menuSalir" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#onSalirClickAction" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/test.png" />
+               </image>
+            </ImageView>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+</BorderPane>

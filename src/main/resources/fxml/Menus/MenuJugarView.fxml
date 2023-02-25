@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="view" prefHeight="600.0" prefWidth="1000.0" styleClass="background" stylesheets="@../../css/MainTheme.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox fx:id="menuOpcionesVBox" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="titulo" text="Introduce un nombre de usuario:" />
+            <TextField maxWidth="700.0" prefHeight="40.0" />
+            <Button id="botonMenu" fx:id="menuEmprezarPartidaButton" mnemonicParsing="false" onMouseClicked="#onEmpezarPartidaClickAction" prefHeight="80.0" styleClass="menuBoton" stylesheets="@../../css/MainTheme.css" text="Empezar Partida" />
+            <Button id="botonMenu" fx:id="menuAtrasButton" mnemonicParsing="false" onMouseClicked="#onAtrasClickAction" prefHeight="80.0" prefWidth="250.0" styleClass="menuBoton" stylesheets="@../../css/MainTheme.css" text="Atras" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+</BorderPane>
