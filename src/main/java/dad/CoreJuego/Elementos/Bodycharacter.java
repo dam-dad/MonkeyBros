@@ -11,6 +11,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
+import dad.CoreJuego.animation.AnimationPixel;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -19,6 +20,14 @@ public class Bodycharacter extends Entity{
 
 	public Body body;
 	FixtureDef fd;
+	
+	Boolean moving = false;
+	int pos = 0;
+	
+	AnimationPixel animationIdle, animationRun, animationJump, actualAnimation;
+	
+	private static final float ANIMATION_SPEED = 70000000; 
+	private static final float ANIMATION_SPEED_RUN = 35000000; 
 
 	public Bodycharacter(Game game, float posX, float posY) {
 		super(game);
@@ -29,7 +38,15 @@ public class Bodycharacter extends Entity{
 		// variables of character size
 		this.width = 10f;
 		this.height = 10f;
-
+		
+		//Animaciones
+		
+		animationIdle = new AnimationPixel(ANIMATION_SPEED,"animacionesMono/Idle_Animation48x54x22f.png", 48, 54, 22);
+				
+		animationRun = new AnimationPixel(ANIMATION_SPEED_RUN,"animacionesMono/Run_Animation78x54x20f.png", 78, 54, 20);
+				
+		animationJump = new AnimationPixel(ANIMATION_SPEED_RUN,"animacionesMono/Air_Animation60x80x1f.png", 60, 80, 1);
+		
 		initBody(game.getPhysics().getWorld());
 	}
 
@@ -72,8 +89,8 @@ public class Bodycharacter extends Entity{
 	
 	public void render(GraphicsContext gc) {
 
-		gc.setFill(Color.BLACK);
-		gc.fillRect(x, y, width * scale, height * scale);
+		gc.drawImage(actualAnimation.getCurrentFrame(), x, y);
+		
 	}
 
 	public void move(Vec2 vector) {
@@ -84,6 +101,33 @@ public class Bodycharacter extends Entity{
 	public void update(float timeDifference) {
 		x = body.getPosition().x;
 		y = body.getPosition().y;
+		
+		if(moving == false) {
+			actualAnimation = animationIdle;
+		}else {
+			switch (pos) {
+			case 1: {
+				actualAnimation = animationRun;
+				break;
+			}
+			case 2: {
+				actualAnimation = animationRun;
+				break;
+			}
+			case 3: {
+				actualAnimation = animationJump;
+				break;
+			}
+			
+			}
+			
+		}
+		actualAnimation.update(timeDifference);
+	}
+	
+	public void setMoving(boolean mov, int i) {
+		this.moving = mov;
+		this.pos = i;
 	}
 	
 }

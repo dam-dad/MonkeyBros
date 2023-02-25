@@ -59,7 +59,7 @@ public abstract class Game extends AnimationTimer {
 
 	// game loop
 	public void handle(long currentNanoTime) {
-		timeDifference = (currentNanoTime - lastNanoTime) / NANO_TO_SECONDS;
+		timeDifference = (currentNanoTime - lastNanoTime);
 
 		fps.set((int) (1 / timeDifference)); // frames per second
 
@@ -76,7 +76,7 @@ public abstract class Game extends AnimationTimer {
 	}
 
 	protected void applyPhysics(float timeDifference) {
-		physics.update(timeDifference);
+		physics.update(timeDifference / NANO_TO_SECONDS);
 	}
 
 	protected void render(GraphicsContext gc) {

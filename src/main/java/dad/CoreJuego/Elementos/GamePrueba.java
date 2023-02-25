@@ -76,14 +76,22 @@ public class GamePrueba extends Game {
 		
 		if (input.contains(KeyCode.RIGHT)) {
 			x += 100f;
+			cp.setMoving(true, 1);
+		}else {
+			cp.setMoving(false, 0);
 		}
+		
 		if (input.contains(KeyCode.LEFT)) {
 			x -= 100f;
+			cp.setMoving(true, 2);
 		}
+		
 		if ((input.contains(KeyCode.UP) || input.contains(KeyCode.SPACE)) && isJump) {
 			y -= 100f;
 			isJump = false;
+			cp.setMoving(true, 3);
 		}
+		
 		if (input.contains(KeyCode.DOWN)) {
 			y += 100f;
 		}
