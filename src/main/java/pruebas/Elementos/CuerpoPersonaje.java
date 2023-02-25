@@ -1,6 +1,4 @@
-package dad.CoreJuego.Elementos;
-
-
+package pruebas.Elementos;
 
 import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.collision.shapes.PolygonShape;
@@ -14,13 +12,12 @@ import org.jbox2d.dynamics.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-
-public class Bodycharacter extends Entity{
+public class CuerpoPersonaje extends Entity {
 
 	public Body body;
 	FixtureDef fd;
 
-	public Bodycharacter(Game game, float posX, float posY) {
+	public CuerpoPersonaje(Game game, float posX, float posY) {
 		super(game);
 
 		this.x = posX;
@@ -73,7 +70,8 @@ public class Bodycharacter extends Entity{
 		return fd;
 	}
 	
-	 public void onCollision(Floor m) {
+	 public void onCollision(Muro m) {
+	        System.out.println("He colisionado con muro");
 	    }
 
 	
@@ -108,4 +106,6 @@ public class Bodycharacter extends Entity{
 		y = body.getPosition().y;
 	}
 	
+	
+
 }

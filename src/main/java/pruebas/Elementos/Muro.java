@@ -1,4 +1,4 @@
-package dad.CoreJuego.Elementos;
+package pruebas.Elementos;
 
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.Body;
@@ -10,11 +10,11 @@ import org.jbox2d.dynamics.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public class Floor extends Entity {
+public class Muro extends Entity {
 	
 	private Body body; 
 
-	public Floor(Game game, float x, float y, float width, float height) {
+	public Muro(Game game, float x, float y, float width, float height) {
 		super(game);
 		
 		this.x = x;
@@ -26,6 +26,19 @@ public class Floor extends Entity {
 		initBody(game.getPhysics().getWorld());
 	}
 	
+	public void render(GraphicsContext gc) {
+				
+		gc.setFill(Color.GREEN);
+		gc.fillRect(x, y, width, height);
+		
+	}
+	
+	@Override
+	public void update(float timeDifference) {
+		x = body.getPosition().x;
+		y = body.getPosition().y;
+	}
+
 	@Override
 	protected void initBody(World world) {
 		
@@ -43,19 +56,6 @@ public class Floor extends Entity {
 		body = world.createBody(bodyDef);
 		body.createFixture(fd);		
 		body.setUserData(this);
-	}
-	
-	public void render(GraphicsContext gc) {
-				
-		gc.setFill(Color.GREEN);
-		gc.fillRect(x, y, width, height);
-		
-	}
-	
-	@Override
-	public void update(float timeDifference) {
-		x = body.getPosition().x;
-		y = body.getPosition().y;
 	}
 
 }
