@@ -8,15 +8,13 @@ import org.jbox2d.dynamics.contacts.Contact;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
-import pruebas.Elementos.CuerpoPersonaje;
-import pruebas.Elementos.Game;
-import pruebas.Elementos.Muro;
+
 
 public class GamePrueba extends Game {
 
 	private MyContactListener mcl;
-	private Muro m;
-	private CuerpoPersonaje cp;
+	private Floor m;
+	private Bodycharacter cp;
 	Game game;
 	boolean isJump;
 	Vec2 vector;
@@ -27,9 +25,9 @@ public class GamePrueba extends Game {
 	@Override
 	protected void init() {
 
-		cp = new CuerpoPersonaje(this, 120, 50);
+		cp = new Bodycharacter(this, 120, 50);
 
-		getEntities().addAll(cp, new Muro(this, 0, getHeight() - 20f, getWidth(), 2));
+		getEntities().addAll(cp, new Floor(this, 0, getHeight() - 20f, getWidth(), 2));
 
 		this.getPhysics().getWorld().setContactListener(new MyContactListener() {
 
@@ -39,11 +37,11 @@ public class GamePrueba extends Game {
 				Object userDataA = contact.getFixtureA().getBody().getUserData();
 				Object userDataB = contact.getFixtureB().getBody().getUserData();
 
-				if (userDataA instanceof CuerpoPersonaje && userDataB instanceof Muro) {
+				if (userDataA instanceof Bodycharacter && userDataB instanceof Floor) {
 //					CuerpoPersonaje personaje = (CuerpoPersonaje) userDataA;
 //					Muro muro = (Muro) userDataB;
 					isJump = true;
-				} else if (userDataB instanceof CuerpoPersonaje && userDataA instanceof Muro) {
+				} else if (userDataB instanceof Bodycharacter && userDataA instanceof Floor) {
 //					CuerpoPersonaje personaje = (CuerpoPersonaje) userDataB;
 //					Muro muro = (Muro) userDataA;
 					isJump = true;

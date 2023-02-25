@@ -39,26 +39,19 @@ public class Bodycharacter extends Entity{
 		// The complete code snippet would look like:
 		// body definition
 		BodyDef bd = new BodyDef();
-//		bd.position.set(50, 50);  
 		bd.position.set(x, y);
 		bd.type = BodyType.DYNAMIC;
 
 		// define shape of the body.
 		PolygonShape box = new PolygonShape();
-//		box.set(null, 0);
-
-//		box.setAsBox(x/5f, y/5f);  aqui se vuelve tamaño estandar
 
 		box.setAsBox(x, y);
-		// box.m_radius = 0.5f;
 
 		// define fixture of the body.
 		fd = new FixtureDef();
 		fd.shape = box;
-//		fd.density = 2f;
 		fd.friction = 20f;
-//		fd.restitution = 0.2f;
-
+		
 		// create the body and add fixture to it
 		body = world.createBody(bd);
 		body.createFixture(fd);
@@ -80,22 +73,7 @@ public class Bodycharacter extends Entity{
 	public void render(GraphicsContext gc) {
 
 		gc.setFill(Color.BLACK);
-//		gc.fillOval(x, y, width, height);
-
-//		gc.fillRect(toPixelPosX(x, width),toPixelPosY(y, height), width, height);
-
 		gc.fillRect(x, y, width * scale, height * scale);
-
-//		gc.fillRect(x, y, width, height);
-
-//		System.out.println("la X es : " + x +" la Y es: " + y + "el width es: " + width + "el height es : " + height );
-//		
-//		Double XF= x*9.99;
-//		
-//		gc.fillRect(XF, y *9.99, width *9.99, height*9.99);
-
-//		System.out.println("la X es : " + x +" la Y es: " + y + "el width es: " + width + "el height es : " + height );
-
 	}
 
 	public void move(Vec2 vector) {
