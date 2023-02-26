@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.contacts.Contact;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
 import dad.CoreJuego.mapaEntidades.LayerColisiones;
+import dad.CoreJuego.mapaEntidades.LayerEscaleras;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 
@@ -83,9 +84,9 @@ public class GamePrueba extends Game {
 			JUMP_VALUE = KeyCode.SPACE;
 		}
 		
-		cp = new Bodycharacter(this, 120, 50);
+		cp = new Bodycharacter(this, 1, 1);
 
-		getEntities().addAll(new LayerBackground(this), new Floor(this, 0, getHeight() - 100f, getWidth(), 2), new LayerColisiones(this), cp);
+		getEntities().addAll(new LayerBackground(this), new LayerColisiones(this), new LayerEscaleras(this),  new Floor(this, 0, getHeight() - 100f, getWidth(), 2), new LayerColisiones(this), cp);
 		//getEntities().addAll(cp, new Floor(this, 0, getHeight() - 20f, getWidth(), 2));
 		//getEntities().addAll(new Floor(this, 0, getHeight() - 20f, getWidth(), 2), new LayerBackground(this), new LayerColisiones(this), cp);
 

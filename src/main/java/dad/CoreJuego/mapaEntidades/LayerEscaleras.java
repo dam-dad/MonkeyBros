@@ -10,11 +10,13 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
+import org.jbox2d.collision.shapes.ChainShape;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 import org.mapeditor.core.Map;
 import org.mapeditor.core.Tile;
@@ -68,7 +70,7 @@ public class LayerEscaleras extends Entity {
 	  			
 	  			altura = map.getHeight();
 	  			ancho = map.getWidth();
-	  			
+	  				  			
 	  			boolean primerPunto = false;
 	  			
 
@@ -116,22 +118,17 @@ public class LayerEscaleras extends Entity {
 	  			            	   yGuardado = y;
 	  			            	   primerPunto = true;
 	  			               }else {
-	  			            	
-		  			   			 initBody(game.getPhysics().getWorld());
-		  			   			 /* System.out.println("Punto x = " + x*32 + " Punto y = " + y*32 
-		  			   					 + " Punto Anterior x = " + xGuardado*32
-		  			   					 + " Punto Anterior y = " + yGuardado*32); */
-		  			   			
-	  			            	   primerPunto = false;
-	  			                }
+			  			   			 initBody(game.getPhysics().getWorld(), x, y, xGuardado, yGuardado);
+			  			   			
+		  			            	   primerPunto = false;
+		  			                }
 	  			               
-	  			            	}
-	  			            	else {
 	  			            	}
 	  			            }
 	  			        }
 	  			        tileY.add(tileX);
 	  		        }
+	  				//System.out.println("Tamaño array = " + tileY.size());
 			}catch(Exception e) {
 	            e.printStackTrace();
 			}
@@ -155,7 +152,7 @@ public class LayerEscaleras extends Entity {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		
+		//System.out.println(tileY.size());
 		for(int y = altura - 1; y >= 0 ; y--) {
 			tileX = tileY.get(y);
 			for(int x = tileX.size() - 1; x >= 0; x--) {
@@ -163,7 +160,7 @@ public class LayerEscaleras extends Entity {
 				} else {
 					gc.drawImage(tileX.get(x).getImage(), x*32, y*32);
 					gc.setFill(Color.PURPLE);
-					
+					gc.fillRect(x*32, y*32, 32, 32);
 				}
 			}
 		}
@@ -177,29 +174,94 @@ public class LayerEscaleras extends Entity {
 
 	}
 
+	protected void initBody(World world, int x, int y, int xGuardado, int yGuardado) {
+		 	/* BodyDef bodyDef = new BodyDef();
+             bodyDef.type = BodyType.STATIC;
+             bodyDef.position.set(x*32, y*32); */
+             
+             
+             /* Vec2 vs[4];
+             vs[0].Set(1.7f, 0.0f);
+             vs[1].Set(1.0f, 0.25f);
+             vs[2].Set(0.0f, 0.0f);
+             vs[3].Set(-1.7f, 0.4f);
+              
+             b2ChainShape chain;
+             chain.CreateLoop(vs, 4); */
+           //chain.createLoop(vector, 2);
+ 			
+ 			 //System.out.println("xGuardado = " + xGuardado + "yGuardado = " + yGuardado);
+             
+             //Vec2 vector[] = new Vec2[2];
+             //System.out.println("xGuardado= " + xGuardado + " yGuardado= " + yGuardado + " x= " + x + " y= " + y);
+             
+             Vec2 vector1 = new Vec2(xGuardado, yGuardado); 
+             Vec2 vector2 = new Vec2(x, y);
+             
+             float slope = (vector2.y - vector1.y) / (vector2.x - vector1.x);
+             
+             float angle = (float) Math.atan2(slope, 1);
+             
+             BodyDef bodyDef = new BodyDef();
+             bodyDef.position.set(xGuardado*32, yGuardado*32);
+             Body rampBody = world.createBody(bodyDef);
+             
+             Vec2[] vertices = {
+            	        new Vec2(0, 0),
+            	        new Vec2(vector2.x - vector1.x, vector2.y - vector1.y),
+            	        new Vec2(0, vector2.y - vector1.y)
+            	};
+             
+             PolygonShape rampShape = new PolygonShape();
+             rampShape.set(vertices, vertices.length);
+
+             // Create a FixtureDef for the ramp
+             FixtureDef fixtureDef = new FixtureDef();
+             fixtureDef.shape = rampShape;
+
+             // Attach the FixtureDef to the Body object
+             //Body body = world.createBody(bodyDef);
+             rampBody.createFixture(fixtureDef);
+
+             
+             /* 
+             vector[0] = new Vec2();
+             vector[1] = new Vec2();
+             vector[0].set(xGuardado, yGuardado);
+             vector[1].set(x, y);
+ 			 
+ 			 ChainShape chain = new ChainShape();
+ 			 chain.createLoop(vector, 2);
+ 			 //chain.createChain(vector, 2);
+ 			 
+ 			FixtureDef fixtureDef = new FixtureDef();
+ 			fixtureDef.shape = chain;
+ 			fixtureDef.density = 1.0f; 
+ 			
+// 			Body body = world.createBody(bodyDef);
+			
+
+ 			 body = getGame().getPhysics().getWorld().createBody(bodyDef);
+ 			 body.createFixture(fixtureDef); */
+// 			 body.createFixture(chain, 0.0f);
+		
+ 			 // Codigo anterior
+ 			 
+ 			//PolygonShape shape = new PolygonShape();
+ 			 
+ 			 //System.out.println("X Guardado= " + xGuardado + " Y Guardado= " + yGuardado);
+ 			 //System.out.println("X= " + x + " Y= " + y);
+
+ 			 //vector.set((xGuardado+x)/2, (yGuardado+y)/2);
+
+ 			 //System.out.println(vector);
+ 			 
+ 			 //shape.setAsBox(96, 10, vector, 60);
+	}
+
 	@Override
 	protected void initBody(World world) {
-		 BodyDef bodyDef = new BodyDef();
-           bodyDef.type = BodyType.STATIC;
-           bodyDef.position.set(x*32, y*32);
-             
- 			 PolygonShape shape = new PolygonShape();
- 			 
- 			 Vec2 vector = new Vec2();
- 			 
- 			 
- 			 System.out.println("X Guardado= " + xGuardado + " Y Guardado= " + yGuardado);
- 			 System.out.println("X= " + x + " Y= " + y);
- 			 //vector.set((xGuardado+x)/2, (yGuardado+y)/2);
- 			 vector.set(-100, 50);
- 			 //vector.set(xGuardado, yGuardado);
- 			 System.out.println(vector);
- 			 
- 			 shape.setAsBox(96, 10, vector, 60);
- 			 //System.out.println(vector.toString());
- 			 
- 			 body = getGame().getPhysics().getWorld().createBody(bodyDef);
- 			 body.createFixture(shape, 0.0f);
+		// TODO Auto-generated method stub
 		
 	}
 

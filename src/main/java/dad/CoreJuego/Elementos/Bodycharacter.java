@@ -44,8 +44,8 @@ public class Bodycharacter extends Entity{
 		this.y = posY;
 
 		// variables of character size
-		this.width = 10f;
-		this.height = 10f;
+		this.width = 5f;
+		this.height = 5f;
 		
 		//Animaciones
 		

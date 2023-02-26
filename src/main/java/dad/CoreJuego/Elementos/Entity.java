@@ -13,7 +13,7 @@ public abstract  class Entity {
 	private Game game;
 	protected float x, y;
 	protected float width, height;
-	protected double scale = 5.0;
+	protected double scale = 1.0f;
 	
 	/**
 	 * 
