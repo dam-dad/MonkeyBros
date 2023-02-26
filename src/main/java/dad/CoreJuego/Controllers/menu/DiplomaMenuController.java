@@ -3,6 +3,10 @@ package dad.CoreJuego.Controllers.menu;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -22,6 +26,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  * 
@@ -202,8 +212,8 @@ public class DiplomaMenuController implements Initializable {
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
 
-/*	TODO
- * @FXML
+
+ @FXML
 	void onGenerarDiplomaAction(MouseEvent event) {
 //		Section section = globalStat.getUserSection("63f88b555f5e88fd6d8b4574");
 		try {
@@ -224,5 +234,5 @@ public class DiplomaMenuController implements Initializable {
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
 }
