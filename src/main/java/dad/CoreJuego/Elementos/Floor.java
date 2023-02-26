@@ -9,11 +9,22 @@ import org.jbox2d.dynamics.World;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
+/**
+ * Genera el fin del mundo
+ * @author Gabriel
+ *
+ */
 public class Floor extends Entity {
 	
 	private Body body; 
-
+/**
+ * 
+ * @param game Es la escena del juego
+ * @param x Posicion el eje x de abcisas donde se genera en el canvas
+ * @param y Posicion el eje y de abcisas donde se genera en el canvas
+ * @param width Ancho de la física generada
+ * @param height Alto de la física generada
+ */
 	public Floor(Game game, float x, float y, float width, float height) {
 		super(game);
 		
@@ -26,6 +37,10 @@ public class Floor extends Entity {
 		initBody(game.getPhysics().getWorld());
 	}
 	
+	/**
+     * {@inheritDoc}
+     * Outputs current time in epoch milliseconds when run.
+     */
 	@Override
 	protected void initBody(World world) {
 		
@@ -45,6 +60,10 @@ public class Floor extends Entity {
 		body.setUserData(this);
 	}
 	
+	/**
+     * {@inheritDoc}
+     * Outputs current time in epoch milliseconds when run.
+     */
 	public void render(GraphicsContext gc) {
 				
 		gc.setFill(Color.GREEN);
@@ -52,6 +71,10 @@ public class Floor extends Entity {
 		
 	}
 	
+	/**
+     * {@inheritDoc}
+     * Outputs current time in epoch milliseconds when run.
+     */
 	@Override
 	public void update(float timeDifference) {
 		x = body.getPosition().x;

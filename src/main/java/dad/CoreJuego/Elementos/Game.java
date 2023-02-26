@@ -15,7 +15,11 @@ import javafx.collections.ObservableSet;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
-
+/**
+ * Se encarga de pintar el juego
+ * @author Fran
+ *
+ */
 public abstract class Game extends AnimationTimer {
 
 	private static final float NANO_TO_SECONDS = 1000000000f;
@@ -30,7 +34,10 @@ public abstract class Game extends AnimationTimer {
 	private float timeDifference; // in seconds
 	private GraphicsContext graphicsContext;
 	private Physics physics = new Physics();
-
+/**
+ * 
+ * @param canvas Es el lienzo de javafx
+ */
 	public Game(Canvas canvas) {
 
 		graphicsContext = canvas.getGraphicsContext2D();
@@ -46,18 +53,29 @@ public abstract class Game extends AnimationTimer {
 		init();
 
 	}
-
+	/**
+	 * Inicializa todo
+	 */
 	protected abstract void init();
 
+	/**
+	 * 
+	 * @param input
+	 */
 	protected abstract void processInput(Set<KeyCode> input);
-
+	/**
+	 * Crea un contador
+	 */
 	@Override
 	public void start() {
 		this.lastNanoTime = System.nanoTime();
 		super.start();
 	}
 
-	// game loop
+	/**
+	 * Se encarga del loop del juego
+	 * @param currentNanoTime El fps actual 
+	 */
 	public void handle(long currentNanoTime) {
 		timeDifference = (currentNanoTime - lastNanoTime);
 
@@ -71,59 +89,114 @@ public abstract class Game extends AnimationTimer {
 		lastNanoTime = currentNanoTime;
 	}
 
+	/**
+	 * 
+	 * @param timeDifference Obtienes la diferencia de tiempo
+	 */
 	protected void update(float timeDifference) {
 		entities.forEach(entity -> entity.update(timeDifference));
 	}
 
+	/**
+	 * 
+	 * @param timeDifference Obtienes la diferencia de tiempo
+	 */
 	protected void applyPhysics(float timeDifference) {
 		physics.update(timeDifference / NANO_TO_SECONDS);
 	}
 
+	/**
+	 * Limpia los gráficos generados
+	 * @param gc Los gráficos generados
+	 */
 	protected void render(GraphicsContext gc) {
 		gc.clearRect(0, 0, getWidth(), getHeight());
 		entities.forEach(entity -> entity.render(gc));
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve el ancho
+	 */
 	public final javafx.beans.property.ReadOnlyFloatProperty widthProperty() {
 		return this.width.getReadOnlyProperty();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve el ancho
+	 */
 	public final float getWidth() {
 		return this.widthProperty().get();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve el alto
+	 */
 	public final javafx.beans.property.ReadOnlyFloatProperty heightProperty() {
 		return this.height.getReadOnlyProperty();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve el alto
+	 */
 	public final float getHeight() {
 		return this.heightProperty().get();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve los fps
+	 */
 	public final javafx.beans.property.ReadOnlyIntegerProperty fpsProperty() {
 		return this.fps.getReadOnlyProperty();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve los fps
+	 */
 	public final int getFps() {
 		return this.fpsProperty().get();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve lista de entidades property
+	 */
 	public final ListProperty<Entity> entitiesProperty() {
 		return this.entities;
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve un observable
+	 */
 	public final ObservableList<Entity> getEntities() {
 		return this.entitiesProperty().get();
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve un evento del teclado
+	 */
 	public final SetProperty<KeyCode> inputProperty() {
 		return this.input;
 	}
 
+	/**
+	 * 
+	 * @return Te devuelve el observable del teclado
+	 */
 	public final ObservableSet<KeyCode> getInput() {
 		return this.inputProperty().get();
 	}
-
+/**
+ * 
+ * @return Te devuelve físicas
+ */
 	public Physics getPhysics() {
 		return physics;
 	}

@@ -15,6 +15,11 @@ import dad.CoreJuego.animation.AnimationPixel;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Se encarga de crear el personaje
+ * @author Alejandro, Gabriel
+ */
+ 
 
 public class Bodycharacter extends Entity{
 
@@ -28,7 +33,13 @@ public class Bodycharacter extends Entity{
 	
 	private static final float ANIMATION_SPEED = 70000000; 
 	private static final float ANIMATION_SPEED_RUN = 35000000; 
-
+/**
+ * Creación del cuerpo y la carga de animaciones del personaje
+ * 
+ * @param game Es la escena del juego
+ * @param posX Posicion el eje x de abcisas donde se genera en el canvas
+ * @param posY Posicion el eje y de abcisas donde se genera en el canvas
+ */
 	public Bodycharacter(Game game, float posX, float posY) {
 		super(game);
 
@@ -50,6 +61,11 @@ public class Bodycharacter extends Entity{
 		initBody(game.getPhysics().getWorld());
 	}
 
+	/**
+	 * Inicializas el personaje en el mundo
+	 * 
+	 * @param world Le estamos pasando un mundo para que se genere las físicas
+	 */
 	@Override
 	protected void initBody(World world) {
 
@@ -79,14 +95,10 @@ public class Bodycharacter extends Entity{
 		body.setUserData(this);
 	}
 
-	public FixtureDef getFd() {
-		return fd;
-	}
-	
-	 public void onCollision(Floor m) {
-	    }
-
-	
+	/**
+     * {@inheritDoc}
+     * 
+     */
 	public void render(GraphicsContext gc) {
 
 		gc.drawImage(actualAnimation.getCurrentFrame(), x, y);
@@ -97,6 +109,10 @@ public class Bodycharacter extends Entity{
 		body.applyLinearImpulse(vector, body.getWorldCenter());
 	}
 
+	/**
+     * {@inheritDoc}
+     * 
+     */
 	@Override
 	public void update(float timeDifference) {
 		x = body.getPosition().x;
@@ -124,7 +140,11 @@ public class Bodycharacter extends Entity{
 		}
 		actualAnimation.update(timeDifference);
 	}
-	
+	/**
+	 * 
+	 * @param mov Nos devuelve si hay una accion o no
+	 * @param i Es codigó generado en base al keyEvent(acción) del personaje
+	 */
 	public void setMoving(boolean mov, int i) {
 		this.moving = mov;
 		this.pos = i;
