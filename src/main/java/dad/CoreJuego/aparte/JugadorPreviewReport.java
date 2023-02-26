@@ -11,5 +11,4 @@ public class JugadorPreviewReport {
 		Player jugador = new Player("1", "Pepe", 200);
 		return new ArrayList<Player>(Arrays.asList(jugador));
 	}
-	
 }
