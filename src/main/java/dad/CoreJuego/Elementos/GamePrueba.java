@@ -63,7 +63,7 @@ public class GamePrueba extends Game {
 
 	/**
 	 * 
-	 * metodo usado para limitar el salto que hace el personaje
+	 * metodo usado para limitar el movimiento que hace el personaje con un pequeño delay
 	 * 
 	 * @param x posicion del personaje en el canvas y mundo
 	 */
@@ -80,8 +80,13 @@ public class GamePrueba extends Game {
 			cp.body.applyForceToCenter(vector);
 		}
 	}
-
-	//TODO
+	
+	/**
+	 * Metodo Usado para saltar
+	 * 
+	 * @param x la posicion en el eje x  que recibe respecto al salto
+	 * @param y la posicion en el eje y que recibe respecto al salto
+	 */
 	
 	public void impulsoVertical(float x, float y) {
 		vector = new Vec2(x, y);

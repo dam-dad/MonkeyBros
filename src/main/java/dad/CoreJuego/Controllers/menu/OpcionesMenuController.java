@@ -56,7 +56,6 @@ public class OpcionesMenuController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		// https://www.youtube.com/watch?v=aOcow70vqb4
 		
-		
 	}
 
 	public void actualizarControlesInterfazProperties() {
@@ -113,14 +112,11 @@ public class OpcionesMenuController implements Initializable {
 		} catch (IndexOutOfBoundsException e) {
 		}
 		try {
-			// actualizarInterfazProperties();
 			controlesGridPane = new ControlesGridPane();
 			actualizarControlesInterfazProperties();
-			// opcionesGridPane.add(controlesGridPane, 1, 0);
 			contenedorOpciones.getChildren().add(controlesGridPane);
 			GridPane.setRowSpan(controlesGridPane, 5);
 			GridPane.setColumnSpan(controlesGridPane, 2);
-			// GridPane.setVgrow(ajustesGridPane, Priority.ALWAYS);
 		} catch (IllegalArgumentException e) {
 		}
 	}
