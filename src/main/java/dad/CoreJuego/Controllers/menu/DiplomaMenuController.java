@@ -3,10 +3,6 @@ package dad.CoreJuego.Controllers.menu;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -26,12 +22,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+/**
+ * 
+ * Clase que implementa la vista que mas tarde imprimira el diploma en JasperReport
+ * 
+ * @author David Alejandro
+ *
+ */
 
 public class DiplomaMenuController implements Initializable {
 
@@ -75,6 +73,11 @@ public class DiplomaMenuController implements Initializable {
 
 	private GlobalStat globalStat;
 
+	/**
+	 * Constructor que carga el FXML 
+	 * 
+	 */
+	
 	public DiplomaMenuController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menus/MenuDiplomaView.fxml"));
@@ -85,6 +88,12 @@ public class DiplomaMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * 
+	 * Metodo que Inicializa la vista, con las propiedades y los elementos de la vista junto con los bindings
+	 * 
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// prepare data
@@ -101,40 +110,59 @@ public class DiplomaMenuController implements Initializable {
 
 	}
 
+	/**
+	 * Devuelve la raiz de la escena
+	 * 
+	 * @return view raiz de la view
+	 */
+	
 	public BorderPane getView() {
 		return view;
 	}
 
+	/**
+	 * metodo setter que cambia las propiedades del player
+	 * 
+	 * @param playersProperties recibe las propiedades del archivo properties 
+	 */
 	public void setPlayersProperties(Properties playersProperties) {
 		this.playersProperties = playersProperties;
 	}
 
+	/**
+	 * metodo que lleva a la escena anterior
+	 * 
+	 * @param anteriorView recibe un borderPane que es el root de la escena anterior
+	 */
+	
 	public void setAnteriorView(BorderPane anteriorView) {
 		this.anteriorView = anteriorView;
 	}
 
+	/**
+	 * metodo que lleva a la escena anterior
+	 * 
+	 */
+	
 	public BorderPane getAnteriorView() {
 		return anteriorView;
 	}
 
+	/**
+	 * metodo que carga el player guardado en el fichero Properties en caso contrario lanza una excepcion
+	 * 
+	 * 
+	 * @throws IOException si no se encuentran jugadores.
+	 * @throws Exception si existe algun problema al cargar los datos desde el fichero properties
+	 */
+	
 	public void cargarPlayersPropeties() {
 
-		// globalStat.getUserStadistic();
-
-		// playersProperties.propertyNames()
 		try {
 			playersProperties.load(new FileInputStream(RootMenuController.RUTA_PLAYER_IDS));
-//			
-//			List<String> listaP = playersProperties. .values().stream()
-//					.map(obj ->{
-//						String p = (String) obj;
-//						System.out.println(p);
-//						return p;
-//					}).collect(Collectors.toList());
-//				System.out.println(listaP.size());
+
 
 			for (Object key : playersProperties.keySet()) {
-//				System.out.println(key + "=" + playersProperties.getProperty((String) key));
 				if (playersProperties.size() < 1) {
 					mensajeLabel.setText("No se han encontrado jugadores\n previamente registrados");
 				} else {
@@ -153,16 +181,29 @@ public class DiplomaMenuController implements Initializable {
 
 	}
 
+	/**
+	 * metodo Setter que recibe y sustitye la referencia en memoria de la clase que apunta @see {@link GlobalStat#GlobalStat()}
+	 * 
+	 * @param globalStat le llega la clase GlobalStats 
+	 */
+	
 	public void setGlobalStat(GlobalStat globalStat) {
 		this.globalStat = globalStat;
 	}
 
+	/**
+	 * metodo que lleva a la escena anterior
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onAtrasClickAction(MouseEvent event) {
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
 
-	@FXML
+/*	TODO
+ * @FXML
 	void onGenerarDiplomaAction(MouseEvent event) {
 //		Section section = globalStat.getUserSection("63f88b555f5e88fd6d8b4574");
 		try {
@@ -175,13 +216,13 @@ public class DiplomaMenuController implements Initializable {
 			
 			// generar el informe (combinar el informe compilado con los datos) 
 			ArrayList<Player> playerArrayList = new ArrayList<Player>(Arrays.asList(jugadoresLista.getSelectionModel().selectedItemProperty().get()));
-	        JasperPrint print  = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(playerArrayList));
+
+			
+			JasperPrint print  = JasperFillManager.fillReport(report, parameters, new JRBeanCollectionDataSource(playerArrayList));
 	        
 	        
 		} catch (JRException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
+	}*/
 }

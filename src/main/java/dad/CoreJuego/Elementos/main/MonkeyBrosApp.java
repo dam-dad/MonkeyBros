@@ -8,6 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+/**
+ * Clase Intermedia para empezar el programa junto con la clase  @see Lanzador#main(String[])
+ * 
+ * @author David Alejandro
+ *
+ */
+
 public class MonkeyBrosApp extends Application {
 
 	public static Stage primaryStage;
@@ -20,6 +27,14 @@ public class MonkeyBrosApp extends Application {
 	// la ventana en el initialize() del rootController
 	private RootMenuController controller;
 
+	
+	
+	/**
+	 * metodo que empieza toda la Visualizacion de las escenas
+	 * 
+	 *  @param primaryStage obtiene la escena principal con la que se Inicializa JavaFx
+	 */
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
@@ -27,7 +42,7 @@ public class MonkeyBrosApp extends Application {
 		controller = new RootMenuController();
 		scene = new Scene(controller.getView());
 
-		primaryStage.setScene(scene);
+		primaryStage.setScene(scene); 
 		primaryStage.setTitle("MonkeyBros");
 		primaryStage.setResizable(false);
 		// primaryStage.getIcons().add(new
@@ -35,6 +50,12 @@ public class MonkeyBrosApp extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * Se le pasa la clase por parametros a @see Lanzador#main(String[]) 
+	 * 
+	 * @param args
+	 */
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

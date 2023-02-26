@@ -35,6 +35,7 @@ public abstract class Game extends AnimationTimer {
 	private GraphicsContext graphicsContext;
 	private Physics physics = new Physics();
 /**
+ * constructor que Inicializa el mundo, canvas y las dimesiones de este con @see #init()
  * 
  * @param canvas Es el lienzo de javafx
  */
@@ -74,6 +75,7 @@ public abstract class Game extends AnimationTimer {
 
 	/**
 	 * Se encarga del loop del juego
+	 * 
 	 * @param currentNanoTime El fps actual 
 	 */
 	public void handle(long currentNanoTime) {

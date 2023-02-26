@@ -1,7 +1,5 @@
 package dad.CoreJuego.Elementos;
 
-
-
 import org.jbox2d.collision.shapes.MassData;
 import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
@@ -13,7 +11,6 @@ import org.jbox2d.dynamics.World;
 
 import dad.CoreJuego.animation.AnimationPixel;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /**
  * Se encarga de crear el personaje
@@ -110,6 +107,9 @@ public class Bodycharacter extends Entity{
 	}
 
 	/**
+	 * 
+	 * Gestion de Animaciones en base a un codigo numerico mas un booleano @see #setMoving(boolean, int)
+	 * 
      * {@inheritDoc}
      * 
      */
@@ -141,6 +141,8 @@ public class Bodycharacter extends Entity{
 		actualAnimation.update(timeDifference);
 	}
 	/**
+	 * 
+	 * metodo usado como codigo para gestionar las animaciones en @see #update(float)
 	 * 
 	 * @param mov Nos devuelve si hay una accion o no
 	 * @param i Es codigó generado en base al keyEvent(acción) del personaje

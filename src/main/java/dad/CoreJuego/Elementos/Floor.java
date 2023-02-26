@@ -18,6 +18,7 @@ public class Floor extends Entity {
 	
 	private Body body; 
 /**
+ * Constructor que Inicializa las coordenas, las proiedades de las fisicas y la creacion del body @see #initBody(World)
  * 
  * @param game Es la escena del juego
  * @param x Posicion el eje x de abcisas donde se genera en el canvas
@@ -39,7 +40,7 @@ public class Floor extends Entity {
 	
 	/**
      * {@inheritDoc}
-     * Outputs current time in epoch milliseconds when run.
+     * 
      */
 	@Override
 	protected void initBody(World world) {
@@ -62,7 +63,7 @@ public class Floor extends Entity {
 	
 	/**
      * {@inheritDoc}
-     * Outputs current time in epoch milliseconds when run.
+     * 
      */
 	public void render(GraphicsContext gc) {
 				
@@ -73,7 +74,7 @@ public class Floor extends Entity {
 	
 	/**
      * {@inheritDoc}
-     * Outputs current time in epoch milliseconds when run.
+     * 
      */
 	@Override
 	public void update(float timeDifference) {

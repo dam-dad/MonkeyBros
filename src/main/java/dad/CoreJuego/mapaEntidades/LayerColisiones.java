@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -15,8 +14,8 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.World;
 import org.mapeditor.core.Map;
-import org.mapeditor.core.MapObject;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
@@ -24,9 +23,10 @@ import org.mapeditor.io.TMXMapReader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import dad.CoreJuego.Elementos.Entity;
 import dad.CoreJuego.Elementos.Game;
+
+//TODO
 
 public class LayerColisiones extends Entity {
 
@@ -99,15 +99,8 @@ public class LayerColisiones extends Entity {
 	  			               
 	  			               // Apartado de Colisones
 
-		  			             BodyDef bodyDef = new BodyDef();
-		  			             bodyDef.type = BodyType.STATIC;
-		  			             bodyDef.position.set(x*32, y*32);
-		  			             
-		  			   			 PolygonShape shape = new PolygonShape();
-		  			   			 shape.setAsBox(32, 32);
-		  			   		
-		  			   			 body = getGame().getPhysics().getWorld().createBody(bodyDef);
-		  			   			 body.createFixture(shape, 0.0f);
+	  			                initBody(game.getPhysics().getWorld());
+		  			          
 	  			            	}
 	  			            	else {
 	  			            	}
@@ -156,6 +149,20 @@ public class LayerColisiones extends Entity {
 		x = body.getPosition().x;
 		y = body.getPosition().y;
 		
+	}
+
+	@Override
+	protected void initBody(World world) {
+		
+		   BodyDef bodyDef = new BodyDef();
+             bodyDef.type = BodyType.STATIC;
+             bodyDef.position.set(x*32, y*32);
+             
+   			 PolygonShape shape = new PolygonShape();
+   			 shape.setAsBox(32, 32);
+   		
+   			 body = getGame().getPhysics().getWorld().createBody(bodyDef);
+   			 body.createFixture(shape, 0.0f);
 	}
 
 }

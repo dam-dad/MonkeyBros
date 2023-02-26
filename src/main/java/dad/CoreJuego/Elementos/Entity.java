@@ -1,6 +1,5 @@
 package dad.CoreJuego.Elementos;
 
-
 import org.jbox2d.dynamics.World;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -50,11 +49,13 @@ public abstract  class Entity {
 	 */
 	public abstract void render(GraphicsContext gc);
 	/**
+	 * metodo usado para actualizar la posicion en los cuerpos
 	 * 
 	 * @param timeDifference Los fps actuales
 	 */
 	public abstract void update(float timeDifference);
 	/**
+	 * metodo usado para la creacion de los cuerpo mas las fisicas añadidas a este
 	 * 
 	 * @param world Le estamos pasando un mundo para que se genere las físicas
 	 */

@@ -18,12 +18,10 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+
+
 public class SonidoGridPane extends GridPane implements Initializable {
 
-	// model
-
-//	private IntegerProperty numVolumen = new SimpleIntegerProperty(0);
-//	private IntegerProperty numMusica = new SimpleIntegerProperty(0);
 
 	// view
 
@@ -68,7 +66,7 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		// Los bindings no actualizan constantemente el volumen a medida que se arrastra
 		// el slider, por ello es necesario el uso de listeners
 		musicaSlider.valueProperty().addListener((o, ov, nv) -> {
-			//System.out.println(nv.intValue());
+			
 			MonkeyBrosApp.mediaPlayerMusica.setVolume((double) nv.intValue() / 100);
 		});
 

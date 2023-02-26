@@ -1,23 +1,10 @@
 package dad.CoreJuego.mapaEntidades;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import javax.imageio.ImageIO;
-
-import org.jbox2d.collision.shapes.PolygonShape;
-import org.jbox2d.dynamics.Body;
-import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.World;
 import org.mapeditor.core.ImageLayer;
 import org.mapeditor.core.Map;
-import org.mapeditor.core.Tile;
-import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
 
 import dad.CoreJuego.Elementos.Entity;
@@ -25,13 +12,14 @@ import dad.CoreJuego.Elementos.Game;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
+
+//TODO
 
 public class LayerBackground extends Entity {
 
 	Map map;
 	private ImageLayer imageLayer;
-	private ImageView imagen;
+//	private ImageView imagen;
 	private Image imagen2;
 	private String nombreBackground;
 	private int altura;
@@ -39,8 +27,7 @@ public class LayerBackground extends Entity {
 	
 	private double alturaImagen;
 	private double anchoImagen;
-	
-	private Body body; 
+	 
 
 	ArrayList<ArrayList<ImageView>> tileY = new ArrayList<ArrayList<ImageView>>();
 	
@@ -86,6 +73,13 @@ public class LayerBackground extends Entity {
 
 	@Override
 	public void update(float timeDifference) {
+		
+	}
+
+
+	@Override
+	protected void initBody(World world) {
+		// TODO Auto-generated method stub
 		
 	}
 

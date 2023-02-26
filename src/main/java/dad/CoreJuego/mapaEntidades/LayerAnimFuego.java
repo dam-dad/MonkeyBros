@@ -7,7 +7,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -16,8 +15,8 @@ import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
+import org.jbox2d.dynamics.World;
 import org.mapeditor.core.Map;
-import org.mapeditor.core.MapObject;
 import org.mapeditor.core.Tile;
 import org.mapeditor.core.TileLayer;
 import org.mapeditor.io.TMXMapReader;
@@ -25,10 +24,11 @@ import org.mapeditor.io.TMXMapReader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import dad.CoreJuego.Elementos.Entity;
 import dad.CoreJuego.Elementos.Game;
 import dad.CoreJuego.animation.AnimationPixel;
+
+//TODO
 
 public class LayerAnimFuego extends Entity {
 
@@ -120,6 +120,8 @@ public class LayerAnimFuego extends Entity {
 	  			               
 	  			               // Apartado de Colisones
 	  			               
+	  			               initBody(game.getPhysics().getWorld());
+	  			               
 	  			            /*  BodyDef bodyDef = new BodyDef();
 	  			             bodyDef.type = BodyType.STATIC;
 	  			             bodyDef.position.set(x*32, y*32);
@@ -130,7 +132,7 @@ public class LayerAnimFuego extends Entity {
 	  			   			 body = getGame().getWorld().getWorldF().createBody(bodyDef);
 	  			   			 body.createFixture(shape, 0.0f); */ 
 	  			   			 
-	  			               InvocarPersonaje();
+	  			               
 	  			            	}
 	  			            	else {
 	  			            	}
@@ -143,7 +145,7 @@ public class LayerAnimFuego extends Entity {
 			}
 		}
 	
-	public void InvocarPersonaje(){
+	public void initBody(World world){
 
 		//The complete code snippet would look like:
 		//body definition

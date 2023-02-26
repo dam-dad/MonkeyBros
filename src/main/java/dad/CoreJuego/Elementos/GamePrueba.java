@@ -2,7 +2,6 @@ package dad.CoreJuego.Elementos;
 
 import java.util.Set;
 
-import org.jbox2d.common.MathUtils;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 
@@ -10,10 +9,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 
 
+/**
+ * Clase que Inicia el Juego, tanto el canvas como añadir las entidades y recoje las entradas del usuario
+ * 
+ * @author Alejandro,Gapaz
+ *
+ */
+
 public class GamePrueba extends Game {
 
-	private MyContactListener mcl;
-	private Floor m;
 	private Bodycharacter cp;
 	Game game;
 	boolean isJump;
@@ -22,6 +26,12 @@ public class GamePrueba extends Game {
 		super(canvas);
 	}
 
+	/**
+	 * Metodo que Inicializa las entidades y colisiones que existen en el mundo
+	 * 
+	 * {@inheritDoc}
+	 */
+	
 	@Override
 	protected void init() {
 
@@ -51,6 +61,13 @@ public class GamePrueba extends Game {
 	}
 	
 
+	/**
+	 * 
+	 * metodo usado para limitar el salto que hace el personaje
+	 * 
+	 * @param x posicion del personaje en el canvas y mundo
+	 */
+	
 	public void fuerzaGravedad(float x) {
 		float jumpStartTime = System.nanoTime() / 1000000000f;
 		final float JUMP_FORCE = 20f;
@@ -64,11 +81,20 @@ public class GamePrueba extends Game {
 		}
 	}
 
+	//TODO
+	
 	public void impulsoVertical(float x, float y) {
 		vector = new Vec2(x, y);
 		cp.body.applyForceToCenter(vector);
 	}
 
+	/**
+	 * 
+	 * metodo usado para recibir y procesar las entradas realizador por el usuario reflejando el movimiento y animacion en el canva
+	 * 
+	 * param input KeyCode enviado por el usuario al pulsar una tecla
+	 */
+	
 	@Override
 	protected void processInput(Set<KeyCode> input) {
 		
