@@ -5,6 +5,8 @@ import java.util.Set;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
 
+import dad.CoreJuego.mapaEntidades.LayerBackground;
+import dad.CoreJuego.mapaEntidades.LayerColisiones;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 
@@ -35,9 +37,9 @@ public class GamePrueba extends Game {
 	@Override
 	protected void init() {
 
-		cp = new Bodycharacter(this, 120, 50);
+		cp = new Bodycharacter(this, 1, 1);
 
-		getEntities().addAll(cp, new Floor(this, 0, getHeight() - 20f, getWidth(), 2));
+		getEntities().addAll(new LayerBackground(this), new LayerColisiones(this), cp, new Floor(this, 0, getHeight() - 20f, getWidth(), 2));
 
 		this.getPhysics().getWorld().setContactListener(new MyContactListener() {
 

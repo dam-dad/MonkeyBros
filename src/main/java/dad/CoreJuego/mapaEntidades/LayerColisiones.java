@@ -23,6 +23,7 @@ import org.mapeditor.io.TMXMapReader;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import dad.CoreJuego.Elementos.Entity;
 import dad.CoreJuego.Elementos.Game;
 
@@ -99,7 +100,7 @@ public class LayerColisiones extends Entity {
 	  			               
 	  			               // Apartado de Colisones
 
-	  			                initBody(game.getPhysics().getWorld());
+	  			                initBody(game.getPhysics().getWorld(), x, y);
 		  			          
 	  			            	}
 	  			            	else {
@@ -137,6 +138,8 @@ public class LayerColisiones extends Entity {
 			for(int x = tileX.size() - 1; x >= 0; x--) {
 				if(tileX.get(x) == null) {	
 				} else {
+					/* gc.setFill(Color.PURPLE);
+					gc.fillRect(x*32, y*32, 20, 20);*/
 					gc.drawImage(tileX.get(x).getImage(), x*32, y*32);
 				}
 			}
@@ -151,18 +154,24 @@ public class LayerColisiones extends Entity {
 		
 	}
 
-	@Override
-	protected void initBody(World world) {
+
+	protected void initBody(World world, int xDimension, int yDimension) {
 		
 		   BodyDef bodyDef = new BodyDef();
              bodyDef.type = BodyType.STATIC;
-             bodyDef.position.set(x*32, y*32);
-             
+             bodyDef.position.set(xDimension*32, yDimension*32);
+             System.out.println("X= " + xDimension + " Y= " + yDimension);
    			 PolygonShape shape = new PolygonShape();
-   			 shape.setAsBox(32, 32);
+   			 shape.setAsBox(20, 20);
    		
    			 body = getGame().getPhysics().getWorld().createBody(bodyDef);
    			 body.createFixture(shape, 0.0f);
+	}
+
+	@Override
+	protected void initBody(World world) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

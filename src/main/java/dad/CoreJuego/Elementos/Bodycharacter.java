@@ -11,6 +11,7 @@ import org.jbox2d.dynamics.World;
 
 import dad.CoreJuego.animation.AnimationPixel;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Se encarga de crear el personaje
@@ -44,8 +45,8 @@ public class Bodycharacter extends Entity{
 		this.y = posY;
 
 		// variables of character size
-		this.width = 10f;
-		this.height = 10f;
+		this.width = 5f;
+		this.height = 5f;
 		
 		//Animaciones
 		
@@ -97,7 +98,9 @@ public class Bodycharacter extends Entity{
      * 
      */
 	public void render(GraphicsContext gc) {
-
+		gc.setFill(Color.BLACK);
+		gc.fillRect(x, y, width*3.5, height*3.5);
+		//gc.drawImage(null, ANIMATION_SPEED_RUN, ANIMATION_SPEED);
 		gc.drawImage(actualAnimation.getCurrentFrame(), x, y);
 		
 	}

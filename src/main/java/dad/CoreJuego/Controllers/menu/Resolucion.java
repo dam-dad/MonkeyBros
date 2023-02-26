@@ -9,6 +9,7 @@ package dad.CoreJuego.Controllers.menu;
  */
 
 public enum Resolucion{
+	res640x480p(640, 480),
 	res1080x720p(1080, 720),
 	res1152x768p(1152, 768),
 	res1280x720p(1280, 720),
