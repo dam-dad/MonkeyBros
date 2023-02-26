@@ -98,6 +98,7 @@ public class SonidoGridPane extends GridPane implements Initializable {
 	public void guardarProperties() {
 		try {
 			properties.store(new FileOutputStream(RootMenuController.RUTAFULL), "");
+			MonkeyBrosApp.properties = properties;
 		} catch (IOException e) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Error");

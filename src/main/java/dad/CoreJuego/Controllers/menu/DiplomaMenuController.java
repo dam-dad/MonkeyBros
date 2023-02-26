@@ -196,7 +196,6 @@ public class DiplomaMenuController implements Initializable {
 			e.printStackTrace();
 			mensajeLabel.setText("Error al cargar datos de la API\n de GlobalStats");
 		}
-
 	}
 
 	/**

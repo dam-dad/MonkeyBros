@@ -2,6 +2,8 @@ package dad.CoreJuego.Elementos;
 
 import java.util.Set;
 
+import dad.CoreJuego.Controllers.menu.Resolucion;
+import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyFloatWrapper;
@@ -47,9 +49,21 @@ public abstract class Game extends AnimationTimer {
 		canvas.setOnKeyReleased(e -> input.remove(e.getCode()));
 		canvas.setFocusTraversable(true);
 		canvas.requestFocus();
-
+		
+		int widthRes = 1080;
+		int heightRes = 720;
+		
+		try {
+			Resolucion res = Resolucion.valueOf(MonkeyBrosApp.properties.getProperty("resolucion"));
+			widthRes = res.getWidth();
+			heightRes = res.getHeight();
+		} catch(Exception e) {
+		}
+		canvas.setWidth(widthRes);
+		canvas.setHeight(heightRes);
 		width.bind(canvas.widthProperty());
 		height.bind(canvas.heightProperty());
+		
  
 		init();
 

@@ -74,7 +74,6 @@ public class JugarMenuController implements Initializable {
 	@FXML
 	void onEmpezarPartidaClickAction(MouseEvent event) {
 		gameController = new GameController();
-		// opcionesMenuController.setAnteriorView(view);
 		MonkeyBrosApp.scene.setRoot(gameController.getView());
 	}
 

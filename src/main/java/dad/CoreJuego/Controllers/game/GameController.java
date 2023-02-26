@@ -37,18 +37,14 @@ public class GameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
-	
 		game = new GamePrueba(canvas);
 		// game.fpsProperty().addListener((o, ov, nv) -> System.out.println(nv +
 		// "fps"));
 		game.start();
-		
+
 	}
 
 	public BorderPane getView() {
 		return view;
 	}
-	
-	
 }

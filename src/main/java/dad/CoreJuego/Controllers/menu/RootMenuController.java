@@ -60,7 +60,7 @@ public class RootMenuController implements Initializable {
 	// properties
 
 	private Properties properties = new Properties();
-	
+
 	// paths
 
 	public static final File RUTA_PDF_FOLDER = new File(
@@ -73,24 +73,30 @@ public class RootMenuController implements Initializable {
 			+ File.separator + "players" + File.separator + "player_ids.props";
 
 	// audio
-	
+
 	private MediaPlayer mediaplayer;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Media media = new Media(getClass().getResource("/audio/Bonus Room Blitz Restored to HD.mp3").toExternalForm());
 		mediaplayer = new MediaPlayer(media);
-
+		mediaplayer.setVolume(100.0);
 		MonkeyBrosApp.mediaPlayerMusica = mediaplayer;
 		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);
 
 		/* Cargar propiedades y en caso de no encontrarlas, crearlas y usarlas */
 		try {
 			properties.load(new FileInputStream(RootMenuController.RUTAFULL));
+			MonkeyBrosApp.properties = properties;
 			// java.awt.event.KeyEvent.getKeyText(' '); // en mayus
 			Resolucion res = Resolucion.valueOf(properties.getProperty("resolucion"));
-			System.out.println(Resolucion.valueOf(properties.getProperty("resolucion")));
-
+			/*
+			 * Si surge algún problema al cargar una resolución, se selecciona la resolución
+			 * por defecto (1080x720)
+			 */
+			if (res == null) {
+				res = Resolucion.res1080x720p;
+			}
 			/*
 			 * Se cambia la resolución de la ventana partiendo de las propiedades cargadas
 			 * del fichero .properties
@@ -119,6 +125,8 @@ public class RootMenuController implements Initializable {
 			 * Si el fichero no se puede cargar porque no existe previamente, se crean unos
 			 * valores para las propiedades por defecto
 			 */
+			//java.awt.event.KeyEvent.ke
+			
 			try {
 				// https://stackoverflow.com/questions/15313469/java-keyboard-keycodes-list
 				properties.setProperty("adelante", charANombreKeyCode('d'));
