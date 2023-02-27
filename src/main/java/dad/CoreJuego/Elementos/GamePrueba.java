@@ -9,14 +9,20 @@ import org.jbox2d.dynamics.contacts.Contact;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
 import dad.CoreJuego.mapaEntidades.LayerColisiones;
+import dad.CoreJuego.mapaEntidades.LayerEscaleras;
+import javafx.animation.Animation;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Clase que Inicia el Juego, tanto el canvas como añadir las entidades y recoje
  * las entradas del usuario
  * 
- * @author Alejandro, Gapaz , David Alejandro
+ * @author Alejandro, Gapaz
  *
  */
 
@@ -24,8 +30,11 @@ public class GamePrueba extends Game {
 
 	private Bodycharacter cp;
 	Game game;
-	boolean isJump;
+//	boolean canJump;
+	boolean isOnAir;
 	Vec2 vector;
+	float impulsoX;
+	float impulsoY;
 	Properties properties;
 
 	/**
@@ -36,6 +45,11 @@ public class GamePrueba extends Game {
 	static KeyCode UP_VALUE;
 	static KeyCode DOWN_VALUE;
 	static KeyCode JUMP_VALUE;
+
+	/**
+	 * Animación de salto del personaje
+	 */
+	Animation jumpAnimationAction;
 
 	public GamePrueba(Canvas canvas) {
 		super(canvas);
@@ -49,6 +63,22 @@ public class GamePrueba extends Game {
 
 	@Override
 	protected void init() {
+		isOnAir = true;
+		jumpAnimationAction = new Transition() {
+			{
+				setCycleDuration(Duration.millis(500));
+			}
+
+			protected void interpolate(double frac) {
+				
+				// isOnAir = true;
+				if (frac >= 0) {
+					vector = new Vec2(0.0f, -100.0f);
+					cp.body.applyForceToCenter(vector);
+					// cp.setMoving(true, 3);
+				}
+			}
+		};
 		/**
 		 * Vincular los controles del personaje a las properties cargadas
 		 */
@@ -82,13 +112,16 @@ public class GamePrueba extends Game {
 			DOWN_VALUE = KeyCode.DOWN;
 			JUMP_VALUE = KeyCode.SPACE;
 		}
-		
-		cp = new Bodycharacter(this, 120, 50);
 
-		getEntities().addAll(new LayerBackground(this), new Floor(this, 0, getHeight() - 100f, getWidth(), 2), new LayerColisiones(this), cp);
-		//getEntities().addAll(cp, new Floor(this, 0, getHeight() - 20f, getWidth(), 2));
-		//getEntities().addAll(new Floor(this, 0, getHeight() - 20f, getWidth(), 2), new LayerBackground(this), new LayerColisiones(this), cp);
+		cp = new Bodycharacter(this, 1, 1);
 
+		getEntities().addAll(new LayerBackground(this), new LayerColisiones(this), new LayerEscaleras(this),
+				new Floor(this, 0, getHeight() - 600f, getWidth(), 2), new LayerColisiones(this), cp);
+		// getEntities().addAll(cp, new Floor(this, 0, getHeight() - 20f, getWidth(),
+		// 2));
+		// getEntities().addAll(new Floor(this, 0, getHeight() - 20f, getWidth(), 2),
+		// new LayerBackground(this), new LayerColisiones(this), cp);
+		// this.getPhysics().getWorld().conta
 		this.getPhysics().getWorld().setContactListener(new MyContactListener() {
 
 			@Override
@@ -97,14 +130,19 @@ public class GamePrueba extends Game {
 				Object userDataA = contact.getFixtureA().getBody().getUserData();
 				Object userDataB = contact.getFixtureB().getBody().getUserData();
 
-				if (userDataA instanceof Bodycharacter && userDataB instanceof Floor) {
+				if (userDataA instanceof Bodycharacter && userDataB instanceof /* LayerColisiones */ Floor) {
 //					CuerpoPersonaje personaje = (CuerpoPersonaje) userDataA;
 //					Muro muro = (Muro) userDataB;
-					isJump = true;
+					isOnAir = false;
+					System.out.println("aire");
 				} else if (userDataB instanceof Bodycharacter && userDataA instanceof Floor) {
 //					CuerpoPersonaje personaje = (CuerpoPersonaje) userDataB;
 //					Muro muro = (Muro) userDataA;
-					isJump = true;
+					isOnAir = false;
+					System.out.println("suelo");
+				} else {
+					System.out.println("aire");
+					isOnAir = true;
 				}
 			}
 		});
@@ -119,16 +157,17 @@ public class GamePrueba extends Game {
 	 */
 
 	public void fuerzaGravedad(float x) {
-		float jumpStartTime = System.nanoTime() / 1000000000f;
-		final float JUMP_FORCE = 20f;
-		final float MAX_JUMP_DURATION = 0.3f;
-
-		float jumpDuration = System.nanoTime() / 1000000000f - jumpStartTime;
-		if (jumpDuration < MAX_JUMP_DURATION) {
-			float jumpForce = JUMP_FORCE * (1 - jumpDuration / MAX_JUMP_DURATION);
-			vector = new Vec2(x, jumpForce);
-			cp.body.applyForceToCenter(vector);
-		}
+//		float jumpStartTime = System.nanoTime() / 1000000000f;
+//		final float JUMP_FORCE = 20f;
+//		final float MAX_JUMP_DURATION = 0.3f;
+//
+//		float jumpDuration = System.nanoTime() / 1000000000f - jumpStartTime;
+//		if (jumpDuration < MAX_JUMP_DURATION) {
+//			float jumpForce = JUMP_FORCE * (1 - jumpDuration / MAX_JUMP_DURATION);
+//			System.out.println(jumpForce);
+		vector = new Vec2(x, isOnAir ? 100.0f : 0.0f);
+		cp.body.applyForceToCenter(vector);
+//		}
 	}
 
 	/**
@@ -154,37 +193,47 @@ public class GamePrueba extends Game {
 	@Override
 	protected void processInput(Set<KeyCode> input) {
 
-		float x = 0f, y = 0f;
+		impulsoX = 0f;
+		impulsoY = 0f;
 
 		if (input.contains(RIGHT_VALUE)) {
-			x += 100f;
+			impulsoX += 100f;
 			cp.setMoving(true, 1);
 		} else {
 			cp.setMoving(false, 0);
 		}
 
 		if (input.contains(LEFT_VALUE)) {
-			x -= 100f;
+			impulsoX -= 100f;
 			cp.setMoving(true, 2);
 		}
 
-		if ((input.contains(JUMP_VALUE)) && isJump) {
-			y -= 100f;
-			isJump = false;
-			cp.setMoving(true, 3);
-		}
+		/*
+		 * if (input.contains(DOWN_VALUE)) { impulsoY += 100f; }
+		 */
 
-		if (input.contains(DOWN_VALUE)) {
-			y += 100f;
-		}
 		if (input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) {
-			if (!((input.contains(KeyCode.UP) || input.contains(KeyCode.SPACE) && isJump)
-					|| input.contains(KeyCode.DOWN))) {
-				fuerzaGravedad(x);
-			}
+			// if (!((/* input.contains(UP_VALUE) || */input.contains(JUMP_VALUE) &&
+			// !canJump)
+			// /*|| input.contains(DOWN_VALUE)*/)) {
+			fuerzaGravedad(impulsoX);
+
+			// }
 		}
-		if ((input.contains(UP_VALUE) || input.contains(JUMP_VALUE) && isJump) || input.contains(DOWN_VALUE)) {
-			impulsoVertical(x, y);
+		// if (/* (input.contains(UP_VALUE) || */(input.contains(JUMP_VALUE) && canJump)
+		// && !isOnAir) {
+		// canJump = false;
+		// impulsoVertical(x, y);
+
+		// }
+		if ((input.contains(JUMP_VALUE)) && !isOnAir) {
+			// if (!isOnAir) {
+			isOnAir = true;
+			impulsoY += 100f;
+			jumpAnimationAction.playFromStart();
+			System.out.println("salto");
+			// }
+			cp.setMoving(true, 3);
 		}
 	}
 
