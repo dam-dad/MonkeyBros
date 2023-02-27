@@ -6,7 +6,7 @@ import javafx.application.Application;
  * 
  * Clase que lanza la Apliacion
  * 
- * @author Gapaz
+ * @author Gabriel
  *
  */
 

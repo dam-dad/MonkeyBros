@@ -16,6 +16,14 @@ import io.github.fvarrui.globalstats.model.Stats;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * 
+ * Clase que contiene todo lo necesario para utilizar la Api de GlobalStats
+ * 
+ * @author Gabriel
+ *
+ */
+
 public class GlobalStat {
 
 	String clientId="nL8l9XT08r7gzzsaPC3f2Dhyu1pjqOWOA4aJ23Ja", clientSecret="Rq4qTegwhwyUN6pPvJfkF3UJeEMinWMenRFg5WMn";
@@ -23,11 +31,15 @@ public class GlobalStat {
 	GlobalStats client;
 	Stats stats;
 
-	//https://github.com/fvarrui/globalstats-java-client
+	/**
+	 * Constructor que conecta el cliente y le da el Token de acceso
+	 * 
+	 * @throws Exception lanza una expcecion en caso de fallar algo impidieno continuar
+	 */
 	public GlobalStat() throws Exception {
 		client = new GlobalStats(clientId, clientSecret);
 		token = client.getAccessToken();
-		System.out.println(token);
+//		System.out.println(token);
 	}
 
 	/**

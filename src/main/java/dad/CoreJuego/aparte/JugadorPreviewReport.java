@@ -6,6 +6,8 @@ import java.util.List;
 
 import dad.CoreJuego.Controllers.menu.Player;
 
+//TODO Borrar
+
 public class JugadorPreviewReport {
 	public static List<Player> getJugadorPreview() {
 		Player jugador = new Player("1", "Pepe", 200);

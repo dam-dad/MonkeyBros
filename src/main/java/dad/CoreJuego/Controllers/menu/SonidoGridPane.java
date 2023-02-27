@@ -18,7 +18,13 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
-
+/**
+ * 
+ * Clase que maneja la vista del sonido
+ * 
+ * @author David Alejandro
+ *
+ */
 
 public class SonidoGridPane extends GridPane implements Initializable {
 
@@ -53,6 +59,14 @@ public class SonidoGridPane extends GridPane implements Initializable {
 
 	private Properties properties = new Properties();
 
+	/**
+	 * metodo que Inicializa y carga la vista con sus propiedades y elementos
+	 * 
+	 * @param location recibe la localizacion de la vista
+	 * @param resources recibe los recursos del proyecto
+	 * 
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -91,10 +105,21 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * metodo que retorna la raiz de la vista
+	 * 
+	 * @return view retorna la raiz de la vista
+	 */
+	
 	public GridPane getView() {
 		return view;
 	}
 
+	/**
+	 * Metodo que guarda las propiedades del volumen
+	 * 
+	 */
+	
 	public void guardarProperties() {
 		try {
 			properties.store(new FileOutputStream(RootMenuController.RUTAFULL), "");
@@ -108,10 +133,21 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * Metodo que cambia las propiedades del fichero 
+	 * 
+	 * @param properties
+	 */
+	
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
+	/**
+	 * metodo que carga el volumen 
+	 * 
+	 */
+	
 	public void loadVolumenValue() {
 		int numVolum = 0;
 		try {
@@ -126,6 +162,10 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * metodo que carga el volumen de la musica
+	 */
+	
 	public void loadMusicaValue() {
 		int numMusic = 0;
 		try {
@@ -140,6 +180,12 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * metodo que recibe las la accion del raton para 
+	 * 
+	 * @param event
+	 */
+	
 	@FXML
 	void onVolumenDragExit(MouseEvent event) {
 		if (properties.getProperty("volumenAmount") == null) { // por si cambian el archivo manualmente
@@ -148,6 +194,11 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		actualizarProperty("volumenAmount", volumenSlider.valueProperty().intValue());
 	}
 
+	/**
+	 * TODO
+	 * @param event recibe la entrada de los parametros
+	 */
+	
 	@FXML
 	void onMusicaDragExit(MouseEvent event) {
 		if (properties.getProperty("musicaAmount") == null) {
@@ -156,6 +207,13 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		actualizarProperty("musicaAmount", musicaSlider.valueProperty().intValue());
 	}
 
+	/**
+	 * Metodo que actualiza  las propiedades en el fichero
+	 * 
+	 * @param s 
+	 * @param i recibe el int del volumen 
+	 */
+	
 	public void actualizarProperty(String s, int i) {
 		if (properties.getProperty(s) != null && !properties.getProperty(s).equals("" + i)) {
 			// Si ha cambiado se guarda

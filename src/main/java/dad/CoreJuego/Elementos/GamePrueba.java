@@ -17,7 +17,7 @@ import javafx.scene.input.KeyCode;
  * Clase que Inicia el Juego, tanto el canvas como añadir las entidades y recoje
  * las entradas del usuario
  * 
- * @author Alejandro, Gapaz , David Alejandro
+ * @author Alejandro, Gabriel , David Alejandro
  *
  */
 

@@ -7,7 +7,7 @@ import org.jbox2d.dynamics.World;
  * 
  * Clase que referencias tanto a las fisicas como al mundo de Jbox2d empleado en la creacion de todo el proyecto
  * 
- * @author Gapaz
+ * @author Gabriel
  *
  */
 
