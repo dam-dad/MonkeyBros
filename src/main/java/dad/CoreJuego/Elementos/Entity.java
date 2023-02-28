@@ -20,7 +20,7 @@ public abstract  class Entity {
 	 * @param game Es la escena del juego
 	 */
 	public Entity(Game game) {
-		this.game = game;
+		this.game = game;		
 	}
 	/**
 	 * 

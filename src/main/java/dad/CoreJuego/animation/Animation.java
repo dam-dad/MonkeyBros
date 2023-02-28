@@ -15,7 +15,7 @@ import javafx.scene.image.WritableImage;
  *
  */
 
-public class AnimationPixel {
+public class Animation {
 	
 	private List<Image> frames = new ArrayList<Image>();
 	
@@ -38,7 +38,7 @@ public class AnimationPixel {
 	 * @param cantF cantidad de fotogramas
 	 */
 	
-	public AnimationPixel(float speedA, String n, int anch, int alt, int cantF) {
+	public Animation(float speedA, String n, int anch, int alt, int cantF) {
 		this.imageName = n;
 		this.imageWeidth = anch;
 		this.alto = alt;

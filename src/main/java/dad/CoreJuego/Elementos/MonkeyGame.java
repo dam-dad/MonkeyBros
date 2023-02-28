@@ -3,10 +3,16 @@ package dad.CoreJuego.Elementos;
 import java.util.Properties;
 import java.util.Set;
 
+import org.jbox2d.callbacks.ContactImpulse;
+import org.jbox2d.callbacks.ContactListener;
+import org.jbox2d.collision.Manifold;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.contacts.Contact;
+import org.mapeditor.core.Map;
+import org.mapeditor.io.TMXMapReader;
 
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
+import dad.CoreJuego.mapaEntidades.CollisionsLayer;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
 import dad.CoreJuego.mapaEntidades.LayerColisiones;
 import dad.CoreJuego.mapaEntidades.LayerEscaleras;
@@ -24,16 +30,10 @@ import javafx.util.Duration;
  *
  */
 
-public class GamePrueba extends Game {
+public class MonkeyGame extends Game {
 
-	private Bodycharacter cuerpo;
-	Game game;
-//	boolean canJump;
-	boolean isOnAir;
-	Vec2 vector;
-	float impulsoX;
-	float impulsoY;
-	Properties properties;
+	private Monkey monkey;
+	private Properties properties;
 
 	/**
 	 * Controles direccionales
@@ -49,7 +49,7 @@ public class GamePrueba extends Game {
 	 */
 	Animation jumpAnimationAction;
 
-	public GamePrueba(Canvas canvas) {
+	public MonkeyGame(Canvas canvas) {
 		super(canvas);
 	}
 
@@ -61,7 +61,7 @@ public class GamePrueba extends Game {
 
 	@Override
 	protected void init() {
-		isOnAir = true;
+		
 		jumpAnimationAction = new Transition() {
 			{
 				setCycleDuration(Duration.millis(500));
@@ -69,12 +69,11 @@ public class GamePrueba extends Game {
 
 			protected void interpolate(double frac) {
 				if (frac >= 0) {
-					vector = new Vec2(0.0f, (float) frac * 100);
-					cuerpo.body.applyForceToCenter(vector);
-					// cp.setMoving(true, 3);
+					monkey.applyForce(0.0f, (float) frac * 100f);
 				}
 			}
 		};
+		
 		/**
 		 * Vincular los controles del personaje a las properties cargadas
 		 */
@@ -109,13 +108,26 @@ public class GamePrueba extends Game {
 			JUMP_VALUE = KeyCode.SPACE;
 		}
 
-		cuerpo = new Bodycharacter(this, 1, 1);
+		monkey = new Monkey(this, 1, 1);
+		monkey.setOnAir(true);		
 
-		getEntities().addAll(new LayerBackground(this), new LayerColisiones(this), new LayerEscaleras(this),
-				new Floor(this, 0, getHeight() - 600f, getWidth(), 2), new LayerColisiones(this), cuerpo);
-		// getEntities().addAll(cp, new Floor(this, 0, getHeight() - 20f, getWidth(),
-		// 2));
-		this.getPhysics().getWorld().setContactListener(new MyContactListener() {
+		Map map;
+		try {
+			map = new TMXMapReader().readMap(getClass().getResource("/map/MapaDefinitivo.tmx"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		
+		getEntities().addAll(
+//				new LayerBackground(this), 
+				new CollisionsLayer(this, map), 
+//				new LayerEscaleras(this),
+//				new Floor(this, 0, getHeight() - 600f, getWidth(), 2), 
+//				new LayerColisiones(this), 
+				monkey
+		);
+
+		this.getPhysics().getWorld().setContactListener(new ContactListener() {
 
 			@Override
 			public void beginContact(Contact contact) {
@@ -123,20 +135,18 @@ public class GamePrueba extends Game {
 				Object userDataA = contact.getFixtureA().getBody().getUserData();
 				Object userDataB = contact.getFixtureB().getBody().getUserData();
 
-				if (userDataA instanceof Bodycharacter && userDataB instanceof /* LayerColisiones */ Floor) {
-//					CuerpoPersonaje personaje = (CuerpoPersonaje) userDataA;
-//					Muro muro = (Muro) userDataB;
-					isOnAir = false;
+				if ((userDataA instanceof Monkey && userDataB instanceof Platform) ||
+					(userDataB instanceof Monkey && userDataA instanceof Platform)) {
+					
+					monkey.setOnAir(false);
 					System.out.println("suelo");
-				} else if (userDataB instanceof Bodycharacter && userDataA instanceof Floor) {
-//					CuerpoPersonaje personaje = (CuerpoPersonaje) userDataB;
-//					Muro muro = (Muro) userDataA;
-					isOnAir = false;
-					System.out.println("suelo");
-				} /*
-					 * else { System.out.println("aire"); isOnAir = true; }
-					 */
+					
+				} 
+
 			}
+			public void endContact(Contact contact) {}
+			public void preSolve(Contact contact, Manifold oldManifold) {}
+			public void postSolve(Contact contact, ContactImpulse impulse) {}
 		});
 	}
 
@@ -157,10 +167,8 @@ public class GamePrueba extends Game {
 //		if (jumpDuration < MAX_JUMP_DURATION) {
 //			float jumpForce = JUMP_FORCE * (1 - jumpDuration / MAX_JUMP_DURATION);
 //			System.out.println(jumpForce);
-		impulsoY = isOnAir ? -100.0f : 0f;
-		System.out.println("flotando = " + isOnAir);
-		vector = new Vec2(x, impulsoY);
-		cuerpo.body.applyForceToCenter(vector);
+		System.out.println("flotando = " + monkey.isOnAir());
+		monkey.applyForce(x, monkey.isOnAir() ? -100.0f : 0f);
 //		}
 	}
 
@@ -187,33 +195,33 @@ public class GamePrueba extends Game {
 	@Override
 	protected void processInput(Set<KeyCode> input) {
 
-		impulsoX = 0f;
-		impulsoY = 0f;
+		float impulsoX = 0f;
+		float impulsoY = 0f;
 
 		if (input.contains(RIGHT_VALUE)) {
 			impulsoX += 100f;
-			cuerpo.setMoving(true, 1);
-		} else {
-			cuerpo.setMoving(false, 0);
-		}
+		} 
+		monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
 
 		if (input.contains(LEFT_VALUE)) {
 			impulsoX -= 100f;
-			cuerpo.setMoving(true, 2);
 		}
+		monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
+		
+		
 		/*
 		 * if (input.contains(DOWN_VALUE)) { impulsoY += 100f; }
 		 */
-		if (input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) {
+//		if (input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) {
 			fuerzaGravedad(impulsoX);
-		}
+//		}
 
-		if ((input.contains(JUMP_VALUE)) && !isOnAir) {
-			isOnAir = true;
+		if ((input.contains(JUMP_VALUE)) && !monkey.isOnAir()) {
+			monkey.setOnAir(true);
 			impulsoY = -100f;
 			jumpAnimationAction.playFromStart();
 			System.out.println("salto");
-			cuerpo.setMoving(true, 3);
+			monkey.setMoving(true, Direction.UP);
 		}
 	}
 

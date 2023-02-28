@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import dad.CoreJuego.Elementos.GamePrueba;
+import dad.CoreJuego.Elementos.MonkeyGame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,7 +15,7 @@ public class GameController implements Initializable {
 
 	// logic
 
-	private GamePrueba game;
+	private MonkeyGame game;
 
 	// view
 
@@ -37,7 +37,7 @@ public class GameController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		game = new GamePrueba(canvas);
+		game = new MonkeyGame(canvas);
 		// game.fpsProperty().addListener((o, ov, nv) -> System.out.println(nv +
 		// "fps"));
 		game.start();

@@ -26,7 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import dad.CoreJuego.Elementos.Entity;
 import dad.CoreJuego.Elementos.Game;
-import dad.CoreJuego.animation.AnimationPixel;
+import dad.CoreJuego.animation.Animation;
 
 //TODO
 
@@ -43,7 +43,7 @@ public class LayerAnimFuego extends Entity {
 	
 	ArrayList<ImageView> tileX = new ArrayList<ImageView>();
 	
-	AnimationPixel animacion;
+	Animation animacion;
 	private static final long ANIMATION_SPEED = 90000000; 
 	
 	public LayerAnimFuego(Game game, float posX, float posY) {
@@ -51,7 +51,7 @@ public class LayerAnimFuego extends Entity {
 		
 		// Elementos del personaje
 		
-		animacion = new AnimationPixel(ANIMATION_SPEED, "objetosMapa/Fire_Animation_32x32x8f.png", 32, 32, 8);
+		animacion = new Animation(ANIMATION_SPEED, "objetosMapa/Fire_Animation_32x32x8f.png", 32, 32, 8);
 		
 		this.x = posX;
 		this.y = posY;

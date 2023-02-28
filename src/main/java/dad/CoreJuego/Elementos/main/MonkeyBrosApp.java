@@ -2,6 +2,7 @@ package dad.CoreJuego.Elementos.main;
 
 import java.util.Properties;
 
+import dad.CoreJuego.Controllers.game.GameController;
 import dad.CoreJuego.Controllers.menu.RootMenuController;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -26,6 +27,7 @@ public class MonkeyBrosApp extends Application {
 	// requiere que primaryStage no sea nulo, debido a que se usa para modificar el tamaño de
 	// la ventana en el initialize() del rootController
 	private RootMenuController controller;
+	private GameController game;
 
 	
 	
@@ -39,24 +41,16 @@ public class MonkeyBrosApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		MonkeyBrosApp.primaryStage = primaryStage;
-		controller = new RootMenuController();
-		scene = new Scene(controller.getView());
+//		controller = new RootMenuController();
+//		scene = new Scene(controller.getView());
+		
+		game = new GameController();
+		scene = new Scene(game.getView());
 
 		primaryStage.setScene(scene); 
 		primaryStage.setTitle("MonkeyBros");
 		primaryStage.setResizable(false);
-		// primaryStage.getIcons().add(new
-		// Image(MonkeyBrosApp.class.getResourceAsStream("/images/calendar-16x16.png")));
 		primaryStage.show();
 	}
 
-	/**
-	 * Se le pasa la clase por parametros a @see Lanzador#main(String[]) 
-	 * 
-	 * @param args
-	 */
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
 }

@@ -17,8 +17,10 @@ import javafx.collections.ObservableSet;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCode;
+
 /**
  * Se encarga de pintar el juego
+ * 
  * @author Fran
  *
  */
@@ -36,11 +38,13 @@ public abstract class Game extends AnimationTimer {
 	private float timeDifference; // in seconds
 	private GraphicsContext graphicsContext;
 	private Physics physics = new Physics();
-/**
- * constructor que Inicializa el mundo, canvas y las dimesiones de este con @see #init()
- * 
- * @param canvas Es el lienzo de javafx
- */
+
+	/**
+	 * constructor que Inicializa el mundo, canvas y las dimesiones de este con @see
+	 * #init()
+	 * 
+	 * @param canvas Es el lienzo de javafx
+	 */
 	public Game(Canvas canvas) {
 
 		graphicsContext = canvas.getGraphicsContext2D();
@@ -49,25 +53,25 @@ public abstract class Game extends AnimationTimer {
 		canvas.setOnKeyReleased(e -> input.remove(e.getCode()));
 		canvas.setFocusTraversable(true);
 		canvas.requestFocus();
-		
+
 		int widthRes = 1080;
 		int heightRes = 720;
-		
+
 		try {
 			Resolucion res = Resolucion.valueOf(MonkeyBrosApp.properties.getProperty("resolucion"));
 			widthRes = res.getWidth();
 			heightRes = res.getHeight();
-		} catch(Exception e) {
+		} catch (Exception e) {
 		}
 		canvas.setWidth(widthRes);
 		canvas.setHeight(heightRes);
 		width.bind(canvas.widthProperty());
 		height.bind(canvas.heightProperty());
-		
- 
+
 		init();
 
 	}
+
 	/**
 	 * Inicializa todo
 	 */
@@ -78,6 +82,7 @@ public abstract class Game extends AnimationTimer {
 	 * @param input
 	 */
 	protected abstract void processInput(Set<KeyCode> input);
+
 	/**
 	 * Crea un contador
 	 */
@@ -90,7 +95,7 @@ public abstract class Game extends AnimationTimer {
 	/**
 	 * Se encarga del loop del juego
 	 * 
-	 * @param currentNanoTime El fps actual 
+	 * @param currentNanoTime El fps actual
 	 */
 	public void handle(long currentNanoTime) {
 		timeDifference = (currentNanoTime - lastNanoTime);
@@ -123,6 +128,7 @@ public abstract class Game extends AnimationTimer {
 
 	/**
 	 * Limpia los gráficos generados
+	 * 
 	 * @param gc Los gráficos generados
 	 */
 	protected void render(GraphicsContext gc) {
@@ -209,12 +215,13 @@ public abstract class Game extends AnimationTimer {
 	public final ObservableSet<KeyCode> getInput() {
 		return this.inputProperty().get();
 	}
-/**
- * 
- * @return Te devuelve físicas
- */
+
+	/**
+	 * 
+	 * @return Te devuelve físicas
+	 */
 	public Physics getPhysics() {
 		return physics;
 	}
-	
+
 }

@@ -25,7 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import dad.CoreJuego.Elementos.Entity;
 import dad.CoreJuego.Elementos.Game;
-import dad.CoreJuego.animation.AnimationPixel;
+import dad.CoreJuego.animation.Animation;
 
 //TODO
 
@@ -42,12 +42,12 @@ public class LayerAnimPlatanos2 extends Entity {
 	
 	ArrayList<ImageView> tileX = new ArrayList<ImageView>();
 	
-	AnimationPixel animacion;
+	Animation animacion;
 	private static final long ANIMATION_SPEED = 90000000; 
 	
 	public LayerAnimPlatanos2(Game game) {
 		super(game);
-		animacion = new AnimationPixel(ANIMATION_SPEED, "objetosMapa/BananaBundle_Animation_32x32x10f.png", 32, 32, 10);
+		animacion = new Animation(ANIMATION_SPEED, "objetosMapa/BananaBundle_Animation_32x32x10f.png", 32, 32, 10);
 		try {
 	  		  map = new TMXMapReader().readMap(getClass().getResource("/map/MapaDefinitivo.tmx"));
 	  		  int i = 0;
