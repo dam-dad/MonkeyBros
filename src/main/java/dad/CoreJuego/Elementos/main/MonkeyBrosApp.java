@@ -41,11 +41,11 @@ public class MonkeyBrosApp extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		MonkeyBrosApp.primaryStage = primaryStage;
-//		controller = new RootMenuController();
-//		scene = new Scene(controller.getView());
+		controller = new RootMenuController();
+		scene = new Scene(controller.getView());
 		
-		game = new GameController();
-		scene = new Scene(game.getView());
+//		game = new GameController();
+//		scene = new Scene(game.getView());
 
 		primaryStage.setScene(scene); 
 		primaryStage.setTitle("MonkeyBros");

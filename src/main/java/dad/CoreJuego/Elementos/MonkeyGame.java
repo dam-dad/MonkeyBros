@@ -109,7 +109,7 @@ public class MonkeyGame extends Game {
 		}
 
 		monkey = new Monkey(this, 1, 1);
-		monkey.setOnAir(true);		
+		monkey.setOnAir(false);		
 
 		Map map;
 		try {
@@ -179,10 +179,10 @@ public class MonkeyGame extends Game {
 	 * @param y la posicion en el eje y que recibe respecto al salto
 	 */
 
-	/*
-	 * public void impulsoVertical(float x, float y) { vector = new Vec2(x, y);
-	 * cuerpo.body.applyForceToCenter(vector); }
-	 */
+	
+	  public void impulsoVertical(float x, float y) { 
+	  monkey.getBody().applyForceToCenter( new Vec2(x, y)); }
+	 
 
 	/**
 	 * 
@@ -215,7 +215,9 @@ public class MonkeyGame extends Game {
 //		if (input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) {
 			fuerzaGravedad(impulsoX);
 //		}
-
+			if ((input.contains(UP_VALUE) || input.contains(JUMP_VALUE) && monkey.isOnAir()) || input.contains(DOWN_VALUE)) {
+            impulsoVertical(impulsoX, impulsoY);
+			}
 		if ((input.contains(JUMP_VALUE)) && !monkey.isOnAir()) {
 			monkey.setOnAir(true);
 			impulsoY = -100f;

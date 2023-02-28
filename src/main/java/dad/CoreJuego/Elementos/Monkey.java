@@ -11,6 +11,7 @@ import org.jbox2d.dynamics.World;
 
 import dad.CoreJuego.animation.Animation;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Se encarga de crear el personaje
@@ -25,6 +26,10 @@ public class Monkey extends Entity {
 
 	private boolean isOnAir;
 	private Body body;
+	public Body getBody() {
+		return body;
+	}
+
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
 	private Animation animationIdle, animationRun, animationJump, actualAnimation;
@@ -70,7 +75,7 @@ public class Monkey extends Entity {
 
 		// define shape of the body.
 		PolygonShape box = new PolygonShape();
-		box.setAsBox(width / 2, height / 2);
+		box.setAsBox(width /2 , height /2 );
 
 		// define fixture of the body.
 		FixtureDef fd = new FixtureDef();
@@ -79,7 +84,7 @@ public class Monkey extends Entity {
 
 		// mass 
 		MassData massData = new MassData();
-		massData.mass = 50.0f;
+		massData.mass = 0.5f;
 
 		// create the body and add fixture to it
 		body = world.createBody(bd);
@@ -97,7 +102,8 @@ public class Monkey extends Entity {
 	public void render(GraphicsContext gc) {
 
 		gc.drawImage(actualAnimation.getCurrentFrame(), x, y);
-
+		gc.setFill(Color.BLACK);
+		gc.fillRect(x, y, width * 10, height * 10);
 	}
 
 	public void move(Vec2 vector) {
