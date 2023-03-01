@@ -11,6 +11,7 @@ import org.jbox2d.dynamics.World;
 
 import dad.CoreJuego.animation.Animation;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 /**
  * Se encarga de crear el personaje
@@ -43,8 +44,8 @@ public class Monkey extends Entity {
 		this.y = posY;
 
 		// variables of character size
-		this.width = 5f;
-		this.height = 5f;
+		this.width = 54f;
+		this.height = 54f;
 
 		// Animaciones
 		animationIdle = new Animation(ANIMATION_SPEED, "animacionesMono/Idle_Animation48x54x22f.png", 48, 54, 22);
@@ -65,17 +66,17 @@ public class Monkey extends Entity {
 		// The complete code snippet would look like:
 		// body definition
 		BodyDef bd = new BodyDef();
-		bd.position.set(x, y);
+		bd.position.set(x / scale, y / scale);
 		bd.type = BodyType.DYNAMIC;
 
 		// define shape of the body.
 		PolygonShape box = new PolygonShape();
-		box.setAsBox(width / 2, height / 2);
+		box.setAsBox((width / scale) / 2.0f, (height / scale) / 2.0f);
 
 		// define fixture of the body.
 		FixtureDef fd = new FixtureDef();
 		fd.shape = box;
-		fd.friction = 20f;
+		fd.friction = 0.15f;
 
 		// mass 
 		MassData massData = new MassData();
@@ -97,6 +98,9 @@ public class Monkey extends Entity {
 	public void render(GraphicsContext gc) {
 
 		gc.drawImage(actualAnimation.getCurrentFrame(), x, y);
+		
+		gc.setFill(Color.YELLOW);
+		gc.rect(x, y, width, height);
 
 	}
 
@@ -114,8 +118,8 @@ public class Monkey extends Entity {
 	 */
 	@Override
 	public void update(float timeDifference) {
-		x = body.getPosition().x;
-		y = body.getPosition().y;
+		x = body.getPosition().x * scale;
+		y = body.getPosition().y * scale;
 
 		if (moving == false) {
 			actualAnimation = animationIdle;
@@ -139,6 +143,7 @@ public class Monkey extends Entity {
 	 * @param direction   Es codigó generado en base al keyEvent(acción) del personaje
 	 */
 	public void setMoving(boolean moving, Direction direction) {
+		System.out.println("moving " + direction);
 		this.moving = moving;
 		this.direction = direction;
 	}

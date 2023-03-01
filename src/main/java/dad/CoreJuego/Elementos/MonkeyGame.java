@@ -158,7 +158,7 @@ public class MonkeyGame extends Game {
 	 * @param x posicion del personaje en el canvas y mundo
 	 */
 
-	public void fuerzaGravedad(float x) {
+//	public void fuerzaGravedad(float x) {
 //		float jumpStartTime = System.nanoTime() / 1000000000f;
 //		final float JUMP_FORCE = 20f;
 //		final float MAX_JUMP_DURATION = 0.3f;
@@ -167,10 +167,10 @@ public class MonkeyGame extends Game {
 //		if (jumpDuration < MAX_JUMP_DURATION) {
 //			float jumpForce = JUMP_FORCE * (1 - jumpDuration / MAX_JUMP_DURATION);
 //			System.out.println(jumpForce);
-		System.out.println("flotando = " + monkey.isOnAir());
-		monkey.applyForce(x, monkey.isOnAir() ? -100.0f : 0f);
+//		System.out.println("flotando = " + monkey.isOnAir());
+//		monkey.applyForce(x, monkey.isOnAir() ? -100.0f : 0f);
 //		}
-	}
+//	}
 
 	/**
 	 * Metodo Usado para saltar
@@ -200,29 +200,36 @@ public class MonkeyGame extends Game {
 
 		if (input.contains(RIGHT_VALUE)) {
 			impulsoX += 100f;
+			monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
 		} 
-		monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
 
 		if (input.contains(LEFT_VALUE)) {
 			impulsoX -= 100f;
+			monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
 		}
-		monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
+		
+		if (input.contains(UP_VALUE)) {
+			impulsoY -= 5000f;
+			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
+		}
+
+		monkey.applyForce(impulsoX, impulsoY);
 		
 		
 		/*
 		 * if (input.contains(DOWN_VALUE)) { impulsoY += 100f; }
 		 */
 //		if (input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) {
-			fuerzaGravedad(impulsoX);
+//			fuerzaGravedad(impulsoX);
 //		}
 
-		if ((input.contains(JUMP_VALUE)) && !monkey.isOnAir()) {
-			monkey.setOnAir(true);
-			impulsoY = -100f;
-			jumpAnimationAction.playFromStart();
-			System.out.println("salto");
-			monkey.setMoving(true, Direction.UP);
-		}
+//		if ((input.contains(JUMP_VALUE)) && !monkey.isOnAir()) {
+//			monkey.setOnAir(true);
+//			impulsoY = -100f;
+//			jumpAnimationAction.playFromStart();
+//			System.out.println("salto");
+//			monkey.setMoving(true, Direction.UP);
+//		}
 	}
 
 	public void setProperties(Properties properties) {

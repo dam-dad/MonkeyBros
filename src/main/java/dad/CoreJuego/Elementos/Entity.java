@@ -13,7 +13,8 @@ public abstract  class Entity {
 	private Game game;
 	protected float x, y;
 	protected float width, height;
-	protected double scale = 1.0f;
+	
+	protected float scale = 20.0f; // px/m
 	
 	/**
 	 * 
@@ -22,20 +23,8 @@ public abstract  class Entity {
 	public Entity(Game game) {
 		this.game = game;		
 	}
-	/**
-	 * 
-	 * @param scale Le pasas la escala al mundo
-	 */
-	public void setScale(double scale) {
-		this.scale = scale;
-	}
-	/**
-	 * 
-	 * @return Devuelve la escala al mundo
-	 */
-	public double getScale() {
-		return scale;
-	}
+
+
 	/**
 	 * 
 	 * @return Devuelve la escena del juego

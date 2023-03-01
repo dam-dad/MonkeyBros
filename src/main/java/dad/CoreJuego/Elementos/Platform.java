@@ -39,10 +39,10 @@ public class Platform extends Entity {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
-		bodyDef.position.set(x, y);
+		bodyDef.position.set(x / scale, y / scale);
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(width / 2f, height / 2f);
+		shape.setAsBox((width / scale) / 2f, (height / scale) / 2f);
 
 		body = world.createBody(bodyDef);
 		body.createFixture(shape, 0.0f);
