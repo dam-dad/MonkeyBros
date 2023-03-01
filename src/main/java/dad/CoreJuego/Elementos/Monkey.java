@@ -76,7 +76,7 @@ public class Monkey extends Entity {
 		// define fixture of the body.
 		FixtureDef fd = new FixtureDef();
 		fd.shape = box;
-		fd.friction = 0.15f;
+		fd.friction = 0.1f;
 
 		// mass 
 		MassData massData = new MassData();
@@ -143,7 +143,6 @@ public class Monkey extends Entity {
 	 * @param direction   Es codigó generado en base al keyEvent(acción) del personaje
 	 */
 	public void setMoving(boolean moving, Direction direction) {
-		System.out.println("moving " + direction);
 		this.moving = moving;
 		this.direction = direction;
 	}
@@ -158,6 +157,10 @@ public class Monkey extends Entity {
 	
 	public void setOnAir(boolean isOnAir) {
 		this.isOnAir = isOnAir;
+	}
+	
+	public Body getBody() {
+		return body;
 	}
 
 }

@@ -119,7 +119,7 @@ public class MonkeyGame extends Game {
 		}
 		
 		getEntities().addAll(
-//				new LayerBackground(this), 
+				new LayerBackground(this), 
 				new CollisionsLayer(this, map), 
 //				new LayerEscaleras(this),
 //				new Floor(this, 0, getHeight() - 600f, getWidth(), 2), 
@@ -138,8 +138,7 @@ public class MonkeyGame extends Game {
 				if ((userDataA instanceof Monkey && userDataB instanceof Platform) ||
 					(userDataB instanceof Monkey && userDataA instanceof Platform)) {
 					
-					monkey.setOnAir(false);
-					System.out.println("suelo");
+					monkey.setOnAir(true);
 					
 				} 
 
@@ -199,22 +198,44 @@ public class MonkeyGame extends Game {
 		float impulsoY = 0f;
 
 		if (input.contains(RIGHT_VALUE)) {
-			impulsoX += 100f;
+			impulsoX += 2f;
 			monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
+
 		} 
 
 		if (input.contains(LEFT_VALUE)) {
-			impulsoX -= 100f;
+			impulsoX -= 2f;
 			monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
+
 		}
 		
-		if (input.contains(UP_VALUE)) {
-			impulsoY -= 5000f;
+
+//		if(input.contains(UP_VALUE) && monkey.isOnAir() == true && !((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)))) {
+//			impulsoY -= 500f;
+//			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
+//			monkey.getBody().applyForce(new Vec2(1000, impulsoY), new Vec2(0,0));
+//			monkey.setOnAir(false);
+//		}
+		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(RIGHT_VALUE)) {
+			impulsoY -= 3500f;
 			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
+			monkey.getBody().applyForce(new Vec2(1000, impulsoY), new Vec2(0,0));
+			monkey.setOnAir(false);
+		}
+		
+		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(LEFT_VALUE)) {
+			impulsoY -= 3500f;
+			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
+			monkey.getBody().applyForce(new Vec2(-1000, impulsoY), new Vec2(0,0));
+			monkey.setOnAir(false);
 		}
 
-		monkey.applyForce(impulsoX, impulsoY);
 		
+	if((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
+		monkey.getBody().setLinearVelocity(new Vec2(impulsoX, 0)); 
+	}
+//		monkey.getBody().applyLinearImpulse(new Vec2(impulsoX, impulsoY), new Vec2(0,0)); 
+		//monkey.applyForce(impulsoX, impulsoY);
 		
 		/*
 		 * if (input.contains(DOWN_VALUE)) { impulsoY += 100f; }
