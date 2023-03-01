@@ -24,8 +24,13 @@ public class Monkey extends Entity {
 	private static final float ANIMATION_SPEED = 70000000;
 	private static final float ANIMATION_SPEED_RUN = 35000000;
 
+	
+	private boolean respo=false;
 	private boolean isOnAir;
+	private BodyDef bd;
 	private Body body;
+	private Body bodyAnt;
+	private World world;
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
 	private Animation animationIdle, animationRun, animationJump, actualAnimation;
@@ -63,9 +68,11 @@ public class Monkey extends Entity {
 	@Override
 	protected void initBody(World world) {
 
+		this.world=world;
+		
 		// The complete code snippet would look like:
 		// body definition
-		BodyDef bd = new BodyDef();
+		bd = new BodyDef();
 		bd.position.set(x / scale, y / scale);
 		bd.type = BodyType.DYNAMIC;
 
@@ -118,20 +125,32 @@ public class Monkey extends Entity {
 	 */
 	@Override
 	public void update(float timeDifference) {
-		x = body.getPosition().x * scale;
-		y = body.getPosition().y * scale;
-
-		if (moving == false) {
-			actualAnimation = animationIdle;
-		} else {
-			switch (direction) {
-				case RIGHT: actualAnimation = animationRun; break;
-				case LEFT: actualAnimation = animationRun; break;
-				case UP: actualAnimation = animationJump; break;
-				case DOWN: /* TODO */ break;
-			}
+		
+		if(respo) {
+		
+			respawn();
+			respo=false;
 		}
-		actualAnimation.update(timeDifference);
+		try {
+			x = body.getPosition().x * scale;
+			y = body.getPosition().y * scale;
+
+			if (moving == false) {
+				actualAnimation = animationIdle;
+			} else {
+				switch (direction) {
+					case RIGHT: actualAnimation = animationRun; break;
+					case LEFT: actualAnimation = animationRun; break;
+					case UP: actualAnimation = animationJump; break;
+					case DOWN: /* TODO */ break;
+				}
+			}
+			actualAnimation.update(timeDifference);
+		} catch (Exception e) {
+			//respawn();
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -163,4 +182,32 @@ public class Monkey extends Entity {
 		return body;
 	}
 
+	public void respawn() {
+		
+		respo=true;
+		
+		bodyAnt=body;
+		
+		bd = new BodyDef();
+		bd.position.set(1,1);
+		bd.type = BodyType.DYNAMIC;
+
+		// define shape of the body.
+		PolygonShape box = new PolygonShape();
+		box.setAsBox((width / scale) / 2.0f, (height / scale) / 2.0f);
+
+		// define fixture of the body.
+		FixtureDef fd = new FixtureDef();
+		fd.shape = box;
+		fd.friction = 0.1f;
+
+		body = world.createBody(bd);
+		body.createFixture(fd);
+		
+		// Volver a colocar al personaje en el mundo del juego
+		getGame().getEntities().set(3, this);
+		getGame().getGraphicsContext().drawImage(actualAnimation.getCurrentFrame(), 1, 1);
+		getGame().getPhysics().getWorld().destroyBody(bodyAnt);
+	}
+	
 }
