@@ -224,4 +224,7 @@ public abstract class Game extends AnimationTimer {
 		return physics;
 	}
 
+	public GraphicsContext getGraphicsContext() {
+		return graphicsContext;
+	}
 }

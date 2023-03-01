@@ -14,8 +14,6 @@ import org.mapeditor.io.TMXMapReader;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.mapaEntidades.CollisionsLayer;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
-import dad.CoreJuego.mapaEntidades.LayerColisiones;
-import dad.CoreJuego.mapaEntidades.LayerEscaleras;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.canvas.Canvas;
@@ -122,7 +120,7 @@ public class MonkeyGame extends Game {
 				new LayerBackground(this), 
 				new CollisionsLayer(this, map), 
 //				new LayerEscaleras(this),
-//				new Floor(this, 0, getHeight() - 600f, getWidth(), 2), 
+				new Floor(this, 0, getHeight() - 250f, getWidth(), 2), 
 //				new LayerColisiones(this), 
 				monkey
 		);
@@ -139,7 +137,12 @@ public class MonkeyGame extends Game {
 					(userDataB instanceof Monkey && userDataA instanceof Platform)) {
 					
 					monkey.setOnAir(true);
-					
+				} 
+
+				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
+					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
+					System.out.println("suelo");
+					monkey.respawn();
 				} 
 
 			}
