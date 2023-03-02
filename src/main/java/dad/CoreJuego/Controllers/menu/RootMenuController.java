@@ -81,6 +81,9 @@ public class RootMenuController implements Initializable {
 		Media media = new Media(getClass().getResource("/audio/Bonus Room Blitz Restored to HD.mp3").toExternalForm());
 		mediaplayer = new MediaPlayer(media);
 		mediaplayer.setVolume(100.0);
+		if(MonkeyBrosApp.mediaPlayerMusica != null) {
+			MonkeyBrosApp.mediaPlayerMusica.dispose();
+		}
 		MonkeyBrosApp.mediaPlayerMusica = mediaplayer;
 		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);
 
@@ -223,6 +226,7 @@ public class RootMenuController implements Initializable {
 	void onJugarClickAction(MouseEvent event) throws IOException {
 		jugarMenuController = new JugarMenuController();
 		jugarMenuController.setAnteriorView(view);
+		jugarMenuController.setProperties(properties);
 		MonkeyBrosApp.scene.setRoot(jugarMenuController.getView());
 		// https://stackoverflow.com/questions/37106379/why-doesnt-my-scene-pop-up-when-changing-scenes-javafx
 	}

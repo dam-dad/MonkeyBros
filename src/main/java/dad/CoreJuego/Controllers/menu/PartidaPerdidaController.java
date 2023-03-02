@@ -12,6 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 // Gestión de la escena del menú de Juego
 public class PartidaPerdidaController implements Initializable {
@@ -24,6 +26,9 @@ public class PartidaPerdidaController implements Initializable {
 	private BorderPane view;
 	
 	private BorderPane anteriorView;
+	
+	// MediaPlayer
+	MediaPlayer mediaplayer;
 
 	// controller
 	GameController gameController;
@@ -63,6 +68,12 @@ public class PartidaPerdidaController implements Initializable {
 	@FXML
     void volverAlMenuClickAction(MouseEvent event) {
 		RootMenuController rootMenuController = new RootMenuController();
+		Media media = new Media(getClass().getResource("/audio/Bonus Room Blitz Restored to HD.mp3").toExternalForm());
+		mediaplayer = new MediaPlayer(media);
+		double volumen = MonkeyBrosApp.mediaPlayerMusica.getVolume();
+		MonkeyBrosApp.mediaPlayerMusica = mediaplayer;
+		MonkeyBrosApp.mediaPlayerMusica.setVolume(volumen);
+		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);
 		MonkeyBrosApp.scene.setRoot(rootMenuController.getView());
     }
 

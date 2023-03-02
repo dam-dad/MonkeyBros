@@ -2,6 +2,7 @@ package dad.CoreJuego.Controllers.menu;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import dad.CoreJuego.Controllers.game.GameController;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 // Gestión de la escena del menú de Juego
 public class JugarMenuController implements Initializable {
@@ -31,6 +34,12 @@ public class JugarMenuController implements Initializable {
 	private BorderPane view;
 
 	private BorderPane anteriorView;
+	
+	private Properties properties;
+	
+	// MediaPlayer
+	
+	private MediaPlayer mediaplayer;
 
 	// controller
 	GameController gameController;
@@ -53,6 +62,10 @@ public class JugarMenuController implements Initializable {
 	public BorderPane getAnteriorView() {
 		return anteriorView;
 	}
+	
+	public void setProperties(Properties properties) {
+		this.properties = properties;
+	}
 
 	public void setAnteriorView(BorderPane anteriorView) {
 		this.anteriorView = anteriorView;
@@ -71,9 +84,23 @@ public class JugarMenuController implements Initializable {
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
 
+	
+	/**
+	 * Al empezar la partida cambia la vista de la escena a el juego <br>
+	 * y cambia la música de fondo con el volumen establecido por <br>
+	 * las propiedades
+	 * @param event
+	 */
 	@FXML
 	void onEmpezarPartidaClickAction(MouseEvent event) {
 		gameController = new GameController();
+		Media media = new Media(getClass().getResource("/audio/Jungle Groove Restored to HD - 128.mp3").toExternalForm());
+		mediaplayer = new MediaPlayer(media);
+		double volumen = MonkeyBrosApp.mediaPlayerMusica.getVolume();
+		MonkeyBrosApp.mediaPlayerMusica.dispose();
+		MonkeyBrosApp.mediaPlayerMusica = mediaplayer;
+		MonkeyBrosApp.mediaPlayerMusica.setVolume(volumen);
+		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);
 		MonkeyBrosApp.scene.setRoot(gameController.getView());
 	}
 
