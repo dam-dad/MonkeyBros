@@ -43,7 +43,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
  * Clase que implementa la vista que mas tarde imprimira el diploma en
  * JasperReport
  * 
- * @author David Alejandro
+ * @author David Alejandro Hernández Alonso
  *
  */
 
@@ -220,6 +220,13 @@ public class DiplomaMenuController implements Initializable {
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
 
+	/**
+	 * Metodo que recoge el elemento seleccionado de la lista de los registro de los jugadores y genera un diploma 
+	 * en formato PDF con los datos usados como parametros dentro del diploma
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onGenerarDiplomaAction(MouseEvent event) {
 		try {

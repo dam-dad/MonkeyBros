@@ -22,7 +22,7 @@ import javafx.scene.layout.GridPane;
  * 
  * Clase que maneja la vista del sonido
  * 
- * @author David Alejandro
+ * @author David Alejandro Hernández Alonso
  *
  */
 
@@ -60,7 +60,7 @@ public class SonidoGridPane extends GridPane implements Initializable {
 	private Properties properties = new Properties();
 
 	/**
-	 * metodo que Inicializa y carga la vista con sus propiedades y elementos
+	 * metodo que Inicializa con sus propiedades y elementos
 	 * 
 	 * @param location recibe la localizacion de la vista
 	 * @param resources recibe los recursos del proyecto
@@ -91,6 +91,10 @@ public class SonidoGridPane extends GridPane implements Initializable {
 //		});
 	}
 
+	/**
+	 * Metodo que carga la vista
+	 */
+	
 	public SonidoGridPane() {
 		super();
 
@@ -182,7 +186,7 @@ public class SonidoGridPane extends GridPane implements Initializable {
 	/**
 	 * Metodo que actualiza  las propiedades en el fichero
 	 * 
-	 * @param s 
+	 * @param s nombre del valor para modificar
 	 * @param i recibe el int del volumen 
 	 */
 	

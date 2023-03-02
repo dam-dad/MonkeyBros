@@ -32,7 +32,7 @@ public class Physics {
 		physicsTime += dt;
 		if (physicsTime >= 0) {
 			physicsTime -= physicsTimeStep;
-			world.step(physicsTime, velocityIterations, positionIteration);
+			world.step(0.08f, velocityIterations, positionIteration);
 		}
 
 	}

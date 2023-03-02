@@ -24,6 +24,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Clase vista que contiene el menu principal del proyecto
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class RootMenuController implements Initializable {
 
 	// view
@@ -76,6 +84,15 @@ public class RootMenuController implements Initializable {
 
 	private MediaPlayer mediaplayer;
 
+	/**
+	 * Metodo que inicia la vista, la musica, las propiedades y le da un tamaño a la ventana en caso de ser null se le asigna
+	 * una por defecto 
+	 * 
+	 * @exception si el guardado de teclas fallas salta una exception
+	 * @exception si falla la carga de teclas, slata una excepcion
+	 * @throws IOexception
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Media media = new Media(getClass().getResource("/audio/Bonus Room Blitz Restored to HD.mp3").toExternalForm());
@@ -194,7 +211,7 @@ public class RootMenuController implements Initializable {
 	 * 
 	 * @param c El caracter a ingresar en la función
 	 * @return String como clave numérica de teclado del char ingresado
-	 * @author David Alejandro Hernández Alonso
+	 * 
 	 */
 	public String charANombreKeyCode(char c) {
 		return "" + java.awt.event.KeyEvent.getExtendedKeyCodeForChar(c);
@@ -237,7 +254,7 @@ public class RootMenuController implements Initializable {
 	 * escena <br>
 	 * al "submenú" de Highscore y se asignará una vista anterior (anteriorView)
 	 * para <br>
-	 * poder ir hacia el meú anterior.
+	 * poder ir hacia el meú anterior. 
 	 * 
 	 * @param event : El FXMLLoader se encarga de vincular el evento con los
 	 *              componentes <br>

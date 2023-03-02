@@ -15,6 +15,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * 
+ * 
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class OpcionesMenuController implements Initializable {
 
 	// view

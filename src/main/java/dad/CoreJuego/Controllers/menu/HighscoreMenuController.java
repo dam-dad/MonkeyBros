@@ -21,6 +21,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * 
+ * Clase que muestra la escena de los 10 jugadores con mayor puntuacion de la clase @see {@link #globalStat}
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class HighscoreMenuController implements Initializable {
 	
 	// model
@@ -55,6 +63,8 @@ public class HighscoreMenuController implements Initializable {
 	
 	DiplomaMenuController diplomaMenuController;
 	
+	//TODO
+	
 	public HighscoreMenuController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menus/MenuHighscoreView.fxml"));
@@ -66,6 +76,12 @@ public class HighscoreMenuController implements Initializable {
 	}
 	
 
+	/**
+	 * Metodo que prepara la lista para cargar las puntuaciones de la leaderboard de @see {@link #globalStat}
+	 * 
+	 * @throws cambio el texto de un label invisible con informacion de que no esta disponible la Api
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// bindings
@@ -90,7 +106,7 @@ public class HighscoreMenuController implements Initializable {
 		}
 		
 	}
-
+		//TODO
 	public BorderPane getView() {
 		return view;
 	}
@@ -103,10 +119,22 @@ public class HighscoreMenuController implements Initializable {
 		return anteriorView;
 	}
 
+	/**
+	 * Metodo que cambia la vista al menu principal
+	 * 
+	 * @param event
+	 */
+	
 	@FXML
 	void onAtrasClickAction(MouseEvent event) {
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
+	
+	/**
+	 * Metodo que lleva a la vista de Diploma
+	 * 
+	 * @param event
+	 */
 	
 	@FXML
 	void onDiplomaMenuClickAction(MouseEvent event) {

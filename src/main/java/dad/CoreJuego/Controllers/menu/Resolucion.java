@@ -4,7 +4,7 @@ package dad.CoreJuego.Controllers.menu;
  * 
  * clase Enumerada con todas las resoluciones posibles 
  * 
- * @author David Alejandro
+ * @author David Alejandro Hernández Alonso
  *
  */
 
