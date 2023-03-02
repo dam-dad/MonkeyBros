@@ -13,7 +13,8 @@ import org.jbox2d.dynamics.World;
 
 public class Physics {
 
-	private Vec2 gravity = new Vec2(0, 9.8f);
+	private Vec2 gravity = new Vec2(0, 5.8f);
+//	private Vec2 gravity = new Vec2(0, 9.8f);
 	private World world = new World(gravity);
 
 	private float physicsTime = 0.0f;

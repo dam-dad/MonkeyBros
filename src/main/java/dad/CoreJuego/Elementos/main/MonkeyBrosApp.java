@@ -6,6 +6,7 @@ import dad.CoreJuego.Controllers.game.GameController;
 import dad.CoreJuego.Controllers.menu.RootMenuController;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
@@ -49,6 +50,7 @@ public class MonkeyBrosApp extends Application {
 
 		primaryStage.setScene(scene); 
 		primaryStage.setTitle("MonkeyBros");
+		primaryStage.getIcons().add(new Image(MonkeyBrosApp.class.getResourceAsStream("/images/IconoApp/MonkeyBros.png")));
 		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
