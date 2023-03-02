@@ -24,9 +24,7 @@ public class Monkey extends Entity {
 	private static final float ANIMATION_SPEED = 70000000;
 	private static final float ANIMATION_SPEED_RUN = 35000000;
 
-	
-
-	private boolean isOnAir;
+	private boolean onAir, killed;
 	private Body body;
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
@@ -65,8 +63,6 @@ public class Monkey extends Entity {
 	@Override
 	protected void initBody(World world) {
 
-		
-		
 		// The complete code snippet would look like:
 		// body definition
 		BodyDef bd = new BodyDef();
@@ -123,30 +119,24 @@ public class Monkey extends Entity {
 	@Override
 	public void update(float timeDifference) {
 		
-//		if(respo) {
-//		
-//			respawn();
-//			respo=false;
-//		}
-		try {
-			x = body.getPosition().x * scale;
-			y = body.getPosition().y * scale;
-
-			if (moving == false) {
-				actualAnimation = animationIdle;
-			} else {
-				switch (direction) {
-					case RIGHT: actualAnimation = animationRun; break;
-					case LEFT: actualAnimation = animationRun; break;
-					case UP: actualAnimation = animationJump; break;
-					case DOWN: /* TODO */ break;
-				}
-			}
-			actualAnimation.update(timeDifference);
-		} catch (Exception e) {
-			//respawn();
-			e.printStackTrace();
+		if (killed) {
+			respawn();
 		}
+		
+		x = body.getPosition().x * scale;
+		y = body.getPosition().y * scale;
+
+		if (moving == false) {
+			actualAnimation = animationIdle;
+		} else {
+			switch (direction) {
+				case RIGHT: actualAnimation = animationRun; break;
+				case LEFT: actualAnimation = animationRun; break;
+				case UP: actualAnimation = animationJump; break;
+				case DOWN: /* TODO */ break;
+			}
+		}
+		actualAnimation.update(timeDifference);
 		
 	}
 
@@ -168,11 +158,11 @@ public class Monkey extends Entity {
 	}
 	
 	public boolean isOnAir() {
-		return isOnAir;
+		return onAir;
 	}
 	
 	public void setOnAir(boolean isOnAir) {
-		this.isOnAir = isOnAir;
+		this.onAir = isOnAir;
 	}
 	
 	public Body getBody() {
@@ -180,31 +170,26 @@ public class Monkey extends Entity {
 	}
 
 	public void respawn() {
-//		body.setTransform(new Vec2(1,1),0f);
-//		body.setAwake(false);
 				
-		getGame().getPhysics().getWorld().destroyBody(body);
+		System.out.println("resucitando al mono glotón");		
+		killed = false;
 		
-		BodyDef bd = new BodyDef();
-		bd.position.set(1,1);
-		bd.type = BodyType.DYNAMIC;
-
-		// define shape of the body.
-		PolygonShape box = new PolygonShape();
-		box.setAsBox((width / scale) / 2.0f, (height / scale) / 2.0f);
-
-		// define fixture of the body.
-		FixtureDef fd = new FixtureDef();
-		fd.shape = box;
-		fd.friction = 0.1f;
-
-		body = getGame().getPhysics().getWorld().createBody(bd);
-		body.createFixture(fd);
+		x = 1;
+		y = 1;
 		
-		// Volver a colocar al personaje en el mundo del juego
-//		getGame().getEntities().set(3, this);
-//		getGame().getGraphicsContext().drawImage(actualAnimation.getCurrentFrame(), 1, 1);
+		World world = getGame().getPhysics().getWorld();
+		world.destroyBody(body);		
+		initBody(world);
 		
+	}
+	
+	public boolean isKilled() {
+		return killed;
+	}
+
+	public void kill() {
+		System.out.println("muerto");		
+		killed = true;
 	}
 	
 }

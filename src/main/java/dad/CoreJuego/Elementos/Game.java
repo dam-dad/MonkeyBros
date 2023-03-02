@@ -62,6 +62,7 @@ public abstract class Game extends AnimationTimer {
 			widthRes = res.getWidth();
 			heightRes = res.getHeight();
 		} catch (Exception e) {
+//			e.printStackTrace();
 		}
 		canvas.setWidth(widthRes);
 		canvas.setHeight(heightRes);

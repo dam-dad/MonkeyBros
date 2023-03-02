@@ -134,15 +134,13 @@ public class MonkeyGame extends Game {
 				Object userDataB = contact.getFixtureB().getBody().getUserData();
 
 				if ((userDataA instanceof Monkey && userDataB instanceof Platform) ||
-					(userDataB instanceof Monkey && userDataA instanceof Platform)) {
-					
+					(userDataB instanceof Monkey && userDataA instanceof Platform)) {					
 					monkey.setOnAir(true);
 				} 
 
 				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
 					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
-					System.out.println("muerto");
-					monkey.respawn();
+					monkey.kill();
 				} 
 
 			}
