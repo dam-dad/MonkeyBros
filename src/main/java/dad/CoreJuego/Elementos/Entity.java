@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
  * @author Alejandro, Gabriel
  */
 
-public abstract  class Entity {
+public abstract  class Entity{
 	private Game game;
 	protected float x, y;
 	protected float width, height;
@@ -23,7 +23,6 @@ public abstract  class Entity {
 	public Entity(Game game) {
 		this.game = game;		
 	}
-
 
 	/**
 	 * 

@@ -24,6 +24,7 @@ public class Monkey extends Entity {
 	private static final float ANIMATION_SPEED = 70000000;
 	private static final float ANIMATION_SPEED_RUN = 35000000;
 
+	private Life life;
 	private boolean onAir, killed;
 	private Body body;
 	private Boolean moving = false;
@@ -39,6 +40,10 @@ public class Monkey extends Entity {
 	 */
 	public Monkey(Game game, float posX, float posY) {
 		super(game);
+
+		life=new Life(true);
+		life.setLife(3);
+		System.out.println("Tienes "+ life.showLife()+ " vidas");
 
 		this.x = posX;
 		this.y = posY;
@@ -63,6 +68,10 @@ public class Monkey extends Entity {
 	@Override
 	protected void initBody(World world) {
 
+		if (!killed) {
+			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
+		}
+		
 		// The complete code snippet would look like:
 		// body definition
 		BodyDef bd = new BodyDef();
@@ -121,6 +130,9 @@ public class Monkey extends Entity {
 		
 		if (killed) {
 			respawn();
+			life.subtractLife();
+			life.showLife();
+			isGameOver();
 		}
 		
 		x = body.getPosition().x * scale;
@@ -181,6 +193,12 @@ public class Monkey extends Entity {
 		world.destroyBody(body);		
 		initBody(world);
 		
+	}
+	
+	public void isGameOver() {
+		if(life.getLife()==0) {
+			
+		}
 	}
 	
 	public boolean isKilled() {
