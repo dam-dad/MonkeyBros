@@ -55,17 +55,4 @@ public class Life {
 		}
 		return 0;
 	}
-	
-	
-	//Prueba de que funciona la clase
-	public static void main(String[] args) {
-		
-		Life life= new Life(false);
-		
-		life.setLife(1.5);
-		
-		System.out.println(life.showLife());
-		
-	}
-	
 }

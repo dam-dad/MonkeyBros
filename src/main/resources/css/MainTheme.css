@@ -33,6 +33,10 @@
 	-fx-background-repeat: no-repeat;
 }
 
+.tituloGrande{
+	-fx-font-size: 98.0px;
+}
+
 .titulo{
 	-fx-font-size: 68.0px;
 }

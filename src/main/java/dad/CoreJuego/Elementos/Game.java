@@ -53,7 +53,7 @@ public abstract class Game extends AnimationTimer {
 		canvas.setOnKeyReleased(e -> input.remove(e.getCode()));
 		canvas.setFocusTraversable(true);
 		canvas.requestFocus();
-
+		
 		int widthRes = 1080;
 		int heightRes = 720;
 

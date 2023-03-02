@@ -46,8 +46,8 @@ public class SonidoGridPane extends GridPane implements Initializable {
 	@FXML
 	private GridPane view;
 
-	@FXML
-	private Slider volumenSlider;
+//	@FXML
+//	private Slider volumenSlider;
 
 	@FXML
 	private Slider musicaSlider;
@@ -72,7 +72,7 @@ public class SonidoGridPane extends GridPane implements Initializable {
 
 		// bindings
 
-		porcentajeVolumenLabel.textProperty().bind(Bindings.format("%.0f", volumenSlider.valueProperty()).concat("%"));
+//		porcentajeVolumenLabel.textProperty().bind(Bindings.format("%.0f", volumenSlider.valueProperty()).concat("%"));
 		porcentajeMusicaLabel.textProperty().bind(Bindings.format("%.0f", musicaSlider.valueProperty()).concat("%"));
 
 		// listeners
@@ -144,59 +144,31 @@ public class SonidoGridPane extends GridPane implements Initializable {
 	}
 
 	/**
-	 * metodo que carga el volumen 
+	 * Método que carga el volumen.
+	 * Si no se encuentran las properties pone el volumen al 100 por ciento
+	 * por defecto
 	 * 
 	 */
 	
-	public void loadVolumenValue() {
-		int numVolum = 0;
-		try {
-			numVolum = Integer.parseInt(properties.getProperty("volumenAmount"));
-		} catch (Exception e) {
-		}
-		if (numVolum != 0/* && properties.getProperty("volumenAmount") != null */) {
-			volumenSlider.valueProperty().set(numVolum); // valor por defecto
-		} else {
-			volumenSlider.valueProperty().set(100);
-			actualizarProperty("volumenAmount", volumenSlider.valueProperty().intValue());
-		}
-	}
-
-	/**
-	 * metodo que carga el volumen de la musica
-	 */
-	
 	public void loadMusicaValue() {
-		int numMusic = 0;
+		int numMusic = -1;
 		try {
 			numMusic = Integer.parseInt(properties.getProperty("musicaAmount"));
 		} catch (Exception e) {
 		}
-		if (numMusic != 0) {
+		if (numMusic != -1) {
 			musicaSlider.valueProperty().set(numMusic); // valor por defecto
 		} else {
 			musicaSlider.valueProperty().set(100);
-			actualizarProperty("musicaAmount", volumenSlider.valueProperty().intValue());
+			actualizarProperty("musicaAmount", musicaSlider.valueProperty().intValue());
 		}
 	}
 
 	/**
-	 * metodo que recibe las la accion del raton para 
+	 * metodo que se acciona al dejar de presionar el slider
+	 * de la música
 	 * 
 	 * @param event
-	 */
-	
-	@FXML
-	void onVolumenDragExit(MouseEvent event) {
-		if (properties.getProperty("volumenAmount") == null) { // por si cambian el archivo manualmente
-			properties.setProperty("volumenAmount", "100");
-		}
-		actualizarProperty("volumenAmount", volumenSlider.valueProperty().intValue());
-	}
-
-	/**
-	 * TODO
-	 * @param event recibe la entrada de los parametros
 	 */
 	
 	@FXML

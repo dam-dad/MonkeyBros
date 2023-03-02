@@ -22,9 +22,9 @@
       </VBox>
    </left>
    <center>
-      <ImageView fx:id="menuTitulo" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+      <ImageView fx:id="menuTitulo" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
-            <Image url="@../../images/test.png" />
+            <Image url="@../../images/TituloMonkeyBros.png" />
          </image>
       </ImageView>
    </center>

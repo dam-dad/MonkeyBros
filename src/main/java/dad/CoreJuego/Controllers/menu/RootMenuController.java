@@ -64,12 +64,12 @@ public class RootMenuController implements Initializable {
 	// paths
 
 	public static final File RUTA_PDF_FOLDER = new File(
-			System.getProperty("user.home") + File.separator + "MonkeyBros" + File.separator + "pdf");
+			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "pdf");
 	public static final File RUTA_CONFIG_FOLDER = new File(
-			System.getProperty("user.home") + File.separator + "MonkeyBros" + File.separator + "configuracion");
+			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "configuracion");
 	public static final String RUTAFULL = RUTA_CONFIG_FOLDER.getPath() + File.separator + "configuracion.props";
 
-	public static final String RUTA_PLAYER_IDS = System.getProperty("user.home") + File.separator + "MonkeyBros"
+	public static final String RUTA_PLAYER_IDS = System.getProperty("user.home") + File.separator + ".MonkeyBros"
 			+ File.separator + "players" + File.separator + "player_ids.props";
 
 	// audio

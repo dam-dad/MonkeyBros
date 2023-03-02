@@ -9,6 +9,8 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
+import dad.CoreJuego.Controllers.menu.PartidaPerdidaController;
+import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.animation.Animation;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -197,7 +199,8 @@ public class Monkey extends Entity {
 	
 	public void isGameOver() {
 		if(life.getLife()==0) {
-			
+			PartidaPerdidaController partidaPerdidaController = new PartidaPerdidaController();
+			MonkeyBrosApp.scene.setRoot(partidaPerdidaController.getView());
 		}
 	}
 	

@@ -67,7 +67,6 @@ public class OpcionesMenuController implements Initializable {
 
 	public void actualizarSonidoProperties() {
 		sonidoGridPane.setProperties(properties);
-		sonidoGridPane.loadVolumenValue();
 		sonidoGridPane.loadMusicaValue();
 		opcionesLabel.setText("Sonido");
 	}

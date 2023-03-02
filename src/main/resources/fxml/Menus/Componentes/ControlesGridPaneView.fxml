@@ -24,11 +24,11 @@
       <Label fx:id="saltarLabel" text="Saltar" GridPane.rowIndex="2" />
       <Label fx:id="escalarLabel" text="Escalar" GridPane.rowIndex="3" />
       <Label fx:id="bajarLabel" text="Bajar" GridPane.rowIndex="4" />
-      <Label id="keyControl" fx:id="delanteLabelClick" onMouseClicked="#onDelanteClick" text="Label" wrapText="true" GridPane.columnIndex="1" />
-      <Label id="keyControl" fx:id="detrasLabelClick" onMouseClicked="#onDetrasClick" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label id="keyControl" fx:id="saltarLabelClick" onMouseClicked="#onSaltarClick" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label id="keyControl" fx:id="escalarLabelClick" onMouseClicked="#onEscalarClick" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label id="keyControl" fx:id="bajarLabelClick" onMouseClicked="#onBajarClick" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label id="keyControl" fx:id="delanteLabelClick" onMouseClicked="#onDelanteClick" styleClass="label_seleccion" text="Label" wrapText="true" GridPane.columnIndex="1" />
+      <Label id="keyControl" fx:id="detrasLabelClick" onMouseClicked="#onDetrasClick" styleClass="label_seleccion" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label id="keyControl" fx:id="saltarLabelClick" onMouseClicked="#onSaltarClick" styleClass="label_seleccion" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label id="keyControl" fx:id="escalarLabelClick" onMouseClicked="#onEscalarClick" styleClass="label_seleccion" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label id="keyControl" fx:id="bajarLabelClick" onMouseClicked="#onBajarClick" styleClass="label_seleccion" text="Label" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
