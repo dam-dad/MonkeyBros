@@ -69,10 +69,6 @@ public class Monkey extends Entity {
 	 */
 	@Override
 	protected void initBody(World world) {
-
-		if (!killed) {
-			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
-		}
 		
 		// The complete code snippet would look like:
 		// body definition
@@ -133,13 +129,13 @@ public class Monkey extends Entity {
 		if (killed) {
 			respawn();
 			life.subtractLife();
-			life.showLife();
+			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
 			isGameOver();
 		}
 		
 		x = body.getPosition().x * scale;
 		y = body.getPosition().y * scale;
-
+		 
 		if (moving == false) {
 			actualAnimation = animationIdle;
 		} else {
