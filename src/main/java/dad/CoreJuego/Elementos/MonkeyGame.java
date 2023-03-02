@@ -59,9 +59,7 @@ public class MonkeyGame extends Game {
 
 	public MonkeyGame(Canvas canvas) {
 		super(canvas);
-		Camera camera = new PerspectiveCamera(false);
-		camera.setTranslateX(1);
-		camera.setTranslateY(1);
+		
 	}
 
 	/**
@@ -129,6 +127,7 @@ public class MonkeyGame extends Game {
 //				new LayerEscaleras(this),
 				new Floor(this, 0, getHeight(), getWidth(), 2), 
 //				new LayerColisiones(this), 
+				
 				monkey
 		);
 
