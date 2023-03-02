@@ -75,7 +75,7 @@ public class MonkeyGame extends Game {
 		
 		vidas = new SimpleIntegerProperty(0);
 
-		monkey = new Monkey(this, 1, 1);
+		monkey = new Monkey(this, 60, 1);
 		monkey.setOnAir(true);
 		
 		// bindings
@@ -163,37 +163,39 @@ public class MonkeyGame extends Game {
 
 		float impulsoX = 0f;
 		float impulsoY = 0f;
+		
+		float gravity = 4f;
 
 		if (input.contains(RIGHT_VALUE)) {
-			impulsoX += 2f;
+			Platform.xStatic += 3f;
 			monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
 
 		} 
 
 		if (input.contains(LEFT_VALUE)) {
-			impulsoX -= 2f;
+			Platform.xStatic -= 3f;
 			monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
 
 		}
 
 		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(RIGHT_VALUE)) {
-			impulsoY -= 3500f;
+			impulsoY -= 3200f;
 			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
-			monkey.getBody().applyForce(new Vec2(1000, impulsoY), new Vec2(0,0));
+			monkey.getBody().applyForce(new Vec2(0, impulsoY), new Vec2(0,0));
 			monkey.setOnAir(false);
 		}
 		
 		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(LEFT_VALUE)) {
-			impulsoY -= 3500f;
+			impulsoY -= 3200f;
 			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
-			monkey.getBody().applyForce(new Vec2(-1000, impulsoY), new Vec2(0,0));
+			monkey.getBody().applyForce(new Vec2(0, impulsoY), new Vec2(0,0));
 			monkey.setOnAir(false);
 		}
 
 		
-	if((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
-		monkey.getBody().setLinearVelocity(new Vec2(impulsoX, 0)); 
-	}
+		if((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
+			monkey.getBody().setLinearVelocity(new Vec2(impulsoX, gravity)); 
+		}
 	}
 	
 	public void setGlobalStats(GlobalStat globalStats) {

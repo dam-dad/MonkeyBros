@@ -19,6 +19,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Clase que Inicia un menu que ingresa el nombre del jugador y le da la posibilidad de acceder al juego con un boton
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 // Gestión de la escena del menú de Juego
 public class JugarMenuController implements Initializable {
 	// view
@@ -49,6 +56,8 @@ public class JugarMenuController implements Initializable {
 	// controller
 	GameController gameController;
 
+	//TODO
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// https://www.youtube.com/watch?v=aOcow70vqb4
@@ -83,19 +92,22 @@ public class JugarMenuController implements Initializable {
 	public BorderPane getView() {
 		return view;
 	}
-
+/**
+ * 
+ * @param event recibe el evento de raton al darle a un boton
+ */
 	@FXML
 	void onAtrasClickAction(MouseEvent event) {
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
-
 	
 	/**
 	 * Al empezar la partida cambia la vista de la escena a el juego <br>
 	 * y cambia la música de fondo con el volumen establecido por <br>
 	 * las propiedades
-	 * @param event
+	 * @param event recibe el evento de raton al darle a un boton
 	 */
+
 	@FXML
 	void onEmpezarPartidaClickAction(MouseEvent event) {
 		gameController = new GameController();

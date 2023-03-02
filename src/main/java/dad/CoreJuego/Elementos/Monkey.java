@@ -92,7 +92,7 @@ public class Monkey extends Entity {
 
 		// mass 
 		MassData massData = new MassData();
-		massData.mass = 50.0f;
+		massData.mass = 30.0f;
 
 		// create the body and add fixture to it
 		body = world.createBody(bd);

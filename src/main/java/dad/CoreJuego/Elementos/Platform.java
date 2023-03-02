@@ -1,6 +1,7 @@
 package dad.CoreJuego.Elementos;
 
 import org.jbox2d.collision.shapes.PolygonShape;
+import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
@@ -13,6 +14,8 @@ public class Platform extends Entity {
 
 	private Image image;
 	private Body body;
+	
+	public static float xStatic;
 
 	public Platform(Game game, int x, int y, Image image) {
 		super(game);
@@ -26,12 +29,17 @@ public class Platform extends Entity {
 
 	@Override
 	public void render(GraphicsContext gc) {
-		gc.drawImage(image, x, y);
+		gc.drawImage(image, x - xStatic , y);
+		//gc.setFill(Color.PURPLE);
+		//gc.fillRect(x - xStatic , y, 32, 32);
 	}
 
 	@Override
 	public void update(float timeDifference) {
-		// do nothing
+		Vec2 vector = new Vec2((x - xStatic) / scale, y / scale);
+		body.setTransform(vector, 0);
+		//System.out.println(vector);
+		
 	}
 
 	@Override
@@ -39,8 +47,9 @@ public class Platform extends Entity {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
-		bodyDef.position.set(x / scale, y / scale);
-
+		//bodyDef.position.set(x / scale, y / scale);
+		bodyDef.position.set(x /scale, y / scale);
+		
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox((width / scale) / 2f, (height / scale) / 2f);
 

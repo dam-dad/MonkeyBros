@@ -13,7 +13,8 @@ import org.jbox2d.dynamics.World;
 
 public class Physics {
 
-	private Vec2 gravity = new Vec2(0, 9.8f);
+	private Vec2 gravity = new Vec2(0, 5.8f);
+//	private Vec2 gravity = new Vec2(0, 9.8f);
 	private World world = new World(gravity);
 
 	private float physicsTime = 0.0f;
@@ -32,7 +33,7 @@ public class Physics {
 		physicsTime += dt;
 		if (physicsTime >= 0) {
 			physicsTime -= physicsTimeStep;
-			world.step(physicsTime, velocityIterations, positionIteration);
+			world.step(0.08f, velocityIterations, positionIteration);
 		}
 
 	}

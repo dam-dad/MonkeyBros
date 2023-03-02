@@ -13,6 +13,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * Clase que contiene la vista con la que inicia el juego con su Canvas
+ * 
+ * @author Gabriel
+ *
+ */
+
 public class GameController implements Initializable {
 
 	// logic
@@ -32,6 +39,11 @@ public class GameController implements Initializable {
 	@FXML
 	private Canvas canvas;
 
+	/**
+	 * metodo que carga el FXML 
+	 * 
+	 */
+	
 	public GameController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Game/GameView.fxml"));
@@ -42,6 +54,12 @@ public class GameController implements Initializable {
 		}
 	}
 
+	/**
+	 * 
+	 * metodo que inicializa el Canvas y Inicia el loop del Juego
+	 * 
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		game = new MonkeyGame(canvas);
@@ -57,6 +75,12 @@ public class GameController implements Initializable {
 		
 		game.start();
 	}
+
+	/**
+	 * metodo que devuelve la raiz del Juego
+	 * 
+	 * @return view retorna un borderPane
+	 */
 	
 	public BorderPane getView() {
 		return view;
