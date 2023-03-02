@@ -47,10 +47,10 @@ public class Floor extends Entity {
 		
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
-		bodyDef.position.set(x, y);
+		bodyDef.position.set(x/scale, y/scale);
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(width * 2.0f, height * 2.0f);
+		shape.setAsBox((width / scale) / 2.0f, (height / scale) / 2.0f);
 		
 		FixtureDef fd = new FixtureDef();
 		fd.shape = shape;
@@ -78,8 +78,8 @@ public class Floor extends Entity {
      */
 	@Override
 	public void update(float timeDifference) {
-		x = body.getPosition().x;
-		y = body.getPosition().y;
+		x = body.getPosition().x * scale;
+		y = body.getPosition().y * scale;
 	}
 
 }

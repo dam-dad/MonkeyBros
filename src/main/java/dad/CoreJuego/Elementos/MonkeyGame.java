@@ -120,7 +120,7 @@ public class MonkeyGame extends Game {
 				new LayerBackground(this), 
 				new CollisionsLayer(this, map), 
 //				new LayerEscaleras(this),
-				new Floor(this, 0, getHeight() - 250f, getWidth(), 2), 
+				new Floor(this, 0, getHeight(), getWidth(), 2), 
 //				new LayerColisiones(this), 
 				monkey
 		);
@@ -139,11 +139,11 @@ public class MonkeyGame extends Game {
 					monkey.setOnAir(true);
 				} 
 
-//				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
-//					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
-//					System.out.println("suelo");
-//					monkey.respawn();
-//				} 
+				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
+					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
+					System.out.println("muerto");
+					monkey.respawn();
+				} 
 
 			}
 			public void endContact(Contact contact) {}

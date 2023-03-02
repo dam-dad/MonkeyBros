@@ -25,12 +25,9 @@ public class Monkey extends Entity {
 	private static final float ANIMATION_SPEED_RUN = 35000000;
 
 	
-	private boolean respo=false;
+
 	private boolean isOnAir;
-	private BodyDef bd;
 	private Body body;
-	private Body bodyAnt;
-	private World world;
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
 	private Animation animationIdle, animationRun, animationJump, actualAnimation;
@@ -68,11 +65,11 @@ public class Monkey extends Entity {
 	@Override
 	protected void initBody(World world) {
 
-		this.world=world;
+		
 		
 		// The complete code snippet would look like:
 		// body definition
-		bd = new BodyDef();
+		BodyDef bd = new BodyDef();
 		bd.position.set(x / scale, y / scale);
 		bd.type = BodyType.DYNAMIC;
 
@@ -131,7 +128,7 @@ public class Monkey extends Entity {
 //			respawn();
 //			respo=false;
 //		}
-//		try {
+		try {
 			x = body.getPosition().x * scale;
 			y = body.getPosition().y * scale;
 
@@ -146,13 +143,12 @@ public class Monkey extends Entity {
 				}
 			}
 			actualAnimation.update(timeDifference);
-		} 
-//	catch (Exception e) {
-//			//respawn();
-//			e.printStackTrace();
-//		}
+		} catch (Exception e) {
+			//respawn();
+			e.printStackTrace();
+		}
 		
-//	}
+	}
 
 	/**
 	 * 
@@ -184,12 +180,12 @@ public class Monkey extends Entity {
 	}
 
 	public void respawn() {
+//		body.setTransform(new Vec2(1,1),0f);
+//		body.setAwake(false);
+				
+		getGame().getPhysics().getWorld().destroyBody(body);
 		
-		respo=true;
-		
-		bodyAnt=body;
-		
-		bd = new BodyDef();
+		BodyDef bd = new BodyDef();
 		bd.position.set(1,1);
 		bd.type = BodyType.DYNAMIC;
 
@@ -202,13 +198,12 @@ public class Monkey extends Entity {
 		fd.shape = box;
 		fd.friction = 0.1f;
 
-		body = world.createBody(bd);
+		body = getGame().getPhysics().getWorld().createBody(bd);
 		body.createFixture(fd);
 		
 		// Volver a colocar al personaje en el mundo del juego
-		getGame().getEntities().set(3, this);
-		getGame().getGraphicsContext().drawImage(actualAnimation.getCurrentFrame(), 1, 1);
-		getGame().getPhysics().getWorld().destroyBody(bodyAnt);
+//		getGame().getEntities().set(3, this);
+//		getGame().getGraphicsContext().drawImage(actualAnimation.getCurrentFrame(), 1, 1);
 		
 	}
 	
