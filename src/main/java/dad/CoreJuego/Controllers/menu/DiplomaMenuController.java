@@ -186,7 +186,7 @@ public class DiplomaMenuController implements Initializable {
 				} else {
 					String name = globalStat.getUserSection((String) key).getUserRank().getName();
 					int points = globalStat.getUserSection((String) key).getUserRank().getValue();
-					Player p = new Player((String) key, name, points);
+					Player p = new Player(playersProperties.getProperty((String) key), name, points);
 					playerList.add(p);
 				}
 			}
