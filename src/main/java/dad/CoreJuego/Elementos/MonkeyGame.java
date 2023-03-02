@@ -16,6 +16,8 @@ import dad.CoreJuego.mapaEntidades.CollisionsLayer;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.scene.Camera;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 import javafx.util.Duration;
@@ -49,6 +51,9 @@ public class MonkeyGame extends Game {
 
 	public MonkeyGame(Canvas canvas) {
 		super(canvas);
+		Camera camera = new PerspectiveCamera(false);
+		camera.setTranslateX(1);
+		camera.setTranslateY(1);
 	}
 
 	/**
