@@ -139,11 +139,11 @@ public class MonkeyGame extends Game {
 					monkey.setOnAir(true);
 				} 
 
-				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
-					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
-					System.out.println("suelo");
-					monkey.respawn();
-				} 
+//				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
+//					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
+//					System.out.println("suelo");
+//					monkey.respawn();
+//				} 
 
 			}
 			public void endContact(Contact contact) {}

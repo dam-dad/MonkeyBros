@@ -126,12 +126,12 @@ public class Monkey extends Entity {
 	@Override
 	public void update(float timeDifference) {
 		
-		if(respo) {
-		
-			respawn();
-			respo=false;
-		}
-		try {
+//		if(respo) {
+//		
+//			respawn();
+//			respo=false;
+//		}
+//		try {
 			x = body.getPosition().x * scale;
 			y = body.getPosition().y * scale;
 
@@ -146,12 +146,13 @@ public class Monkey extends Entity {
 				}
 			}
 			actualAnimation.update(timeDifference);
-		} catch (Exception e) {
-			//respawn();
-			e.printStackTrace();
-		}
+		} 
+//	catch (Exception e) {
+//			//respawn();
+//			e.printStackTrace();
+//		}
 		
-	}
+//	}
 
 	/**
 	 * 
@@ -208,7 +209,7 @@ public class Monkey extends Entity {
 		getGame().getEntities().set(3, this);
 		getGame().getGraphicsContext().drawImage(actualAnimation.getCurrentFrame(), 1, 1);
 		getGame().getPhysics().getWorld().destroyBody(bodyAnt);
-		System.out.println();
+		
 	}
 	
 }
