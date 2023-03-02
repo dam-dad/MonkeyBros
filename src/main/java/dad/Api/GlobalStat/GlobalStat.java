@@ -62,6 +62,9 @@ public class GlobalStat {
 			prop.setProperty(stats.getId(), stats.getName());
 			prop.store(new FileOutputStream(RootMenuController.RUTA_PLAYER_IDS), "");
 		} catch (FileNotFoundException e) {
+			if(!RootMenuController.RUTA_PLAYERS_FOLDER.exists()) {
+				RootMenuController.RUTA_PLAYERS_FOLDER.mkdir();
+			}
 			prop.setProperty(stats.getId(), stats.getName());
 			prop.store(new FileOutputStream(RootMenuController.RUTA_PLAYER_IDS), "");
 		} catch (IOException e1) {

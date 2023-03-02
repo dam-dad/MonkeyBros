@@ -65,6 +65,8 @@ public class RootMenuController implements Initializable {
 
 	public static final File RUTA_PDF_FOLDER = new File(
 			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "pdf");
+	public static final File RUTA_PLAYERS_FOLDER = new File(
+			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "players");
 	public static final File RUTA_CONFIG_FOLDER = new File(
 			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "configuracion");
 	public static final String RUTAFULL = RUTA_CONFIG_FOLDER.getPath() + File.separator + "configuracion.props";
