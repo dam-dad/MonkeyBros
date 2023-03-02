@@ -12,6 +12,8 @@ import org.jbox2d.dynamics.World;
 import dad.CoreJuego.Controllers.menu.PartidaPerdidaController;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.animation.Animation;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -32,6 +34,9 @@ public class Monkey extends Entity {
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
 	private Animation animationIdle, animationRun, animationJump, actualAnimation;
+	
+	// properties
+	private IntegerProperty vidas = new SimpleIntegerProperty(3);
 
 	/**
 	 * Creación del cuerpo y la carga de animaciones del personaje
@@ -127,6 +132,7 @@ public class Monkey extends Entity {
 	public void update(float timeDifference) {
 		
 		if (killed) {
+			vidas.setValue(vidas.get()-1);
 			respawn();
 			life.subtractLife();
 			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
@@ -207,6 +213,15 @@ public class Monkey extends Entity {
 	public void kill() {
 		System.out.println("muerto");		
 		killed = true;
+	}
+
+	public final IntegerProperty vidasProperty() {
+		return this.vidas;
+	}
+	
+
+	public final int getVidas() {
+		return this.vidasProperty().get();
 	}
 	
 }

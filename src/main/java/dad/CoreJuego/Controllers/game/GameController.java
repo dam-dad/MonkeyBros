@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dad.Api.GlobalStat.GlobalStat;
 import dad.CoreJuego.Elementos.MonkeyGame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 public class GameController implements Initializable {
@@ -16,8 +18,13 @@ public class GameController implements Initializable {
 	// logic
 
 	private MonkeyGame game;
-
+	
+	private GlobalStat globalStats;
+	
 	// view
+	
+	@FXML
+	private Label labelVida;
 
 	@FXML
 	private BorderPane view;
@@ -38,13 +45,25 @@ public class GameController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		game = new MonkeyGame(canvas);
-		// game.fpsProperty().addListener((o, ov, nv) -> System.out.println(nv +
-		// "fps"));
+		
+		// bindings
+		game.vidasProperty().addListener((o, ov, nv) -> {
+			labelVida.setText("Vidas: " + nv);
+		});
+		
+		//set values
+		labelVida.setText("Vidas : " + game.vidasProperty().getValue());
+		
+		
 		game.start();
-
 	}
-
+	
 	public BorderPane getView() {
 		return view;
+	}
+	
+	public void setGlobalStats(GlobalStat globalStats) {
+		this.globalStats = globalStats;
+		game.setGlobalStats(globalStats);
 	}
 }

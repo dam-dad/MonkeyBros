@@ -5,12 +5,14 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import dad.Api.GlobalStat.GlobalStat;
 import dad.CoreJuego.Controllers.game.GameController;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -29,6 +31,9 @@ public class JugarMenuController implements Initializable {
 
 	@FXML
 	private VBox menuOpcionesVBox;
+	
+	@FXML
+	private TextField nombreUsuarioTextField;
 
 	@FXML
 	private BorderPane view;
@@ -102,6 +107,17 @@ public class JugarMenuController implements Initializable {
 		MonkeyBrosApp.mediaPlayerMusica.setVolume(volumen);
 		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);
 		MonkeyBrosApp.scene.setRoot(gameController.getView());
+		
+		if(!nombreUsuarioTextField.getText().isBlank()) {
+			try {
+				GlobalStat globalStat = new GlobalStat();
+				globalStat.createUser(nombreUsuarioTextField.getText());
+				gameController.setGlobalStats(globalStat);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

@@ -52,10 +52,9 @@ public class GlobalStat {
 	public Stats createUser(String nombre) throws Exception {
 		stats = client.createStats(nombre, new HashMap<String, Object>() {{
 			
-			put("Score", 40);
+			put("Score", 0);
 			
 		}});
-		// Si userId es nulo?
 		
 		Properties prop = new Properties();
 		try {

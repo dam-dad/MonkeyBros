@@ -61,16 +61,12 @@ public class PartidaPerdidaController implements Initializable {
 	}
 
 	@FXML
-	void onEmpezarPartidaClickAction(MouseEvent event) {
-		
-	}
-	
-	@FXML
     void volverAlMenuClickAction(MouseEvent event) {
 		RootMenuController rootMenuController = new RootMenuController();
 		Media media = new Media(getClass().getResource("/audio/Bonus Room Blitz Restored to HD.mp3").toExternalForm());
 		mediaplayer = new MediaPlayer(media);
 		double volumen = MonkeyBrosApp.mediaPlayerMusica.getVolume();
+		MonkeyBrosApp.mediaPlayerMusica.dispose();
 		MonkeyBrosApp.mediaPlayerMusica = mediaplayer;
 		MonkeyBrosApp.mediaPlayerMusica.setVolume(volumen);
 		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);

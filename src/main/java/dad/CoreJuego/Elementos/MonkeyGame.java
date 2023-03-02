@@ -11,16 +11,17 @@ import org.jbox2d.dynamics.contacts.Contact;
 import org.mapeditor.core.Map;
 import org.mapeditor.io.TMXMapReader;
 
+import dad.Api.GlobalStat.GlobalStat;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.mapaEntidades.CollisionsLayer;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
 import javafx.animation.Animation;
-import javafx.animation.Transition;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Camera;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
-import javafx.util.Duration;
 
 /**
  * Clase que Inicia el Juego, tanto el canvas como añadir las entidades y recoje
@@ -31,9 +32,16 @@ import javafx.util.Duration;
  */
 
 public class MonkeyGame extends Game {
+	
+	// model
+	
+	private IntegerProperty vidas;
 
 	private Monkey monkey;
 	private Properties properties;
+	
+	// GlobalStats
+	private GlobalStat globalStats;
 
 	/**
 	 * Controles direccionales
@@ -65,17 +73,14 @@ public class MonkeyGame extends Game {
 	@Override
 	protected void init() {
 		
-		jumpAnimationAction = new Transition() {
-			{
-				setCycleDuration(Duration.millis(500));
-			}
+		vidas = new SimpleIntegerProperty(0);
 
-			protected void interpolate(double frac) {
-				if (frac >= 0) {
-					monkey.applyForce(0.0f, (float) frac * 100f);
-				}
-			}
-		};
+		monkey = new Monkey(this, 1, 1);
+		monkey.setOnAir(true);
+		
+		// bindings
+		
+		vidas.bind(monkey.vidasProperty());
 		
 		/**
 		 * Vincular los controles del personaje a las properties cargadas
@@ -110,9 +115,6 @@ public class MonkeyGame extends Game {
 			DOWN_VALUE = KeyCode.DOWN;
 			JUMP_VALUE = KeyCode.SPACE;
 		}
-
-		monkey = new Monkey(this, 1, 1);
-		monkey.setOnAir(true);		
 
 		Map map;
 		try {
@@ -155,47 +157,6 @@ public class MonkeyGame extends Game {
 		});
 	}
 
-	/**
-	 * 
-	 * metodo usado para limitar el movimiento que hace el personaje con un pequeño
-	 * delay
-	 * 
-	 * @param x posicion del personaje en el canvas y mundo
-	 */
-
-//	public void fuerzaGravedad(float x) {
-//		float jumpStartTime = System.nanoTime() / 1000000000f;
-//		final float JUMP_FORCE = 20f;
-//		final float MAX_JUMP_DURATION = 0.3f;
-//
-//		float jumpDuration = System.nanoTime() / 1000000000f - jumpStartTime;
-//		if (jumpDuration < MAX_JUMP_DURATION) {
-//			float jumpForce = JUMP_FORCE * (1 - jumpDuration / MAX_JUMP_DURATION);
-//			System.out.println(jumpForce);
-//		System.out.println("flotando = " + monkey.isOnAir());
-//		monkey.applyForce(x, monkey.isOnAir() ? -100.0f : 0f);
-//		}
-//	}
-
-	/**
-	 * Metodo Usado para saltar
-	 * 
-	 * @param x la posicion en el eje x que recibe respecto al salto
-	 * @param y la posicion en el eje y que recibe respecto al salto
-	 */
-
-	/*
-	 * public void impulsoVertical(float x, float y) { vector = new Vec2(x, y);
-	 * cuerpo.body.applyForceToCenter(vector); }
-	 */
-
-	/**
-	 * 
-	 * metodo usado para recibir y procesar las entradas realizador por el usuario
-	 * reflejando el movimiento y animacion en el canva
-	 * 
-	 * param input KeyCode enviado por el usuario al pulsar una tecla
-	 */
 
 	@Override
 	protected void processInput(Set<KeyCode> input) {
@@ -214,14 +175,7 @@ public class MonkeyGame extends Game {
 			monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
 
 		}
-		
 
-//		if(input.contains(UP_VALUE) && monkey.isOnAir() == true && !((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)))) {
-//			impulsoY -= 500f;
-//			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
-//			monkey.getBody().applyForce(new Vec2(1000, impulsoY), new Vec2(0,0));
-//			monkey.setOnAir(false);
-//		}
 		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(RIGHT_VALUE)) {
 			impulsoY -= 3500f;
 			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
@@ -240,26 +194,21 @@ public class MonkeyGame extends Game {
 	if((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
 		monkey.getBody().setLinearVelocity(new Vec2(impulsoX, 0)); 
 	}
-//		monkey.getBody().applyLinearImpulse(new Vec2(impulsoX, impulsoY), new Vec2(0,0)); 
-		//monkey.applyForce(impulsoX, impulsoY);
-		
-		/*
-		 * if (input.contains(DOWN_VALUE)) { impulsoY += 100f; }
-		 */
-//		if (input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) {
-//			fuerzaGravedad(impulsoX);
-//		}
-
-//		if ((input.contains(JUMP_VALUE)) && !monkey.isOnAir()) {
-//			monkey.setOnAir(true);
-//			impulsoY = -100f;
-//			jumpAnimationAction.playFromStart();
-//			System.out.println("salto");
-//			monkey.setMoving(true, Direction.UP);
-//		}
+	}
+	
+	public void setGlobalStats(GlobalStat globalStats) {
+		this.globalStats = globalStats;
 	}
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
+	}
+
+	public final IntegerProperty vidasProperty() {
+		return this.vidas;
+	}
+	
+	public final int getVidas() {
+		return this.vidasProperty().get();
 	}
 }

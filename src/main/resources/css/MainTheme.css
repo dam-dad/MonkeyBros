@@ -106,12 +106,14 @@
 	-fx-text-fill: white;
 }
 
-
-
 .invalido{
 	-fx-text-fill: #bf0f1e;
 }
 
 .invalido:hover{
 	-fx-text-fill: #bf0f1e;
+}
+
+.label_vida{
+	-fx-text-fill: #c21525;
 }
