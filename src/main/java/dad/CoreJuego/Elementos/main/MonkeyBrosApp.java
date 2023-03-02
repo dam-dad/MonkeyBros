@@ -45,8 +45,9 @@ public class MonkeyBrosApp extends Application {
 //		controller = new RootMenuController();
 //		scene = new Scene(controller.getView());
 		
-		game = new GameController();
-		scene = new Scene(game.getView());
+//		game = new GameController();
+		controller = new RootMenuController();
+		scene = new Scene(controller.getView());
 
 		primaryStage.setScene(scene); 
 		primaryStage.setTitle("MonkeyBros");
