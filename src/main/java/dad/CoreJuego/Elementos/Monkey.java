@@ -208,6 +208,7 @@ public class Monkey extends Entity {
 		getGame().getEntities().set(3, this);
 		getGame().getGraphicsContext().drawImage(actualAnimation.getCurrentFrame(), 1, 1);
 		getGame().getPhysics().getWorld().destroyBody(bodyAnt);
+		System.out.println();
 	}
 	
 }
