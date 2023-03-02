@@ -75,15 +75,12 @@ public class GameController implements Initializable {
 		
 		game.start();
 	}
-<<<<<<< Updated upstream
-=======
 
 	/**
 	 * metodo que devuelve la raiz del Juego
 	 * 
 	 * @return view retorna un borderPane
 	 */
->>>>>>> Stashed changes
 	
 	public BorderPane getView() {
 		return view;

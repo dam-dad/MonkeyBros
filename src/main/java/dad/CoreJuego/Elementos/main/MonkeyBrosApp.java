@@ -2,6 +2,7 @@ package dad.CoreJuego.Elementos.main;
 
 import java.util.Properties;
 
+import dad.CoreJuego.Controllers.game.GameController;
 import dad.CoreJuego.Controllers.menu.RootMenuController;
 import javafx.application.Application;
 import javafx.scene.Scene;
