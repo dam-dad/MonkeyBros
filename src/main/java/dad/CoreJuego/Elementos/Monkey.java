@@ -111,8 +111,6 @@ public class Monkey extends Entity {
 	 * 
 	 */
 	public void render(GraphicsContext gc) {
-		gc.setFill(Color.YELLOW);
-		gc.fillRect(x, y, width, height);
 		gc.drawImage(actualAnimation.getCurrentFrame(), x-18, y);
 
 	}
