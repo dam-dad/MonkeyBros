@@ -130,12 +130,7 @@ public class MonkeyGame extends Game {
 				new DecorationsLayer(this, map),
 				new BannerLayer(this, map),
 				new SpikeLayer(this, map),
-//				new AnimBananaLayer(this, map),
-//				new AnimBundleBananaLayer(this, map),
-				
 				new Floor(this, 0, getHeight(), getWidth(), 2), 
-//				new LayerColisiones(this), 
-				
 				monkey
 		);
 

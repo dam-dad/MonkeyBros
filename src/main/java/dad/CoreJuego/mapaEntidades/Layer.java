@@ -7,10 +7,23 @@ import dad.CoreJuego.Elementos.Entity;
 import dad.CoreJuego.Elementos.Game;
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * Clase abstracta que extiende de Entity encargada de manejar todas las entidadas creadas
+ * 
+ * @author Iván Durán Araya
+ *
+ */
+
 public abstract class Layer extends Entity {
 
 	private String name;
 	private List<Entity> entities;
+	
+	/**
+	 * Clase que guarda las entidades
+	 * @param game Parametro game instanciado desde super
+	 * @param name Parametro name que pide el nombre del layer sobre el que se quiere trabajar
+	 */
 	
 	public Layer(Game game, String name) {
 		super(game);
