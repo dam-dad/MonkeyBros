@@ -13,8 +13,11 @@ import org.mapeditor.io.TMXMapReader;
 
 import dad.Api.GlobalStat.GlobalStat;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
+import dad.CoreJuego.mapaEntidades.BannerLayer;
 import dad.CoreJuego.mapaEntidades.CollisionsLayer;
+import dad.CoreJuego.mapaEntidades.DecorationsLayer;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
+import dad.CoreJuego.mapaEntidades.SpikeLayer;
 import javafx.animation.Animation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -124,7 +127,12 @@ public class MonkeyGame extends Game {
 		getEntities().addAll(
 				new LayerBackground(this), 
 				new CollisionsLayer(this, map), 
-//				new LayerEscaleras(this),
+				new DecorationsLayer(this, map),
+				new BannerLayer(this, map),
+				new SpikeLayer(this, map),
+//				new AnimBananaLayer(this, map),
+//				new AnimBundleBananaLayer(this, map),
+				
 				new Floor(this, 0, getHeight(), getWidth(), 2), 
 //				new LayerColisiones(this), 
 				
@@ -143,11 +151,26 @@ public class MonkeyGame extends Game {
 					(userDataB instanceof Monkey && userDataA instanceof Platform)) {					
 					monkey.setOnAir(true);
 				} 
+				
+				if ((userDataA instanceof Monkey && userDataB instanceof AnimBanana) ||
+						(userDataB instanceof Monkey && userDataA instanceof AnimBanana)) {					
+							monkey.setOnAir(true);
+						} 
+					
+					if ((userDataA instanceof Monkey && userDataB instanceof AnimBundleBanana) ||
+						(userDataB instanceof Monkey && userDataA instanceof AnimBundleBanana)) {					
+								monkey.setOnAir(true);
+							} 
 
 				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
 					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
 					monkey.kill();
 				} 
+				
+				if ((userDataA instanceof Monkey && userDataB instanceof Spikes) ||
+						(userDataB instanceof Monkey && userDataA instanceof Spikes)) {
+							monkey.kill();
+					} 
 
 			}
 			public void endContact(Contact contact) {}
