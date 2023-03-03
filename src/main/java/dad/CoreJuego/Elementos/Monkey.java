@@ -56,8 +56,10 @@ public class Monkey extends Entity {
 		this.y = posY;
 
 		// variables of character size
-		this.width = 54f;
-		this.height = 54f;
+//		this.width = 54f;
+//		this.height = 54f;
+		this.width = 44f;
+		this.height = 50f;
 
 		// Animaciones
 		animationIdle = new Animation(ANIMATION_SPEED, "animacionesMono/Idle_Animation48x54x22f.png", 48, 54, 22);
@@ -108,11 +110,9 @@ public class Monkey extends Entity {
 	 * 
 	 */
 	public void render(GraphicsContext gc) {
-
-		gc.drawImage(actualAnimation.getCurrentFrame(), x-10, y);
-		
 		gc.setFill(Color.YELLOW);
-		gc.rect(x, y, width, height);
+		gc.fillRect(x, y, width, height);
+		gc.drawImage(actualAnimation.getCurrentFrame(), x-18, y);
 
 	}
 
