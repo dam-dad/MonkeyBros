@@ -16,6 +16,15 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 // Gestión de la escena del menú de Juego
+
+/**
+ * 
+ * Clase que carga la escena cuando pierdes las 3 vidas
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class PartidaPerdidaController implements Initializable {
 	// view
 
@@ -35,9 +44,14 @@ public class PartidaPerdidaController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// https://www.youtube.com/watch?v=aOcow70vqb4
+		
 	}
 
+	/**
+	 * Constructor que carga la vista del fxml
+	 * 
+	 */
+	
 	public PartidaPerdidaController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menus/MenuPartidaPerdidaView.fxml"));
@@ -48,18 +62,42 @@ public class PartidaPerdidaController implements Initializable {
 		}
 	}
 
+	
+	/**
+	 * Metodo que devueleve la raiz de la vista
+	 * 
+	 * @return view retorna el BorderPane
+	 */
 	public BorderPane getAnteriorView() {
 		return anteriorView;
 	}
 
+	/**
+	 * Metodo que recibe la raiz de la vista
+	 * 
+	 * @param anteriorView recibe el borderPane
+	 */
+	
 	public void setAnteriorView(BorderPane anteriorView) {
 		this.anteriorView = anteriorView;
 	}
 
+	/**
+	 * Metodo que devueleve la raiz de la vista
+	 * 
+	 * @return view retorna el BorderPane
+	 */
+	
 	public BorderPane getView() {
 		return view;
 	}
 
+	/**
+	 * metodo que nos devuelve al menu y reinicia la musica del menu
+	 *  
+	 * @param event  recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
     void volverAlMenuClickAction(MouseEvent event) {
 		RootMenuController rootMenuController = new RootMenuController();

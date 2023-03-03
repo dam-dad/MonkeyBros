@@ -27,6 +27,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 
+/**
+ * 
+ * Clase que nos permite elegir y guardar
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class OpcionesPantallaGridPane extends GridPane implements Initializable {
 
 	// model
@@ -47,7 +55,7 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 
 	@FXML
 	private Label tituloLabel;
-	
+
 	@FXML
 	private ListView<Resolucion> resolucionesListView;
 
@@ -57,6 +65,10 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 	Properties properties;
 
 	HashMap<String, String> patrones;
+
+	/**
+	 * Metodo que inicia un array con todas las resoluciones
+	 */
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -73,6 +85,11 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 		}
 	}
 
+	/**
+	 * Constructor que carga la vista
+	 * 
+	 */
+	
 	public OpcionesPantallaGridPane() {
 		super();
 
@@ -87,9 +104,21 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 		}
 	}
 
+	/**
+	 * Metodo que devueleve la raiz de la vista
+	 * 
+	 * @return view retorna el GridPane
+	 */
+
 	public GridPane getView() {
 		return view;
 	}
+
+	/**
+	 * Metodo que recibe el fichero
+	 * 
+	 * @param properties recibe el fichero de propiedades
+	 */
 
 	public void setProperties(Properties properties) {
 		this.properties = properties;
@@ -101,7 +130,7 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 				break;
 			}
 		}
-		
+
 		resolucionesListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Resolucion>() {
 
 			@Override
@@ -110,10 +139,17 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 				selectedResolucion.set(newValue);
 				actualizarResolucionProperty();
 				setWindowResolution(newValue.getWidth(), newValue.getHeight());
-				
+
 			}
 		});
 	}
+
+	/**
+	 * Metodo que recibe la recibe la resolucion
+	 * 
+	 * @param w recibe el alto
+	 * @param h recibe el ancho
+	 */
 
 	private void setWindowResolution(int w, int h) {
 		MonkeyBrosApp.primaryStage.setWidth(w);
@@ -121,13 +157,16 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 		MonkeyBrosApp.primaryStage.centerOnScreen();
 	}
 
+	/**
+	 * Metodo que reescala la ventana
+	 * 
+	 */
+
 	public void actualizarResolucionProperty() {
 		if (properties.getProperty("resolucion") != null && selectedResolucion.get() != null
 				&& !properties.getProperty("resolucion").equals("" + selectedResolucion.get())) {
 			// Si ha cambiado se guarda
 			properties.setProperty("resolucion", selectedResolucion.get().name());
-
-			//System.out.println(selectedResolucion.get() + "test");
 		} else {
 			properties.setProperty("resolucion", "res1080x720p");
 			selectedResolucion.set(Resolucion.res1080x720p);
@@ -136,6 +175,11 @@ public class OpcionesPantallaGridPane extends GridPane implements Initializable 
 		guardarProperties();
 	}
 
+	/**
+	 * Metodo que guarda la propiedades en el fichero
+	 * 
+	 */
+	
 	public void guardarProperties() {
 		try {
 			properties.store(new FileOutputStream(RootMenuController.RUTAFULL), "");
