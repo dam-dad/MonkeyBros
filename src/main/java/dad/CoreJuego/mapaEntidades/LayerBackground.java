@@ -13,7 +13,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-//TODO
+/**
+ * Clase que dibuja el fondo atraves de un bucle segun el tamaño del mapa
+ * @author Iván Durán Araya
+ *
+ */
 
 public class LayerBackground extends Entity {
 
@@ -33,6 +37,10 @@ public class LayerBackground extends Entity {
 	
 	ArrayList<ImageView> tileX = new ArrayList<ImageView>();
 	
+	/**
+	 * Metodo que lee el mapa, saca la altura y el ancho del mapa y recorre un bucle segun estos datos donde pinta el fondo
+	 * @param game Clase game instanciado desde super
+	 */
 	public LayerBackground(Game game) {
 		super(game);
 		try {
@@ -61,7 +69,10 @@ public class LayerBackground extends Entity {
 			}
 		}
 	
-
+	/**
+	 * Metodo encargado de pintar la imagen en un bucle bidimensional
+	 * @param gc Graphics context del canvas para pintar
+	 */
 	@Override
 	public void render(GraphicsContext gc) {
 		for(int i = 0; i < altura; i++) {
@@ -70,16 +81,19 @@ public class LayerBackground extends Entity {
 			}
 		}
 	}
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void update(float timeDifference) {
 		
 	}
 
-
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void initBody(World world) {
-		// TODO Auto-generated method stub
 		
 	}
 

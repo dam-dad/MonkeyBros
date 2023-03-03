@@ -20,8 +20,8 @@ public abstract class Layer extends Entity {
 	private List<Entity> entities;
 	
 	/**
-	 * Clase que guarda las entidades
-	 * @param game Parametro game instanciado desde super
+	 * Constructor que guarda las entidades
+	 * @param game Clase game instanciado desde super
 	 * @param name Parametro name que pide el nombre del layer sobre el que se quiere trabajar
 	 */
 	
@@ -31,19 +31,34 @@ public abstract class Layer extends Entity {
 		this.entities = new ArrayList<>();
 	}
 	
+	/**
+	 * Metodo para devolver las entidades de la lista de entidades
+	 * @return Retorna las entidades de la lista entities
+	 */
+	
 	public List<Entity> getEntities() {
 		return entities;
 	}
 	
+	/**
+	 * Metodo que retorna el nombre de la entidad
+	 * @return Devuelve el nombre de la entidad
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Metodo que dibuja todas las entidades de la lista entities
+	 */
 	@Override
 	public void render(GraphicsContext gc) {
 		entities.forEach(entity -> entity.render(gc));
 	}
 	
+	/**
+	 * Metodo que actualiza todas las propiedades físicas de las entidades de la lista entities
+	 */
 	@Override
 	public void update(float timeDifference) {
 		entities.forEach(entity -> entity.update(timeDifference));

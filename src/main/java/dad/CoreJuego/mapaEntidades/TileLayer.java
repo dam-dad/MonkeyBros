@@ -12,17 +12,33 @@ import dad.CoreJuego.Elementos.Game;
 import dad.CoreJuego.utils.ImageUtils;
 import javafx.scene.image.Image;
 
+/**
+ * Clase abstracta TileLayer encargada de leer las posiciones de los tiles del layer, extiende de Layer
+ * @author  Iván Durán Araya
+ *
+ */
+
 public abstract class TileLayer extends Layer {
 
 	private Map map;
 	private int altura;
 	private int ancho;
 
+	/**
+	 * Constructor encargado de manejar las posiciones de los tiles del layer pasado por parametro
+	 * @param game Clase game instanciado desde super
+	 * @param layerName String del nombre del layer con el que se va a trabajar
+	 * @param map Mapa desde el que se lee el layer y las posiciones de los tiles
+	 */
 	public TileLayer(Game game, String layerName, Map map) {
 		super(game, layerName);
 		this.map = map;
 		initialize();
 	}
+	/**
+	 * Metodo void que lee el mapa y el layer que se le paso anteriormente para empezar una busqueda linear y empezar
+	 * a crear entidades con las imagenes y posiciones correspondientes al las que estan en el archivo TMX
+	 */
 
 	public void initialize() {
 
@@ -87,11 +103,21 @@ public abstract class TileLayer extends Layer {
 		}
 	}
 	
+	/**
+	 * No hace nada
+	 */
 	@Override
 	protected void initBody(World world) {
 		// do nothing
 	}
-
+	
+	/**
+	 * Metodo abstracto para crear entidades
+	 * @param posX Posicion del vector x
+	 * @param posY Posicion del vector y
+	 * @param tileImage Imagen para dibujar mas tarde
+	 * @return
+	 */
 	protected abstract Entity createEntity(int posX, int posY, Image tileImage);
 
 }

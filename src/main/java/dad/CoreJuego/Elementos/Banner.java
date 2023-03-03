@@ -10,11 +10,25 @@ import org.jbox2d.dynamics.World;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+/**
+ * Clase que extiende de entidad, encargada de pintarse en el canvas y tener una representación física
+ * 
+ * @author Iván Duran Araya
+ *
+ */
+
 public class Banner extends Entity {
 
 	private Image image;
 	private Body body;
 
+	/**
+	 * Constructor que guarda los datos pasados por parametro e inicializa representaciones fisicas en el mapa
+	 * @param game Parámetro game (Clase Game) instanciado desde super
+	 * @param x Cordenada de posición x
+	 * @param y Cordenada de posición y
+	 * @param image Imagen del tile
+	 */
 	public Banner(Game game, int x, int y, Image image) {
 		super(game);
 		this.image = image;
@@ -25,27 +39,34 @@ public class Banner extends Entity {
 		initBody(getGame().getPhysics().getWorld());
 	}
 
+	/**
+	 * Metodo encargado de pintar en el canvas
+	 * @param gc El contexto grafico del canvas
+	 */
 	@Override
 	public void render(GraphicsContext gc) {
 		gc.drawImage(image, x - Platform.xStatic , y);
-		//gc.setFill(Color.PURPLE);
-		//gc.fillRect(x - xStatic , y, 32, 32);
 	}
-
+	
+	/**
+	 * Metodo encargado de actualizar las fisicas del cuerpo a tiempo real
+	 * @param timeDifference Dato que referencia el tiempo
+	 */
 	@Override
 	public void update(float timeDifference) {
 		Vec2 vector = new Vec2((x - Platform.xStatic) / scale, y / scale);
 		body.setTransform(vector, 0);
-		//System.out.println(vector);
 		
 	}
-
+	/**
+	 * Metodo donde se define donde y como se generan las fisicas del cuerpo
+	 * @param world Mundo encargado de todas las entidades fisicas
+	 */
 	@Override
 	protected void initBody(World world) {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
-		//bodyDef.position.set(x / scale, y / scale);
 		bodyDef.position.set(x /scale, y / scale);
 		
 		PolygonShape shape = new PolygonShape();

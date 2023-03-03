@@ -21,7 +21,6 @@ public class AnimBanana extends Entity {
 	private Image image;
 	private Body body;
 	
-	
 	/**
 	 * Constructor que guarda los datos pasados por parametro e inicializa representaciones fisicas en el mapa
 	 * @param game Parámetro game (Clase Game) instanciado desde super

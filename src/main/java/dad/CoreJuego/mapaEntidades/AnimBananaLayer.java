@@ -7,7 +7,7 @@ import dad.CoreJuego.Elementos.Game;
 import javafx.scene.image.Image;
 
 /**
- * Clase que extiende de TileLayer para los layer animPlatanos del TMX  @see {@link TileLayer}
+ * Clase que extiende de TileLayer para el layer animPlatanos del TMX  @see {@link TileLayer}
  * 
  * @author Iván Durán Araya
  *
