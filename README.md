@@ -27,7 +27,7 @@ Decidido se dispuso a alcanzar los plátanos, saltando entre los árboles utiliz
 | `windows`               | ✔️         | ✔️       |
 
 ## Controles
-Los controles son perzonalisables pero por defecto son:
+Los controles son personalizables pero por defecto son:
 Tecla A = Movimiento hacia la izquierda
 Tecla W = Salto del personaje
 Tecla S = Movimiento hacia la derecha
