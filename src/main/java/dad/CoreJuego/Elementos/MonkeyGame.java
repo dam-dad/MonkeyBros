@@ -19,7 +19,9 @@ import dad.CoreJuego.mapaEntidades.DecorationsLayer;
 import dad.CoreJuego.mapaEntidades.LayerBackground;
 import dad.CoreJuego.mapaEntidades.SpikeLayer;
 import javafx.animation.Animation;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
@@ -33,14 +35,15 @@ import javafx.scene.input.KeyCode;
  */
 
 public class MonkeyGame extends Game {
-	
+
 	// model
-	
+
 	private IntegerProperty vidas;
+	private BooleanProperty end;
 
 	private Monkey monkey;
 	private Properties properties;
-	
+
 	// GlobalStats
 	private GlobalStat globalStats;
 
@@ -60,7 +63,7 @@ public class MonkeyGame extends Game {
 
 	public MonkeyGame(Canvas canvas) {
 		super(canvas);
-		
+
 	}
 
 	/**
@@ -71,16 +74,18 @@ public class MonkeyGame extends Game {
 
 	@Override
 	protected void init() {
-		
+
 		vidas = new SimpleIntegerProperty(0);
 
+		end = new SimpleBooleanProperty(false);
+		
 		monkey = new Monkey(this, 60, 1);
 		monkey.setOnAir(true);
-		
+
 		// bindings
-		
+
 		vidas.bind(monkey.vidasProperty());
-		
+
 		/**
 		 * Vincular los controles del personaje a las properties cargadas
 		 */
@@ -121,20 +126,15 @@ public class MonkeyGame extends Game {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-		
-		getEntities().addAll(
-				new LayerBackground(this), 
-				new CollisionsLayer(this, map), 
-				new DecorationsLayer(this, map),
-				new BannerLayer(this, map),
-				new SpikeLayer(this, map),
+
+		getEntities().addAll(new LayerBackground(this), new CollisionsLayer(this, map), new DecorationsLayer(this, map),
+				new BannerLayer(this, map), new SpikeLayer(this, map),
 //				new AnimBananaLayer(this, map),
 //				new AnimBundleBananaLayer(this, map),
-				new Floor(this, 0, getHeight(), getWidth(), 2), 
+				new Floor(this, 0, getHeight(), getWidth(), 2),
 //				new LayerColisiones(this), 
-				
-				monkey
-		);
+
+				monkey);
 
 		this.getPhysics().getWorld().setContactListener(new ContactListener() {
 
@@ -144,43 +144,48 @@ public class MonkeyGame extends Game {
 				Object userDataA = contact.getFixtureA().getBody().getUserData();
 				Object userDataB = contact.getFixtureB().getBody().getUserData();
 
-				if ((userDataA instanceof Monkey && userDataB instanceof Platform) ||
-					(userDataB instanceof Monkey && userDataA instanceof Platform)) {					
+				if ((userDataA instanceof Monkey && userDataB instanceof Platform)
+						|| (userDataB instanceof Monkey && userDataA instanceof Platform)) {
 					monkey.setOnAir(true);
-				} 
-				
-				if ((userDataA instanceof Monkey && userDataB instanceof AnimBanana) ||
-						(userDataB instanceof Monkey && userDataA instanceof AnimBanana)) {					
-							monkey.setOnAir(true);
-						} 
-					
-					if ((userDataA instanceof Monkey && userDataB instanceof AnimBundleBanana) ||
-						(userDataB instanceof Monkey && userDataA instanceof AnimBundleBanana)) {					
-								monkey.setOnAir(true);
-							} 
+				}
 
-				if ((userDataA instanceof Monkey && userDataB instanceof Floor) ||
-					(userDataB instanceof Monkey && userDataA instanceof Floor)) {
+				if ((userDataA instanceof Monkey && userDataB instanceof AnimBanana)
+						|| (userDataB instanceof Monkey && userDataA instanceof AnimBanana)) {
+					monkey.setOnAir(true);
+				}
+
+				if ((userDataA instanceof Monkey && userDataB instanceof AnimBundleBanana)
+						|| (userDataB instanceof Monkey && userDataA instanceof AnimBundleBanana)) {
+					monkey.setOnAir(true);
+				}
+
+				if ((userDataA instanceof Monkey && userDataB instanceof Floor)
+						|| (userDataB instanceof Monkey && userDataA instanceof Floor)) {
 					monkey.kill();
-				} 
-				
-				if ((userDataA instanceof Monkey && userDataB instanceof Banner) ||
-						(userDataB instanceof Monkey && userDataA instanceof Banner)) {
-						monkey.win();
-					} 
-				
-				if ((userDataA instanceof Monkey && userDataB instanceof Spikes) ||
-						(userDataB instanceof Monkey && userDataA instanceof Spikes)) {
-							monkey.kill();
-					} 
+				}
+
+				if ((userDataA instanceof Monkey && userDataB instanceof Banner)
+						|| (userDataB instanceof Monkey && userDataA instanceof Banner)) {
+					monkey.win();
+				}
+
+				if ((userDataA instanceof Monkey && userDataB instanceof Spikes)
+						|| (userDataB instanceof Monkey && userDataA instanceof Spikes)) {
+					monkey.kill();
+				}
 
 			}
-			public void endContact(Contact contact) {}
-			public void preSolve(Contact contact, Manifold oldManifold) {}
-			public void postSolve(Contact contact, ContactImpulse impulse) {}
+
+			public void endContact(Contact contact) {
+			}
+
+			public void preSolve(Contact contact, Manifold oldManifold) {
+			}
+
+			public void postSolve(Contact contact, ContactImpulse impulse) {
+			}
 		});
 	}
-
 
 	@Override
 	protected void processInput(Set<KeyCode> input) {
@@ -188,12 +193,11 @@ public class MonkeyGame extends Game {
 		float impulsoX = 0f;
 		float impulsoY = 0f;
 		float gravity = 4f;
-				
-		
+
 		if (input.contains(RIGHT_VALUE)) {
 			Platform.xStatic += 3f;
 			monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
-		} 
+		}
 
 		if (input.contains(LEFT_VALUE)) {
 			Platform.xStatic -= 3f;
@@ -204,24 +208,23 @@ public class MonkeyGame extends Game {
 		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(RIGHT_VALUE)) {
 			impulsoY -= 3200f;
 			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
-			monkey.getBody().applyForce(new Vec2(0, impulsoY), new Vec2(0,0));
-			monkey.setOnAir(false);
-		}
-		
-		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(LEFT_VALUE)) {
-			impulsoY -= 3200f;
-			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
-			monkey.getBody().applyForce(new Vec2(0, impulsoY), new Vec2(0,0));
+			monkey.getBody().applyForce(new Vec2(0, impulsoY), new Vec2(0, 0));
 			monkey.setOnAir(false);
 		}
 
-		
-		if((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
-			monkey.getBody().setLinearVelocity(new Vec2(impulsoX, gravity)); 
+		if (input.contains(UP_VALUE) && monkey.isOnAir() == true && input.contains(LEFT_VALUE)) {
+			impulsoY -= 3200f;
+			monkey.setMoving(input.contains(UP_VALUE), Direction.UP);
+			monkey.getBody().applyForce(new Vec2(0, impulsoY), new Vec2(0, 0));
+			monkey.setOnAir(false);
 		}
-		
+
+		if ((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
+			monkey.getBody().setLinearVelocity(new Vec2(impulsoX, gravity));
+		}
+
 	}
-	
+
 	public void setGlobalStats(GlobalStat globalStats) {
 		this.globalStats = globalStats;
 	}
@@ -233,8 +236,8 @@ public class MonkeyGame extends Game {
 	public final IntegerProperty vidasProperty() {
 		return this.vidas;
 	}
-	
-	public final int getVidas() {
-		return this.vidasProperty().get();
+
+	public final BooleanProperty endProperty() {
+		return this.end;
 	}
 }

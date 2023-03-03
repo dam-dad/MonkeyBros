@@ -14,6 +14,11 @@
 	-fx-opacity: 1.0;
 }
 
+.label .text{
+	-fx-stroke: rgba(115,93,21,1.0);
+    -fx-stroke-width: 1px;
+}
+
 .label_seleccion{
 }
 
@@ -53,6 +58,15 @@
 	-fx-font-size: 30.0px;
 }
 
+.text_field{
+	-fx-font-family: "Mini Pixel-7"; 
+	-fx-font-size: 40.0px;
+	-fx-background-color: rgba(0,200,0,0.5);
+	-fx-border-width: 5px;
+	-fx-text-fill: rgba(212,250,115,0.8);
+	-fx-border-color: rgba(0,100,0,0.8);
+}
+
 .list-cell{
 	-fx-font-family: "Mini Pixel-7";
 	-fx-font-size: 40.0px;
@@ -68,6 +82,11 @@
 
 .lista{
 	-fx-background-color: transparent;
+}
+
+.lista .text{
+	-fx-stroke: rgba(115,93,21,1.0);
+    -fx-stroke-width: 1px;
 }
 
 .boton_opciones{
@@ -104,6 +123,11 @@
 	-fx-background-image: url('../images/menu/MenuBotonOscuro.png');
 	-fx-border-color: yellow;
 	-fx-text-fill: white;
+}
+
+.button .text{
+	-fx-stroke: rgba(115,93,21,1.0);
+    -fx-stroke-width: 1px;
 }
 
 .invalido{

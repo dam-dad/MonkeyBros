@@ -34,9 +34,10 @@ public class Monkey extends Entity {
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
 	private Animation animationIdle, animationRun, animationJump, actualAnimation;
-	
-	// properties
+
+	// model
 	private IntegerProperty vidas = new SimpleIntegerProperty(3);
+//	private BooleanProperty end = new SimpleBooleanProperty(false);
 
 	/**
 	 * Creación del cuerpo y la carga de animaciones del personaje
@@ -48,7 +49,7 @@ public class Monkey extends Entity {
 	public Monkey(Game game, float posX, float posY) {
 		super(game);
 
-		life=new Life(true);
+		life = new Life(true);
 		life.setLife(3);
 //		System.out.println("Tienes "+ life.showLife()+ " vidas");
 
@@ -76,7 +77,7 @@ public class Monkey extends Entity {
 	 */
 	@Override
 	protected void initBody(World world) {
-		
+
 		// The complete code snippet would look like:
 		// body definition
 		BodyDef bd = new BodyDef();
@@ -92,7 +93,7 @@ public class Monkey extends Entity {
 		fd.shape = box;
 		fd.friction = 0.1f;
 
-		// mass 
+		// mass
 		MassData massData = new MassData();
 		massData.mass = 30.0f;
 
@@ -102,7 +103,7 @@ public class Monkey extends Entity {
 		body.getLinearVelocity();
 		body.setMassData(massData);
 		body.setUserData(this);
-		
+
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class Monkey extends Entity {
 	 * 
 	 */
 	public void render(GraphicsContext gc) {
-		gc.drawImage(actualAnimation.getCurrentFrame(), x-18, y);
+		gc.drawImage(actualAnimation.getCurrentFrame(), x - 18, y);
 
 	}
 
@@ -128,36 +129,43 @@ public class Monkey extends Entity {
 	 */
 	@Override
 	public void update(float timeDifference) {
-		
+
 		if (killed) {
-			vidas.setValue(vidas.get()-1);
+			vidas.setValue(vidas.get() - 1);
 			life.subtractLife();
 			respawn();
 //			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
 			isGameOver();
 			Platform.xStatic = 0;
 		}
-		
-		if(win) {
-			win=false;
-			
+
+		if (win) {
+			win = false;
+
 		}
-		
+
 		x = body.getPosition().x * scale;
 		y = body.getPosition().y * scale;
-		 
+
 		if (moving == false) {
 			actualAnimation = animationIdle;
 		} else {
 			switch (direction) {
-				case RIGHT: actualAnimation = animationRun; break;
-				case LEFT: actualAnimation = animationRun; break;
-				case UP: actualAnimation = animationJump; break;
-				case DOWN: /* TODO */ break;
+			case RIGHT:
+				actualAnimation = animationRun;
+				break;
+			case LEFT:
+				actualAnimation = animationRun;
+				break;
+			case UP:
+				actualAnimation = animationJump;
+				break;
+			case DOWN:
+				/* TODO */ break;
 			}
 		}
 		actualAnimation.update(timeDifference);
-		
+
 	}
 
 	/**
@@ -165,51 +173,51 @@ public class Monkey extends Entity {
 	 * metodo usado como codigo para gestionar las animaciones en @see
 	 * #update(float)
 	 * 
-	 * @param moving Nos devuelve si hay una accion o no
-	 * @param direction   Es codigó generado en base al keyEvent(acción) del personaje
+	 * @param moving    Nos devuelve si hay una accion o no
+	 * @param direction Es codigó generado en base al keyEvent(acción) del personaje
 	 */
 	public void setMoving(boolean moving, Direction direction) {
 		this.moving = moving;
 		this.direction = direction;
 	}
-	
+
 	public void applyForce(float x, float y) {
 		body.applyForceToCenter(new Vec2(x, y));
 	}
-	
+
 	public boolean isOnAir() {
 		return onAir;
 	}
-	
+
 	public void setOnAir(boolean isOnAir) {
 		this.onAir = isOnAir;
 	}
-	
+
 	public Body getBody() {
 		return body;
 	}
 
 	public void respawn() {
-				
+
 //		System.out.println("resucitando al mono glotón");		
 		killed = false;
-		
+
 		x = 1;
 		y = 1;
-		
+
 		World world = getGame().getPhysics().getWorld();
-		world.destroyBody(body);		
+		world.destroyBody(body);
 		initBody(world);
-		
+
 	}
-	
+
 	public void isGameOver() {
-		if(life.getLife()==0) {
+		if (life.getLife() == 0) {
 			PartidaPerdidaController partidaPerdidaController = new PartidaPerdidaController();
 			MonkeyBrosApp.scene.setRoot(partidaPerdidaController.getView());
 		}
 	}
-	
+
 	public boolean isKilled() {
 		return killed;
 	}
@@ -218,7 +226,7 @@ public class Monkey extends Entity {
 //		System.out.println("muerto");		
 		killed = true;
 	}
-	
+
 	public void win() {
 		PartidaGanadaController partidaGanadaController = new PartidaGanadaController();
 		MonkeyBrosApp.scene.setRoot(partidaGanadaController.getView());
@@ -229,9 +237,9 @@ public class Monkey extends Entity {
 	public final IntegerProperty vidasProperty() {
 		return this.vidas;
 	}
-	
 
 	public final int getVidas() {
 		return this.vidasProperty().get();
 	}
+	
 }

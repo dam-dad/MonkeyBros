@@ -58,9 +58,10 @@ public class JugarMenuController implements Initializable {
 
 	//TODO
 	
+	
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// https://www.youtube.com/watch?v=aOcow70vqb4
 	}
 
 	public JugarMenuController() {
@@ -111,6 +112,17 @@ public class JugarMenuController implements Initializable {
 	@FXML
 	void onEmpezarPartidaClickAction(MouseEvent event) {
 		gameController = new GameController();
+		
+		/**
+		 * Inicializar los bindings que gestionan la terminación total del juego
+		 */
+//		gameController.endProperty().addListener((o , ov, nv) -> {
+//			if(nv) {
+//				System.out.println("asassa");
+//				gameController = null;
+//			}
+//		});
+		
 		Media media = new Media(getClass().getResource("/audio/Jungle Groove Restored to HD - 128.mp3").toExternalForm());
 		mediaplayer = new MediaPlayer(media);
 		double volumen = MonkeyBrosApp.mediaPlayerMusica.getVolume();
