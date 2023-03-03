@@ -12,7 +12,7 @@
       <VBox fx:id="menuOpcionesVBox" alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
             <Label styleClass="titulo" text="Introduce un nombre de usuario:" />
-            <TextField maxWidth="700.0" prefHeight="40.0" />
+            <TextField fx:id="nombreUsuarioTextField" maxWidth="700.0" prefHeight="40.0" />
             <Button id="botonMenu" fx:id="menuEmprezarPartidaButton" mnemonicParsing="false" onMouseClicked="#onEmpezarPartidaClickAction" prefHeight="80.0" styleClass="menuBoton" stylesheets="@../../css/MainTheme.css" text="Empezar Partida" />
             <Button id="botonMenu" fx:id="menuAtrasButton" mnemonicParsing="false" onMouseClicked="#onAtrasClickAction" prefHeight="80.0" prefWidth="250.0" styleClass="menuBoton" stylesheets="@../../css/MainTheme.css" text="Atras" />
          </children>

@@ -18,12 +18,16 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+/**
+ * 
+ * Clase que maneja la vista del sonido
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class SonidoGridPane extends GridPane implements Initializable {
 
-	// model
-
-//	private IntegerProperty numVolumen = new SimpleIntegerProperty(0);
-//	private IntegerProperty numMusica = new SimpleIntegerProperty(0);
 
 	// view
 
@@ -42,8 +46,8 @@ public class SonidoGridPane extends GridPane implements Initializable {
 	@FXML
 	private GridPane view;
 
-	@FXML
-	private Slider volumenSlider;
+//	@FXML
+//	private Slider volumenSlider;
 
 	@FXML
 	private Slider musicaSlider;
@@ -55,12 +59,20 @@ public class SonidoGridPane extends GridPane implements Initializable {
 
 	private Properties properties = new Properties();
 
+	/**
+	 * metodo que Inicializa con sus propiedades y elementos
+	 * 
+	 * @param location recibe la localizacion de la vista
+	 * @param resources recibe los recursos del proyecto
+	 * 
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 		// bindings
 
-		porcentajeVolumenLabel.textProperty().bind(Bindings.format("%.0f", volumenSlider.valueProperty()).concat("%"));
+//		porcentajeVolumenLabel.textProperty().bind(Bindings.format("%.0f", volumenSlider.valueProperty()).concat("%"));
 		porcentajeMusicaLabel.textProperty().bind(Bindings.format("%.0f", musicaSlider.valueProperty()).concat("%"));
 
 		// listeners
@@ -68,7 +80,7 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		// Los bindings no actualizan constantemente el volumen a medida que se arrastra
 		// el slider, por ello es necesario el uso de listeners
 		musicaSlider.valueProperty().addListener((o, ov, nv) -> {
-			//System.out.println(nv.intValue());
+			
 			MonkeyBrosApp.mediaPlayerMusica.setVolume((double) nv.intValue() / 100);
 		});
 
@@ -79,6 +91,10 @@ public class SonidoGridPane extends GridPane implements Initializable {
 //		});
 	}
 
+	/**
+	 * Metodo que carga la vista
+	 */
+	
 	public SonidoGridPane() {
 		super();
 
@@ -93,13 +109,25 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * metodo que retorna la raiz de la vista
+	 * 
+	 * @return view retorna la raiz de la vista
+	 */
+	
 	public GridPane getView() {
 		return view;
 	}
 
+	/**
+	 * Metodo que guarda las propiedades del volumen
+	 * 
+	 */
+	
 	public void guardarProperties() {
 		try {
 			properties.store(new FileOutputStream(RootMenuController.RUTAFULL), "");
+			MonkeyBrosApp.properties = properties;
 		} catch (IOException e) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Error");
@@ -109,46 +137,44 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * Metodo que cambia las propiedades del fichero 
+	 * 
+	 * @param properties
+	 */
+	
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
-	public void loadVolumenValue() {
-		int numVolum = 0;
-		try {
-			numVolum = Integer.parseInt(properties.getProperty("volumenAmount"));
-		} catch (Exception e) {
-		}
-		if (numVolum != 0/* && properties.getProperty("volumenAmount") != null */) {
-			volumenSlider.valueProperty().set(numVolum); // valor por defecto
-		} else {
-			volumenSlider.valueProperty().set(100);
-			actualizarProperty("volumenAmount", volumenSlider.valueProperty().intValue());
-		}
-	}
-
+	/**
+	 * Método que carga el volumen.
+	 * Si no se encuentran las properties pone el volumen al 100 por ciento
+	 * por defecto
+	 * 
+	 */
+	
 	public void loadMusicaValue() {
-		int numMusic = 0;
+		int numMusic = -1;
 		try {
 			numMusic = Integer.parseInt(properties.getProperty("musicaAmount"));
 		} catch (Exception e) {
 		}
-		if (numMusic != 0) {
+		if (numMusic != -1) {
 			musicaSlider.valueProperty().set(numMusic); // valor por defecto
 		} else {
 			musicaSlider.valueProperty().set(100);
-			actualizarProperty("musicaAmount", volumenSlider.valueProperty().intValue());
+			actualizarProperty("musicaAmount", musicaSlider.valueProperty().intValue());
 		}
 	}
 
-	@FXML
-	void onVolumenDragExit(MouseEvent event) {
-		if (properties.getProperty("volumenAmount") == null) { // por si cambian el archivo manualmente
-			properties.setProperty("volumenAmount", "100");
-		}
-		actualizarProperty("volumenAmount", volumenSlider.valueProperty().intValue());
-	}
-
+	/**
+	 * metodo que se acciona al dejar de presionar el slider
+	 * de la música
+	 * 
+	 * @param event
+	 */
+	
 	@FXML
 	void onMusicaDragExit(MouseEvent event) {
 		if (properties.getProperty("musicaAmount") == null) {
@@ -157,6 +183,13 @@ public class SonidoGridPane extends GridPane implements Initializable {
 		actualizarProperty("musicaAmount", musicaSlider.valueProperty().intValue());
 	}
 
+	/**
+	 * Metodo que actualiza  las propiedades en el fichero
+	 * 
+	 * @param s nombre del valor para modificar
+	 * @param i recibe el int del volumen 
+	 */
+	
 	public void actualizarProperty(String s, int i) {
 		if (properties.getProperty(s) != null && !properties.getProperty(s).equals("" + i)) {
 			// Si ha cambiado se guarda

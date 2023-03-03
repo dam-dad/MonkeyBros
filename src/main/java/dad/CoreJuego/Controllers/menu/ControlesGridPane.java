@@ -25,6 +25,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
+/**
+ * 
+ * Clase que carga las teclas que gestiona las propiedades del movimiento del personaje
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class ControlesGridPane extends GridPane implements Initializable {
 
 	// model
@@ -83,6 +91,11 @@ public class ControlesGridPane extends GridPane implements Initializable {
 	
 	HashMap<String, String> patrones;
 
+	/**
+	 * Metodo que carga la vista y guarda la llave/relacion con la tecla de accion
+	 * 
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		listaKeyControlLabels = view.getChildren().stream().filter(node -> node instanceof Label)
@@ -96,6 +109,10 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		patrones.put("bajar", "s");
 	}
 
+	/**
+	 * Metodo que carga el nombre del valor de las propiedades del fichero en los labels
+	 */
+	
 	public void cargarLabels() {
 		propertiesListHandler(escalarLabelClick, "escalar");
 		propertiesListHandler(detrasLabelClick, "detras");
@@ -105,6 +122,13 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		keyEventActivo = false;
 	}
 
+	/**
+	 * metodo que recibe una tecla y el devuelve el valor numerica de la tecla
+	 * 
+	 * @param s recibe un String que es la letra pulsada
+	 * @return el valor numerico necesario para guardar en el fichero de propiedades
+	 */
+	
 	public static String keyEventCodeToStringName(String s) {
 		int num = 0;
 		String nombre = "Undefined";
@@ -116,11 +140,22 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		return nombre;
 	}
 
+	/**
+	 * Metodo que cambia el texto del label ingresado por el valor textual que recibe de la pulsacion
+	 * 
+	 * @param l recibe un label existente de la vista
+	 * @param s recibe el valor numerico de la tecla en formato de String
+	 */
+	
 	public void propertiesListHandler(Label l, String s) {
 		String nomprop = properties.getProperty(s);
 		l.setText(keyEventCodeToStringName(nomprop));
 	}
 
+	/**
+	 * metodo que rellena los nulls con un valor por defecto
+	 */
+	
 	public void checkNullProperties() {
 		// Si una property está vacía se le da su valor por defecto
 		patrones.forEach((k, v)-> {
@@ -132,6 +167,15 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		guardarProperties();
 	}
 
+	/**
+	 * Metodo que gestiona que asigna un nuevo valor a las propiedades de los controles del teclado y cambia el 
+	 * texto del label ingresado por el valor de la propiedad del nombre ingresado
+	 * 
+	 * @param l recibe un label existente de la vista
+	 * @param evH recibe un listener que espera los cliks de los labels
+	 * @param nomProp recibe el nombre de una propiedad del fichero propiedades
+	 */
+	
 	public void labelEventHandler(Label l, EventHandler<KeyEvent> evH, String nomProp) {
 		if (!keyEventActivo) {
 			keyEventActivo = true;
@@ -196,6 +240,10 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * Constructor que carga la vista 
+	 */
+	
 	public ControlesGridPane() {
 		super();
 
@@ -214,9 +262,16 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		return view;
 	}
 
+	/**
+	 * Metodo que al invocarse guarda la propiedades 
+	 * 
+	 * @throws lanza un aviso de que no se ha podido guardar las propiedades
+	 */
+	
 	public void guardarProperties() {
 		try {
 			properties.store(new FileOutputStream(RootMenuController.RUTAFULL), "");
+			MonkeyBrosApp.properties = properties;
 		} catch (IOException e) {
 			Alert alerta = new Alert(AlertType.ERROR);
 			alerta.setTitle("Error");
@@ -226,30 +281,66 @@ public class ControlesGridPane extends GridPane implements Initializable {
 		}
 	}
 
+	/**
+	 * Metodo que recibe un fichero propiedades
+	 * 
+	 * @param properties recibe el fichero de propiedades
+	 */
+	
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
+	/**
+	 * Metodo que recibe un evento por teclado al clickar encima del label para gestionar su nueva definicion 
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onBajarClick(MouseEvent event) {
 		labelEventHandler(bajarLabelClick, keyEventHandler, "bajar");
 	}
 
+	/**
+	 * Metodo que recibe un evento por teclado al clickar encima del label para gestionar su nueva definicion 
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onDelanteClick(MouseEvent event) {
 		labelEventHandler(delanteLabelClick, keyEventHandler, "adelante");
 	}
 
+	/**
+	 * Metodo que recibe un evento por teclado al clickar encima del label para gestionar su nueva definicion 
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onDetrasClick(MouseEvent event) {
 		labelEventHandler(detrasLabelClick, keyEventHandler, "detras");
 	}
 
+	/**
+	 * Metodo que recibe un evento por teclado al clickar encima del label para gestionar su nueva definicion 
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onEscalarClick(MouseEvent event) {
 		labelEventHandler(escalarLabelClick, keyEventHandler, "escalar");
 	}
 
+	/**
+	 * Metodo que recibe un evento por teclado al clickar encima del label para gestionar su nueva definicion 
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onSaltarClick(MouseEvent event) {
 		labelEventHandler(saltarLabelClick, keyEventHandler, "saltar");

@@ -1,5 +1,13 @@
 package dad.CoreJuego.Controllers.menu;
 
+/**
+ * 
+ * clase Enumerada con todas las resoluciones posibles 
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public enum Resolucion{
 	res1080x720p(1080, 720),
 	res1152x768p(1152, 768),
@@ -17,29 +25,42 @@ public enum Resolucion{
 	int width;
 	int height;
 	
+	/**
+	 * metodo que reibe la altura y anchura de la pantalla
+	 * 
+	 * @param w int que reibe la anchura
+	 * @param h int que recibe la altura
+	 */
+	
 	private Resolucion(int w, int h){
 		this.width = w;
 		this.height = h;
 	}
 
+	/**
+	 * metodo getter que devuelve la anchura
+	 * 
+	 * @return width retorna la anchura
+	 */
+	
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * metodo getter que devuelve la altura
+	 * 
+	 * @return height retorna la altura
+	 */
+	
 	public int getHeight() {
 		return height;
 	}
 
-//	@Override			// res prueba // res pantalla
-//	public int compare(Resoluciones o1, Resoluciones o2) {
-//		if(o1.getWidth() > o2.getWidth() && o1.getHeight() > o2.getHeight()) {
-//			return 1;
-//		} else if (o1.getWidth() < o2.getWidth() && o1.getHeight() < o2.getHeight()) {
-//			return -1;
-//		} else {
-//			return 0;
-//		}
-//	}
+	/**
+	 * metodo toString que imprime la resolucion actual 
+	 * 
+	 */
 	
 	@Override
 	public String toString() {

@@ -15,6 +15,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
+/**
+ * 
+ * clase que carga la vista del menu de opciones y gestiona las propiedades de la aplicacion
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class OpcionesMenuController implements Initializable {
 
 	// view
@@ -54,24 +62,34 @@ public class OpcionesMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// https://www.youtube.com/watch?v=aOcow70vqb4
-		
 		
 	}
 
-	public void actualizarControlesInterfazProperties() {
+	/**
+	 * Metodo que actualiza las propiedades del componente del Teclado
+	 * 
+	 */
+	
+	public void actualizarControlesProperties() {
 		controlesGridPane.setProperties(properties);
 		controlesGridPane.checkNullProperties();
 		controlesGridPane.cargarLabels();
 		opcionesLabel.setText("Ajustes");
 	}
 
+	/**
+	 * Metodo que actualiza las propiedades del componente del Sonido
+	 */
+	
 	public void actualizarSonidoProperties() {
 		sonidoGridPane.setProperties(properties);
-		sonidoGridPane.loadVolumenValue();
 		sonidoGridPane.loadMusicaValue();
 		opcionesLabel.setText("Sonido");
 	}
+	
+	/**
+	 * Metodo que actualiza las propiedades del componente de la pantalla
+	 */
 	
 	public void actualizarPantallaProperties() {
 		opcionesPantallaGridPane.setProperties(properties);
@@ -79,6 +97,11 @@ public class OpcionesMenuController implements Initializable {
 		opcionesLabel.setText("Tamano de Pantalla");
 	}
 
+	/**
+	 * Constructor que carga la vista   
+	 * 
+	 */
+	
 	public OpcionesMenuController() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Menus/MenuOpcionesView.fxml"));
@@ -89,42 +112,74 @@ public class OpcionesMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Metodo que recibe el fichero propiedades
+	 * 
+	 * @param properties
+	 */
+	
 	public void setProperties(Properties properties) {
 		this.properties = properties;
 	}
 
+	/**
+	 * metodo que devuelve la escena anterior
+	 * 
+	 * @return la raiz de la escena
+	 */
+	
 	public BorderPane getAnteriorView() {
 		return anteriorView;
 	}
 
+	/**
+	 * metodo que devuelve la escena anterior
+	 * 
+	 * @return la raiz de la escena
+	 */
+	
 	public void setAnteriorView(BorderPane anteriorView) {
 		this.anteriorView = anteriorView;
 	}
 
+	/**
+	 * metodo que devuelve la escena
+	 * 
+	 * @return la raiz de la escena
+	 */
+	
 	public BorderPane getView() {
 		return view;
 	}
 
+	/**
+	 * Metodo que muestra la vista del controlador de los controles de teclado en el centro del menu de opciones
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onAjustesClickAction(MouseEvent event) {
 		try {
 			contenedorOpciones.getChildren().remove(0);
-			// opcionesGridPane.getChildren().remove(4);
 		} catch (IndexOutOfBoundsException e) {
 		}
 		try {
-			// actualizarInterfazProperties();
 			controlesGridPane = new ControlesGridPane();
-			actualizarControlesInterfazProperties();
-			// opcionesGridPane.add(controlesGridPane, 1, 0);
+			actualizarControlesProperties();
 			contenedorOpciones.getChildren().add(controlesGridPane);
 			GridPane.setRowSpan(controlesGridPane, 5);
 			GridPane.setColumnSpan(controlesGridPane, 2);
-			// GridPane.setVgrow(ajustesGridPane, Priority.ALWAYS);
 		} catch (IllegalArgumentException e) {
 		}
 	}
 
+	/**
+	 * Metodo que muestra la vista del controlador de sonido en el centro del menu de sonido
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onSonidoClickAction(MouseEvent event) {
 		try {
@@ -141,7 +196,12 @@ public class OpcionesMenuController implements Initializable {
 		}
 	}
 	
-
+	/**
+	 * Metodo que muestra la vista del controlador de la pantalla en el centro del menu de pantalla
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onPantallaClickAction(MouseEvent event) {
 		try {
@@ -158,10 +218,14 @@ public class OpcionesMenuController implements Initializable {
 		}
 	}
 
+	/**
+	 * Metodo que cambia la vista al menu principal
+	 * 
+	 * @param event recibe el evento de raton al darle a un boton
+	 */
+	
 	@FXML
 	void onAtrasClickAction(MouseEvent event) {
-		// System.out.println("a");
-		// opcionesMenuController.setAnteriorView(view);
 		MonkeyBrosApp.scene.setRoot(anteriorView);
 	}
 

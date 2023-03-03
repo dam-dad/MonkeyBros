@@ -51,6 +51,12 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.20.0</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.mapeditor</groupId>
+		    <artifactId>libtiled</artifactId>
+		    <version>1.4.2</version>
+		</dependency>
 
 	</dependencies>
 

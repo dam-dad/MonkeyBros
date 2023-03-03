@@ -33,6 +33,10 @@
 	-fx-background-repeat: no-repeat;
 }
 
+.tituloGrande{
+	-fx-font-size: 98.0px;
+}
+
 .titulo{
 	-fx-font-size: 68.0px;
 }
@@ -102,12 +106,14 @@
 	-fx-text-fill: white;
 }
 
-
-
 .invalido{
 	-fx-text-fill: #bf0f1e;
 }
 
 .invalido:hover{
 	-fx-text-fill: #bf0f1e;
+}
+
+.label_vida{
+	-fx-text-fill: #c21525;
 }

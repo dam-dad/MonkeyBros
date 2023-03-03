@@ -24,6 +24,14 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * Clase vista que contiene el menu principal del proyecto
+ * 
+ * @author David Alejandro Hernández Alonso
+ *
+ */
+
 public class RootMenuController implements Initializable {
 
 	// view
@@ -60,35 +68,57 @@ public class RootMenuController implements Initializable {
 	// properties
 
 	private Properties properties = new Properties();
-	
+
 	// paths
 
+	public static final File RUTA_PDF_FOLDER = new File(
+			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "pdf");
+	public static final File RUTA_PLAYERS_FOLDER = new File(
+			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "players");
 	public static final File RUTA_CONFIG_FOLDER = new File(
-			System.getProperty("user.home") + File.separator + "MonkeyBros" + File.separator + "configuracion");
+			System.getProperty("user.home") + File.separator + ".MonkeyBros" + File.separator + "configuracion");
 	public static final String RUTAFULL = RUTA_CONFIG_FOLDER.getPath() + File.separator + "configuracion.props";
 
-	public static final String RUTA_PLAYER_IDS = System.getProperty("user.home") + File.separator + "MonkeyBros"
+	public static final String RUTA_PLAYER_IDS = System.getProperty("user.home") + File.separator + ".MonkeyBros"
 			+ File.separator + "players" + File.separator + "player_ids.props";
 
 	// audio
-	
+
 	private MediaPlayer mediaplayer;
 
+	/**
+	 * Metodo que inicia la vista, la musica, las propiedades y le da un tamaño a la ventana en caso de ser null se le asigna
+	 * una por defecto 
+	 * 
+	 * @exception si el guardado de teclas fallas salta una exception
+	 * @exception si falla la carga de teclas, slata una excepcion
+	 * @throws IOexception
+	 */
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		Media media = new Media(getClass().getResource("/audio/Bonus Room Blitz Restored to HD.mp3").toExternalForm());
 		mediaplayer = new MediaPlayer(media);
-
+		mediaplayer.setVolume(100.0);
+		if(MonkeyBrosApp.mediaPlayerMusica != null) {
+			MonkeyBrosApp.mediaPlayerMusica.dispose();
+		}
 		MonkeyBrosApp.mediaPlayerMusica = mediaplayer;
 		MonkeyBrosApp.mediaPlayerMusica.setAutoPlay(true);
 
 		/* Cargar propiedades y en caso de no encontrarlas, crearlas y usarlas */
 		try {
 			properties.load(new FileInputStream(RootMenuController.RUTAFULL));
+			MonkeyBrosApp.properties = properties;
 			// java.awt.event.KeyEvent.getKeyText(' '); // en mayus
 			Resolucion res = Resolucion.valueOf(properties.getProperty("resolucion"));
-			System.out.println(Resolucion.valueOf(properties.getProperty("resolucion")));
-
+			/*
+			 * Si surge algún problema al cargar una resolución, se selecciona la resolución
+			 * por defecto (1080x720)
+			 */
+			if (res == null) {
+				res = Resolucion.res1080x720p;
+			}
 			/*
 			 * Se cambia la resolución de la ventana partiendo de las propiedades cargadas
 			 * del fichero .properties
@@ -117,6 +147,8 @@ public class RootMenuController implements Initializable {
 			 * Si el fichero no se puede cargar porque no existe previamente, se crean unos
 			 * valores para las propiedades por defecto
 			 */
+			//java.awt.event.KeyEvent.ke
+			
 			try {
 				// https://stackoverflow.com/questions/15313469/java-keyboard-keycodes-list
 				properties.setProperty("adelante", charANombreKeyCode('d'));
@@ -181,7 +213,7 @@ public class RootMenuController implements Initializable {
 	 * 
 	 * @param c El caracter a ingresar en la función
 	 * @return String como clave numérica de teclado del char ingresado
-	 * @author David Alejandro Hernández Alonso
+	 * 
 	 */
 	public String charANombreKeyCode(char c) {
 		return "" + java.awt.event.KeyEvent.getExtendedKeyCodeForChar(c);
@@ -213,6 +245,7 @@ public class RootMenuController implements Initializable {
 	void onJugarClickAction(MouseEvent event) throws IOException {
 		jugarMenuController = new JugarMenuController();
 		jugarMenuController.setAnteriorView(view);
+		jugarMenuController.setProperties(properties);
 		MonkeyBrosApp.scene.setRoot(jugarMenuController.getView());
 		// https://stackoverflow.com/questions/37106379/why-doesnt-my-scene-pop-up-when-changing-scenes-javafx
 	}
@@ -223,7 +256,7 @@ public class RootMenuController implements Initializable {
 	 * escena <br>
 	 * al "submenú" de Highscore y se asignará una vista anterior (anteriorView)
 	 * para <br>
-	 * poder ir hacia el meú anterior.
+	 * poder ir hacia el meú anterior. 
 	 * 
 	 * @param event : El FXMLLoader se encarga de vincular el evento con los
 	 *              componentes <br>
