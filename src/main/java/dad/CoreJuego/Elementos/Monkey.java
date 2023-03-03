@@ -9,6 +9,7 @@ import org.jbox2d.dynamics.BodyType;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
+import dad.CoreJuego.Controllers.menu.PartidaGanadaController;
 import dad.CoreJuego.Controllers.menu.PartidaPerdidaController;
 import dad.CoreJuego.Elementos.main.MonkeyBrosApp;
 import dad.CoreJuego.animation.Animation;
@@ -29,7 +30,7 @@ public class Monkey extends Entity {
 	private static final float ANIMATION_SPEED_RUN = 35000000;
 
 	private Life life;
-	private boolean onAir, killed;
+	private boolean onAir, killed, win;
 	private Body body;
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
@@ -133,11 +134,17 @@ public class Monkey extends Entity {
 		
 		if (killed) {
 			vidas.setValue(vidas.get()-1);
-			respawn();
 			life.subtractLife();
+			respawn();
 			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
-			isGameOver();
-			Platform.xStatic = 0;
+			//isGameOver();
+			//Platform.xStatic = 0;
+			
+		}
+		
+		if(win) {
+			win=false;
+			
 		}
 		
 		x = body.getPosition().x * scale;
@@ -214,6 +221,13 @@ public class Monkey extends Entity {
 	public void kill() {
 		System.out.println("muerto");		
 		killed = true;
+	}
+	
+	public void win() {
+		PartidaGanadaController partidaGanadaController = new PartidaGanadaController();
+		MonkeyBrosApp.scene.setRoot(partidaGanadaController.getView());
+		Platform.xStatic = 0;
+		System.out.println("gana");		
 	}
 
 	public final IntegerProperty vidasProperty() {

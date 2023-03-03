@@ -21,8 +21,6 @@ import dad.CoreJuego.mapaEntidades.SpikeLayer;
 import javafx.animation.Animation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Camera;
-import javafx.scene.PerspectiveCamera;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.KeyCode;
 
@@ -132,7 +130,6 @@ public class MonkeyGame extends Game {
 				new SpikeLayer(this, map),
 //				new AnimBananaLayer(this, map),
 //				new AnimBundleBananaLayer(this, map),
-				
 				new Floor(this, 0, getHeight(), getWidth(), 2), 
 //				new LayerColisiones(this), 
 				
@@ -167,6 +164,11 @@ public class MonkeyGame extends Game {
 					monkey.kill();
 				} 
 				
+				if ((userDataA instanceof Monkey && userDataB instanceof Banner) ||
+						(userDataB instanceof Monkey && userDataA instanceof Banner)) {
+						monkey.win();
+					} 
+				
 				if ((userDataA instanceof Monkey && userDataB instanceof Spikes) ||
 						(userDataB instanceof Monkey && userDataA instanceof Spikes)) {
 							monkey.kill();
@@ -185,16 +187,17 @@ public class MonkeyGame extends Game {
 
 		float impulsoX = 0f;
 		float impulsoY = 0f;
-		
 		float gravity = 4f;
-
+				
+		
 		if (input.contains(RIGHT_VALUE)) {
+
 			Platform.xStatic += 3f;
 			monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
-
 		} 
 
 		if (input.contains(LEFT_VALUE)) {
+
 			Platform.xStatic -= 3f;
 			monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
 
@@ -218,6 +221,7 @@ public class MonkeyGame extends Game {
 		if((input.contains(RIGHT_VALUE) || input.contains(LEFT_VALUE)) && monkey.isOnAir() == true) {
 			monkey.getBody().setLinearVelocity(new Vec2(impulsoX, gravity)); 
 		}
+		
 	}
 	
 	public void setGlobalStats(GlobalStat globalStats) {
