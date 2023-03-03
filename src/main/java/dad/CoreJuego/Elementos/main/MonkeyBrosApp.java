@@ -28,10 +28,8 @@ public class MonkeyBrosApp extends Application {
 	// requiere que primaryStage no sea nulo, debido a que se usa para modificar el tamaño de
 	// la ventana en el initialize() del rootController
 	private RootMenuController controller;
-	private GameController game;
+//	private GameController game;
 
-	
-	
 	/**
 	 * metodo que empieza toda la Visualizacion de las escenas
 	 * 

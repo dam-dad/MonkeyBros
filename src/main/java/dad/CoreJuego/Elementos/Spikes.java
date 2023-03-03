@@ -9,7 +9,6 @@ import org.jbox2d.dynamics.World;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class Spikes extends Entity {
 
@@ -44,11 +43,10 @@ public class Spikes extends Entity {
 
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.STATIC;
-		//bodyDef.position.set(x / scale, y / scale);
 		bodyDef.position.set(x /scale, y / scale);
 		
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox((width / scale) / 2f, (height / scale) / 2f);
+		shape.setAsBox((width / scale) / 3f, (height / scale) / 3f);
 
 		body = world.createBody(bodyDef);
 		body.createFixture(shape, 0.0f);

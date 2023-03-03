@@ -16,7 +16,6 @@ import dad.CoreJuego.animation.Animation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 /**
  * Se encarga de crear el personaje
@@ -51,7 +50,7 @@ public class Monkey extends Entity {
 
 		life=new Life(true);
 		life.setLife(3);
-		System.out.println("Tienes "+ life.showLife()+ " vidas");
+//		System.out.println("Tienes "+ life.showLife()+ " vidas");
 
 		this.x = posX;
 		this.y = posY;
@@ -134,7 +133,7 @@ public class Monkey extends Entity {
 			vidas.setValue(vidas.get()-1);
 			life.subtractLife();
 			respawn();
-			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
+//			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
 			isGameOver();
 			Platform.xStatic = 0;
 		}
@@ -192,7 +191,7 @@ public class Monkey extends Entity {
 
 	public void respawn() {
 				
-		System.out.println("resucitando al mono glotón");		
+//		System.out.println("resucitando al mono glotón");		
 		killed = false;
 		
 		x = 1;
@@ -216,7 +215,7 @@ public class Monkey extends Entity {
 	}
 
 	public void kill() {
-		System.out.println("muerto");		
+//		System.out.println("muerto");		
 		killed = true;
 	}
 	
@@ -224,7 +223,7 @@ public class Monkey extends Entity {
 		PartidaGanadaController partidaGanadaController = new PartidaGanadaController();
 		MonkeyBrosApp.scene.setRoot(partidaGanadaController.getView());
 		Platform.xStatic = 0;
-		System.out.println("gana");		
+//		System.out.println("gana");		
 	}
 
 	public final IntegerProperty vidasProperty() {
@@ -235,5 +234,4 @@ public class Monkey extends Entity {
 	public final int getVidas() {
 		return this.vidasProperty().get();
 	}
-	
 }
