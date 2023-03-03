@@ -109,7 +109,7 @@ public class Monkey extends Entity {
 	 */
 	public void render(GraphicsContext gc) {
 
-		gc.drawImage(actualAnimation.getCurrentFrame(), x, y);
+		gc.drawImage(actualAnimation.getCurrentFrame(), x-10, y);
 		
 		gc.setFill(Color.YELLOW);
 		gc.rect(x, y, width, height);
