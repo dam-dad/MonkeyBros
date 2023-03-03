@@ -34,7 +34,6 @@ public class Monkey extends Entity {
 	private Boolean moving = false;
 	private Direction direction = Direction.RIGHT;
 	private Animation animationIdle, animationRun, animationJump, actualAnimation;
-	private MonkeyGame mg;
 	
 	// properties
 	private IntegerProperty vidas = new SimpleIntegerProperty(3);
@@ -111,6 +110,8 @@ public class Monkey extends Entity {
 	 * 
 	 */
 	public void render(GraphicsContext gc) {
+//		gc.setFill(Color.YELLOW);
+//		gc.fillRect(x, y, width, height);
 		gc.drawImage(actualAnimation.getCurrentFrame(), x-18, y);
 
 	}
@@ -137,7 +138,6 @@ public class Monkey extends Entity {
 			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
 			isGameOver();
 			Platform.xStatic = 0;
-			mg.processInput(null);
 		}
 		
 		x = body.getPosition().x * scale;
