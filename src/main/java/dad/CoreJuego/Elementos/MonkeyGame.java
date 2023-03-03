@@ -191,13 +191,11 @@ public class MonkeyGame extends Game {
 				
 		
 		if (input.contains(RIGHT_VALUE)) {
-
 			Platform.xStatic += 3f;
 			monkey.setMoving(input.contains(RIGHT_VALUE), Direction.RIGHT);
 		} 
 
 		if (input.contains(LEFT_VALUE)) {
-
 			Platform.xStatic -= 3f;
 			monkey.setMoving(input.contains(LEFT_VALUE), Direction.LEFT);
 

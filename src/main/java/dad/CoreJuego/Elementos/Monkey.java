@@ -137,9 +137,8 @@ public class Monkey extends Entity {
 			life.subtractLife();
 			respawn();
 			System.out.println("Ahora tienes :" + life.showLife()+" vidas");
-			//isGameOver();
-			//Platform.xStatic = 0;
-			
+			isGameOver();
+			Platform.xStatic = 0;
 		}
 		
 		if(win) {
